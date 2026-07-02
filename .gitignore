@@ -1,0 +1,46 @@
+# LaTeX build artifacts
+*.acn
+*.acr
+*.alg
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.glg
+*.glo
+*.gls
+*.idx
+*.ilg
+*.ind
+*.ist
+*.listing
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*-SAVE-ERROR
+*.pdf
+
+# Local TeX Live state and caches
+.texmf-var/
+.texmf-home/tlpkg/
+
+# Editor and OS noise
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.swo
+
+# Python cache directories from helper scripts
+__pycache__/
+.pytest_cache/
+.ruff_cache/

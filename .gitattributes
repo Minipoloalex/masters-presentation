@@ -1,0 +1,11 @@
+*.bib text eol=lf
+*.sty text eol=lf
+*.tex text eol=lf
+*.md text eol=lf
+Makefile text eol=lf
+
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
