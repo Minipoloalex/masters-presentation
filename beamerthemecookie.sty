@@ -58,7 +58,7 @@
 \definecolor{themeColorTwo}{HTML}{FBFAF7}
 \definecolor{themeColorThree}{HTML}{000000}
 \definecolor{themeColorFour}{HTML}{C89B6A}
-\definecolor{themeColorFive}{HTML}{3A3A3A}
+\definecolor{themeColorFive}{HTML}{426B9E}
 \definecolor{themeColorSix}{HTML}{111827}
 \definecolor{themeColorSeven}{HTML}{DADDE4}
 \definecolor{themeColorEight}{HTML}{F0F2F6}
@@ -727,16 +727,16 @@
 \newcommand{\cookie@agendatoc}[1][]{%
   \begingroup
     \setbeamertemplate{section in toc}{%
-      \par\vspace{.08em}%
-      {\fontsize{9.3}{11}\selectfont\bfseries\raggedright
+      \par\vspace{.03em}%
+      {\fontsize{17}{19.8}\selectfont\raggedright
         \hyphenpenalty=10000\exhyphenpenalty=10000
-        \noindent\hangindent=3.05em\hangafter=1%
-        \makebox[2.18em][r]{%
-          \raisebox{-.18ex}{\textcolor{cookieAccent}{\fontsize{12}{13.2}\selectfont\bfseries\inserttocsectionnumber}}%
+        \noindent
+        \makebox[1.35em][r]{%
+          \textcolor{themeColorFive}{\bfseries\inserttocsectionnumber}%
         }%
-        \hspace{.75em}%
-        \textcolor{cookieInk}{\strut\inserttocsection\strut}\par}%
-      \par\vspace{.08em}%
+        \hspace{.78em}%
+        \parbox[t]{.78\linewidth}{\textcolor{cookieInk}{\strut\inserttocsection\strut}}\par}%
+      \par\vspace{.23em}%
     }%
     \setbeamertemplate{subsection in toc}{%
       {\fontsize{8.3}{10}\selectfont
@@ -952,22 +952,16 @@
 \newcommand{\makeagenda}[1][]{%
   \begin{frame}[plain,t]
     \begin{tikzpicture}[remember picture,overlay]
-      \fill[cookieAccent!7]
-        (current page.south west) rectangle ($(current page.north west)+(.060\paperwidth,0)$);
-      \fill[cookieAccent]
-        (current page.south west) rectangle ($(current page.north west)+(.012\paperwidth,0)$);
-      \node[anchor=east,text=cookieAccent!7,font=\fontsize{86}{86}\selectfont\bfseries]
-        at ($(current page.east)+(-.060\paperwidth,-.185\paperheight)$) {TOC};
-      \node[anchor=west,text=cookieAccent,font=\fontsize{7.5}{9}\selectfont\bfseries]
-        at ($(current page.west)+(.087\paperwidth,.145\paperheight)$) {ROADMAP};
-      \node[anchor=west,text=cookieInk,font=\fontsize{31}{35}\selectfont\bfseries]
-        at ($(current page.west)+(.087\paperwidth,.005\paperheight)$) {Agenda};
-      \draw[cookieAccent,line width=1.2pt]
-        ($(current page.west)+(.087\paperwidth,-.120\paperheight)$)
-        -- ($(current page.west)+(.177\paperwidth,-.120\paperheight)$);
-      \node[anchor=north west,inner sep=0pt,text width=.62\paperwidth]
-        at ($(current page.west)+(.300\paperwidth,.235\paperheight)$)
-        {\begin{minipage}[t]{.62\paperwidth}
+      \fill[cookiePaper] (current page.south west) rectangle (current page.north east);
+      \fill[titlePanelColor]
+        (current page.south west)
+        rectangle
+        ($(current page.north west)+(.013\paperwidth,0)$);
+      \node[anchor=west,text=cookieInk,font=\fontsize{30}{34}\selectfont\bfseries]
+        at ($(current page.west)+(.122\paperwidth,-.010\paperheight)$) {Contents};
+      \node[anchor=west,inner sep=0pt,text width=.49\paperwidth]
+        at ($(current page.west)+(.405\paperwidth,0)$)
+        {\begin{minipage}[t]{.49\paperwidth}
           \cookie@agendatoc[#1]%
         \end{minipage}};
     \end{tikzpicture}%
