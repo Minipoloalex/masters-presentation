@@ -54,6 +54,18 @@
 \definecolor{cookieExample}{HTML}{27845F}
 \definecolor{cookieWarm}{HTML}{F2A900}
 \definecolor{cookieTheorem}{HTML}{6757C8}
+\definecolor{themeColorOne}{HTML}{20242E}
+\definecolor{themeColorTwo}{HTML}{FBFAF7}
+\definecolor{themeColorThree}{HTML}{000000}
+\definecolor{themeColorFour}{HTML}{C89B6A}
+\definecolor{themeColorFive}{HTML}{3A3A3A}
+\definecolor{themeColorSix}{HTML}{111827}
+\definecolor{themeColorSeven}{HTML}{DADDE4}
+\definecolor{themeColorEight}{HTML}{F0F2F6}
+\definecolor{themeColorNine}{HTML}{CF3F4F}
+\definecolor{themeColorTen}{HTML}{27845F}
+\colorlet{titlePanelColor}{themeColorThree}
+\colorlet{titleRuleColor}{themeColorFour}
 \colorlet{cookieAccent}{cookieAccentDefault}
 \colorlet{cookieAlgorithmKeyword}{cookieInk}
 \colorlet{cookieAlgorithmComment}{cookieMuted}
@@ -336,6 +348,11 @@
 \newcommand{\insertcookielocation}{}
 \newcommand{\insertcookieuni}{}
 \newcommand{\insertcookietagline}{}
+\newcommand{\insertthesissupervisor}{}
+\newcommand{\insertthesiscosupervisor}{}
+\newcommand{\insertthesisdegree}{}
+\newcommand{\inserttitlelogoone}{}
+\newcommand{\inserttitlelogotwo}{}
 \newcommand{\insertcookiebackground}{}
 \newcommand{\insertcookiebackgroundimage}{}
 \newcommand{\insertcookieclosingtitle}{Thank you}
@@ -347,6 +364,11 @@
 \newcommand{\cookielocation}[1]{\gdef\insertcookielocation{#1}}
 \newcommand{\cookieuni}[1]{\gdef\insertcookieuni{#1}}
 \newcommand{\cookietagline}[1]{\gdef\insertcookietagline{#1}}
+\newcommand{\thesissupervisor}[1]{\gdef\insertthesissupervisor{#1}}
+\newcommand{\thesiscosupervisor}[1]{\gdef\insertthesiscosupervisor{#1}}
+\newcommand{\thesisdegree}[1]{\gdef\insertthesisdegree{#1}}
+\newcommand{\titlelogoone}[1]{\gdef\inserttitlelogoone{#1}}
+\newcommand{\titlelogotwo}[1]{\gdef\inserttitlelogotwo{#1}}
 \newcommand{\cookietitleimage}[1]{\gdef\insertcookiebackground{#1}}
 \newcommand{\cookiebackgroundimage}[1]{\gdef\insertcookiebackgroundimage{#1}}
 \newcommand{\cookieclearbackgroundimage}{\gdef\insertcookiebackgroundimage{}}
@@ -512,8 +534,8 @@
 % Fonts and spacing
 % -----------------------------------------------------------------------------
 \setbeamerfont{normal text}{size=\fontsize{11.8}{14.4}}
-\setbeamerfont{title}{size=\fontsize{27}{31},series=\bfseries}
-\setbeamerfont{subtitle}{size=\fontsize{11.4}{15}}
+\setbeamerfont{title}{size=\fontsize{20.8}{24.2},series=\bfseries}
+\setbeamerfont{subtitle}{size=\fontsize{11.2}{14.5}}
 \setbeamerfont{author}{size=\normalsize,series=\bfseries}
 \setbeamerfont{institute}{size=\small}
 \setbeamerfont{date}{size=\small}
@@ -868,18 +890,12 @@
 % -----------------------------------------------------------------------------
 \newcommand{\cookie@drawtitleart}{%
   \begin{tikzpicture}[remember picture,overlay]
-    \coordinate (cookie@cuttop) at ($(current page.north east)+(-.31\paperwidth,0)$);
-    \coordinate (cookie@cutbottom) at ($(current page.south east)+(-.43\paperwidth,0)$);
-    \path[fill=cookieAccent]
-      (cookie@cuttop) -- (current page.north east) -- (current page.south east) -- (cookie@cutbottom) -- cycle;
+    \fill[titlePanelColor]
+      ($(current page.north east)+(-.37\paperwidth,0)$) rectangle (current page.south east);
     \ifdefempty{\insertcookiebackground}{%
-      \draw[white,opacity=.18,line width=4pt] ($(current page.center)+(.34\paperwidth,.10\paperheight)$) circle[radius=.115\paperheight];
-      \draw[white,opacity=.12,line width=3pt] ($(current page.center)+(.27\paperwidth,-.15\paperheight)$) circle[radius=.072\paperheight];
-      \fill[white,opacity=.18] ($(current page.center)+(.40\paperwidth,-.22\paperheight)$) circle[radius=.018\paperheight];
-      \fill[white,opacity=.22] ($(current page.center)+(.34\paperwidth,.26\paperheight)$) circle[radius=.012\paperheight];
     }{%
       \begin{scope}
-        \clip (cookie@cuttop) -- (current page.north east) -- (current page.south east) -- (cookie@cutbottom) -- cycle;
+        \clip ($(current page.north east)+(-.37\paperwidth,0)$) rectangle (current page.south east);
         \node[anchor=center,inner sep=0] at ($(current page.east)+(-.16\paperwidth,0)$)
           {\includegraphics[height=\paperheight]{\insertcookiebackground}};
         \fill[cookieAccent,opacity=.24] (current page.south west) rectangle (current page.north east);
@@ -893,23 +909,44 @@
 
 \setbeamertemplate{title page}{%
   \cookie@drawtitleart
-  \vspace*{.055\paperheight}%
-  \begin{minipage}[t]{.58\paperwidth}
-    \raggedright
-    \ifdefempty{\insertcookietagline}{}{\cookiekicker{\insertcookietagline}\par\vspace{.9em}}%
-    {\usebeamerfont{title}\usebeamercolor[fg]{title}\cookie@format{\inserttitle}\par}%
-    \ifx\@subtitle\@empty\else\vspace{.45em}{\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}\fi%
-    \vspace{1.05em}{\color{cookieAccent}\rule{.16\paperwidth}{1.4pt}}\par
-    \vspace{1.25em}
-    \ifx\@author\@empty\else\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par\fi%
-    \ifdefempty{\insertcookieemail}{}{\vspace{.18em}{\small\href{mailto:\insertcookieemail}{\insertcookieemail}\par}}%
-    \vspace{1.2em}
-    \ifx\@institute\@empty\else\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute\par\fi%
-    \ifdefempty{\insertcookieuni}{}{\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertcookieuni\par}%
-    \vfill
-    \ifdefempty{\insertcookielocation}{}{\usebeamerfont{date}\usebeamercolor[fg]{date}\insertcookielocation\hspace{.55em}\textcolor{cookieLine}{/}\hspace{.55em}}%
-    \ifx\@date\@empty\else\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\fi%
-  \end{minipage}%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=north west,inner sep=0pt,text width=.555\paperwidth]
+      at ($(current page.north west)+(.052\paperwidth,-.116\paperheight)$)
+      {%
+        \begin{minipage}[t]{.555\paperwidth}
+          \raggedright
+          \ifdefempty{\insertcookietagline}{}{\cookiekicker{\insertcookietagline}\par\vspace{.9em}}%
+          {\usebeamerfont{title}\usebeamercolor[fg]{title}\cookie@format{\inserttitle}\par}%
+          \ifx\@subtitle\@empty\else\vspace{.60em}{\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}\fi%
+          \vspace{1.15em}{\color{titleRuleColor}\rule{.242\paperwidth}{2.1pt}}\par
+          \vspace{1.58em}
+          \ifx\@author\@empty\else\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par\fi%
+          \ifdefempty{\insertcookieemail}{}{\vspace{.18em}{\small\href{mailto:\insertcookieemail}{\insertcookieemail}\par}}%
+          \vspace{1.24em}
+          \ifdefempty{\insertthesissupervisor}{}{%
+            {\usebeamerfont{institute}\usebeamercolor[fg]{institute}Supervisor: \insertthesissupervisor\par}%
+          }%
+          \ifdefempty{\insertthesiscosupervisor}{}{%
+            {\usebeamerfont{institute}\usebeamercolor[fg]{institute}Co-supervisor: \insertthesiscosupervisor\par}%
+          }%
+          \vspace{1.16em}
+          \ifdefempty{\insertthesisdegree}{}{%
+            {\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertthesisdegree\par}%
+            \vspace{.42em}%
+          }%
+          \ifx\@institute\@empty\else\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute\par\fi%
+          \ifdefempty{\insertcookieuni}{}{\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertcookieuni\par}%
+          \ifx\@date\@empty\else\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\fi%
+          \ifdefempty{\insertcookielocation}{}{\par\vspace{.35em}\usebeamerfont{date}\usebeamercolor[fg]{date}\insertcookielocation}%
+        \end{minipage}%
+      };
+    \node[anchor=west,inner sep=0pt,text width=.300\paperwidth]
+      at ($(current page.east)+(-.322\paperwidth,.175\paperheight)$)
+      {\raggedright\inserttitlelogoone};
+    \node[anchor=west,inner sep=0pt,text width=.300\paperwidth]
+      at ($(current page.east)+(-.322\paperwidth,-.135\paperheight)$)
+      {\raggedright\inserttitlelogotwo};
+  \end{tikzpicture}%
 }
 
 \newcommand{\makeagenda}[1][]{%

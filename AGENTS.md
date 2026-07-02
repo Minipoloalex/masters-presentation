@@ -7,6 +7,7 @@
   * `main.tex`: code file;
   * `beamerthemecookie.sty`: style file;
   * `figures/`: folder containing all figures (e.g., Reinforcement Learning diagram);
+  * `README.md`: contains information about the template. You should update it with new changes so that you can consult it anytime for accurate information;
 
 ## Coding Standards & Rules
 - Use `snake_case` variables when applicable.

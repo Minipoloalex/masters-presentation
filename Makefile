@@ -14,11 +14,11 @@ all: build
 
 build: $(PDF)
 
-$(PDF): $(MAIN).tex refs.bib beamerthemecookie.sty
-	$(LATEXMK) $(MAIN).tex
+$(PDF): $(MAIN).tex refs.bib beamerthemecookie.sty figures/feup-logo.png figures/fcup-logo.png
+	$(LATEXMK) -lualatex $(MAIN).tex
 
 watch:
-	$(LATEXMK) -pvc $(MAIN).tex
+	$(LATEXMK) -lualatex -pvc $(MAIN).tex
 
 clean:
 	$(LATEXMK) -c $(MAIN).tex
