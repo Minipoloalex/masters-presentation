@@ -562,7 +562,10 @@
 % -----------------------------------------------------------------------------
 \newdimen\cookie@progresswidth
 \newdimen\cookie@sectionbarwidth
+\newdimen\cookie@globalprogresswidth
+\newcount\cookie@activesubsectioncount
 \cookie@sectionbarwidth=.58\paperwidth
+\cookie@globalprogresswidth=.82\paperwidth
 
 \newcommand{\cookie@computeprogress}[1]{%
   \cookie@progresswidth=0pt%
@@ -587,6 +590,93 @@
     \fill[cookieAccent] (0,0) rectangle (\cookie@progresswidth,.045cm);
     \fill[cookieAccent] (\cookie@progresswidth,.0225cm) circle[radius=.055cm];
   \end{tikzpicture}%
+}
+
+\newcommand{\cookie@loadsectionnames}{%
+  \begingroup
+    \makeatletter
+    \def\babel@toc##1##2\relax{}%
+    \def\beamer@sectionintoc##1##2##3##4##5{%
+      \expandafter\gdef\csname cookie@sectionname@##1\endcsname{##2}%
+    }%
+    \def\beamer@subsectionintoc##1##2##3##4##5##6{}%
+    \IfFileExists{\jobname.toc}{\@input{\jobname.toc}}{}%
+  \endgroup
+}
+\AtBeginDocument{\cookie@loadsectionnames}
+
+\newcommand{\cookie@sectionname}[1]{%
+  \ifcsdef{cookie@sectionname@#1}{\csuse{cookie@sectionname@#1}}{#1}%
+}
+
+\newcommand{\cookie@subsectiontotalfor}[1]{%
+  \ifcsdef{cookie@subsections@#1}{\csuse{cookie@subsections@#1}}{0}%
+}
+
+\newcommand{\cookie@globalprogressbar}{%
+  \begingroup
+    \@tempcnta=\cookie@totalsections\relax
+    \ifnum\@tempcnta<1\relax\@tempcnta=1\relax\fi
+    \begin{tikzpicture}[baseline]
+      \path[use as bounding box] (0,-.06cm) rectangle (\cookie@globalprogresswidth,.13cm);
+      \pgfmathsetlengthmacro{\cookie@sectorwidth}{\cookie@globalprogresswidth/\the\@tempcnta}
+      \foreach \cookie@sectionindex in {1,...,\the\@tempcnta}{%
+        \pgfmathsetlengthmacro{\cookie@sectorleft}{(\cookie@sectionindex-1)*\cookie@sectorwidth}
+        \pgfmathsetlengthmacro{\cookie@sectorright}{\cookie@sectionindex*\cookie@sectorwidth}
+        \fill[cookieLine] (\cookie@sectorleft,0) rectangle (\cookie@sectorright,.045cm);
+        \ifnum\cookie@sectionindex<\value{section}\relax
+          \fill[themeColorFive] (\cookie@sectorleft,0) rectangle (\cookie@sectorright,.045cm);
+        \fi
+        \ifnum\cookie@sectionindex=\value{section}\relax
+          \fill[themeColorFive!22!cookiePaper] (\cookie@sectorleft,0) rectangle (\cookie@sectorright,.045cm);
+          \@tempcntb=\cookie@subsectiontotalfor{\cookie@sectionindex}\relax
+          \ifnum\@tempcntb>0\relax
+            \cookie@activesubsectioncount=\value{subsection}\relax
+            \ifnum\cookie@activesubsectioncount>\@tempcntb\relax\cookie@activesubsectioncount=\@tempcntb\relax\fi
+            \pgfmathsetlengthmacro{\cookie@activewidth}{\cookie@sectorwidth*\the\cookie@activesubsectioncount/\the\@tempcntb}
+            \pgfmathsetlengthmacro{\cookie@dotx}{\cookie@sectorleft+\cookie@activewidth}
+            \fill[themeColorFive] (\cookie@sectorleft,0) rectangle ($(\cookie@sectorleft,0)+(\cookie@activewidth,.045cm)$);
+            \foreach \cookie@subdivision in {1,...,\the\@tempcntb}{%
+              \ifnum\cookie@subdivision<\@tempcntb\relax
+                \pgfmathsetlengthmacro{\cookie@subx}{\cookie@sectorleft+\cookie@sectorwidth*\cookie@subdivision/\the\@tempcntb}
+                \fill[cookiePaper] ($(\cookie@subx,-.006cm)+(-.007cm,0)$) rectangle ($(\cookie@subx,.051cm)+(.007cm,0)$);
+              \fi
+            }%
+          \else
+            \pgfmathsetlengthmacro{\cookie@dotx}{\cookie@sectorright}
+            \fill[themeColorFive] (\cookie@sectorleft,0) rectangle (\cookie@sectorright,.045cm);
+          \fi
+        \fi
+        \ifnum\cookie@sectionindex<\@tempcnta\relax
+          \fill[cookiePaper] ($(\cookie@sectorright,-.020cm)+(-.032cm,0)$) rectangle ($(\cookie@sectorright,.065cm)+(.032cm,0)$);
+        \fi
+        \ifnum\cookie@sectionindex=\value{section}\relax
+          \fill[themeColorFive] (\cookie@dotx,.0225cm) circle[radius=.052cm];
+        \fi
+      }%
+    \end{tikzpicture}%
+  \endgroup
+}
+
+\newcommand{\cookie@globalprogresslabels}{%
+  \begingroup
+    \@tempcnta=\cookie@totalsections\relax
+    \ifnum\@tempcnta<1\relax\@tempcnta=1\relax\fi
+    \begin{tikzpicture}[baseline]
+      \path[use as bounding box] (0,-.08cm) rectangle (\cookie@globalprogresswidth,.24cm);
+      \pgfmathsetlengthmacro{\cookie@sectorwidth}{\cookie@globalprogresswidth/\the\@tempcnta}
+      \foreach \cookie@sectionindex in {1,...,\the\@tempcnta}{%
+        \pgfmathsetlengthmacro{\cookie@labelx}{(\cookie@sectionindex-.5)*\cookie@sectorwidth}
+        \ifnum\cookie@sectionindex=\value{section}\relax
+          \node[anchor=base,text=themeColorFive,font=\fontsize{5.9}{6.7}\selectfont\bfseries,align=center,text width=\dimexpr\cookie@sectorwidth-.45em\relax]
+            at (\cookie@labelx,0) {\cookie@sectionname{\cookie@sectionindex}};
+        \else
+          \node[anchor=base,text=cookieMuted,font=\fontsize{5.7}{6.5}\selectfont,align=center,text width=\dimexpr\cookie@sectorwidth-.45em\relax]
+            at (\cookie@labelx,0) {\cookie@sectionname{\cookie@sectionindex}};
+        \fi
+      }%
+    \end{tikzpicture}%
+  \endgroup
 }
 
 % -----------------------------------------------------------------------------
@@ -834,24 +924,24 @@
 
 \setbeamertemplate{footline}{%
   \leavevmode\vbox{%
-    \ifdefstring{\cookie@progressbar}{foot}{\hbox{\cookie@progressrule{\paperwidth}}}{}%
+    \ifdefstring{\cookie@progressbar}{foot}{%
+      \hbox to \paperwidth{\cookie@globalprogressbar\hfil}%
+    }{}%
     \hbox{%
-      \begin{beamercolorbox}[wd=.18\paperwidth,ht=2.7ex,dp=1.15ex,leftskip=.045\paperwidth]{footline}%
-        \usebeamerfont{footline}\insertshortauthor
+      \begin{beamercolorbox}[wd=.82\paperwidth,ht=2.7ex,dp=1.15ex,leftskip=0pt,rightskip=0pt]{footline}%
+        \ifdefstring{\cookie@progressbar}{foot}{\cookie@globalprogresslabels}{}%
       \end{beamercolorbox}%
-      \begin{beamercolorbox}[wd=.64\paperwidth,ht=2.7ex,dp=1.15ex,leftskip=.012\paperwidth,rightskip=.012\paperwidth]{footline}%
-        \usebeamerfont{footline}\insertshorttitle%
-        \ifx\insertsectionhead\@empty\else\hfill\cookie@footersection{\insertsectionhead}\fi%
-      \end{beamercolorbox}%
-      \begin{beamercolorbox}[
-        wd=.18\paperwidth,
-        ht=2.7ex,
-        dp=1.15ex,
-        leftskip=.027\paperwidth,
-        rightskip=.014\paperwidth plus 1fil
-      ]{footline right}%
-        \usebeamerfont{footline number}\strut\cookie@insertnumber
-      \end{beamercolorbox}%
+      \raisebox{0pt}[2.7ex][1.15ex]{%
+        \begin{beamercolorbox}[
+          wd=.18\paperwidth,
+          ht=3.55ex,
+          dp=1.15ex,
+          leftskip=.027\paperwidth,
+          rightskip=.014\paperwidth plus 1fil
+        ]{footline right}%
+          \usebeamerfont{footline number}\strut\cookie@insertnumber
+        \end{beamercolorbox}%
+      }%
     }%
   }%
 }

@@ -299,6 +299,12 @@ full-height left accent bar and a vertically centered section list. Section
 title pages use the same left bar, with the section number and section title on
 one shared baseline.
 
+The footer uses a global section progress rail above the bottom bar instead of
+the old deck-wide frame progress line. The bottom bar labels only the main
+section names. The rail draws one equal sector per main section, fills completed
+sections, marks the current position with a dot, and subdivides only the active
+section when that section has subsections.
+
 A Metropolis-style emphasis frame is available:
 
 ```tex
