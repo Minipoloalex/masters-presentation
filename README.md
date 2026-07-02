@@ -61,8 +61,12 @@ Biber when references, frame counts, or bibliography data change:
 latexmk -lualatex my-talk.tex
 ```
 
-Inside this repository, `.latexmkrc` already selects LuaLaTeX and Biber for the
-demo, so `latexmk demo.tex` rebuilds `demo.pdf`.
+Inside this repository, use the Makefile or run the same command directly:
+
+```sh
+make build
+latexmk -lualatex main.tex
+```
 
 ## Theme options
 
@@ -289,6 +293,11 @@ A reusable agenda frame is available independently of `toc=aftertitle`:
 \makeagenda
 \makeagenda[currentsection]
 ```
+
+For this defense deck, `\makeagenda` renders the Contents slide with a
+full-height left accent bar and a vertically centered section list. Section
+title pages use the same left bar, with the section number and section title on
+one shared baseline.
 
 A Metropolis-style emphasis frame is available:
 

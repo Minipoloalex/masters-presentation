@@ -1046,13 +1046,13 @@
     \begin{tikzpicture}[remember picture,overlay]
       \fill[cookieAccent]
         (current page.south west) rectangle ($(current page.north west)+(.012\paperwidth,0)$);
-      \node[anchor=west,text=cookieAccent,font=\fontsize{46}{46}\selectfont\bfseries]
-        at ($(current page.west)+(.07\paperwidth,.12\paperheight)$) {\insertsectionnumber};
-      \node[anchor=west,text width=.70\paperwidth,align=left]
-        at ($(current page.west)+(.07\paperwidth,-.01\paperheight)$)
+      \node[anchor=base west,text=themeColorFive,font=\fontsize{28}{28}\selectfont\bfseries]
+        at ($(current page.west)+(.070\paperwidth,.012\paperheight)$) {\insertsectionnumber};
+      \node[anchor=base west,text width=.70\paperwidth,align=left]
+        at ($(current page.west)+(.150\paperwidth,.012\paperheight)$)
         {{\usebeamerfont{section title}\usebeamercolor[fg]{section title}\cookie@format{\insertsectionhead}}};
       \ifdefstring{\cookie@sectionpage}{progressbar}{%
-        \node[anchor=west] at ($(current page.west)+(.07\paperwidth,-.20\paperheight)$) {\cookie@sectionprogress};
+        \node[anchor=west] at ($(current page.west)+(.070\paperwidth,-.130\paperheight)$) {\cookie@sectionprogress};
       }{}%
       \fill[cookieAccent] ($(current page.east)+(-.095\paperwidth,.24\paperheight)$) circle[radius=.014\paperheight];
       \fill[cookieAccent,opacity=.45] ($(current page.east)+(-.072\paperwidth,.18\paperheight)$) circle[radius=.008\paperheight];
