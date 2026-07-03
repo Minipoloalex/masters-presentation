@@ -634,23 +634,31 @@
             \cookie@activesubsectioncount=\value{subsection}\relax
             \ifnum\cookie@activesubsectioncount>\@tempcntb\relax\cookie@activesubsectioncount=\@tempcntb\relax\fi
             \pgfmathsetlengthmacro{\cookie@activewidth}{\cookie@sectorwidth*\the\cookie@activesubsectioncount/\the\@tempcntb}
-            \pgfmathsetlengthmacro{\cookie@dotx}{\cookie@sectorleft+\cookie@activewidth}
             \fill[themeColorFive] (\cookie@sectorleft,0) rectangle ($(\cookie@sectorleft,0)+(\cookie@activewidth,.045cm)$);
-            \foreach \cookie@subdivision in {1,...,\the\@tempcntb}{%
-              \ifnum\cookie@subdivision<\@tempcntb\relax
-                \pgfmathsetlengthmacro{\cookie@subx}{\cookie@sectorleft+\cookie@sectorwidth*\cookie@subdivision/\the\@tempcntb}
-                \fill[cookiePaper] ($(\cookie@subx,-.006cm)+(-.007cm,0)$) rectangle ($(\cookie@subx,.051cm)+(.007cm,0)$);
-              \fi
-            }%
           \else
-            \pgfmathsetlengthmacro{\cookie@dotx}{\cookie@sectorright}
             \fill[themeColorFive] (\cookie@sectorleft,0) rectangle (\cookie@sectorright,.045cm);
           \fi
         \fi
+      }%
+      \foreach \cookie@sectionindex in {1,...,\the\@tempcnta}{%
+        \pgfmathsetlengthmacro{\cookie@sectorright}{\cookie@sectionindex*\cookie@sectorwidth}
         \ifnum\cookie@sectionindex<\@tempcnta\relax
-          \fill[cookiePaper] ($(\cookie@sectorright,-.020cm)+(-.032cm,0)$) rectangle ($(\cookie@sectorright,.065cm)+(.032cm,0)$);
+          \draw[cookieMuted,line width=1.05pt] (\cookie@sectorright,-.020cm) -- (\cookie@sectorright,.072cm);
         \fi
+      }%
+      \foreach \cookie@sectionindex in {1,...,\the\@tempcnta}{%
+        \pgfmathsetlengthmacro{\cookie@sectorleft}{(\cookie@sectionindex-1)*\cookie@sectorwidth}
+        \pgfmathsetlengthmacro{\cookie@sectorright}{\cookie@sectionindex*\cookie@sectorwidth}
         \ifnum\cookie@sectionindex=\value{section}\relax
+          \@tempcntb=\cookie@subsectiontotalfor{\cookie@sectionindex}\relax
+          \ifnum\@tempcntb>0\relax
+            \cookie@activesubsectioncount=\value{subsection}\relax
+            \ifnum\cookie@activesubsectioncount>\@tempcntb\relax\cookie@activesubsectioncount=\@tempcntb\relax\fi
+            \pgfmathsetlengthmacro{\cookie@activewidth}{\cookie@sectorwidth*\the\cookie@activesubsectioncount/\the\@tempcntb}
+            \pgfmathsetlengthmacro{\cookie@dotx}{\cookie@sectorleft+\cookie@activewidth}
+          \else
+            \pgfmathsetlengthmacro{\cookie@dotx}{\cookie@sectorright}
+          \fi
           \fill[themeColorFive] (\cookie@dotx,.0225cm) circle[radius=.052cm];
         \fi
       }%

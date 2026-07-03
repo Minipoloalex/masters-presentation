@@ -34,7 +34,7 @@ Then write your deck:
   accent=myaccent,
   progressbar=foot,
   sectionpage=progressbar,
-  subsectionpage=progressbar,
+  subsectionpage=none,
   numbering=fraction,
   block=fill
 ]{cookie}
@@ -420,7 +420,7 @@ smiley QED when `tikzsymbols` is available.
 \usetheme[
   accent=forest,
   sectionpage=progressbar,
-  subsectionpage=progressbar
+  subsectionpage=none
 ]{cookie}
 ```
 

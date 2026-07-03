@@ -27,7 +27,7 @@
 *.toc
 *.vrb
 *-SAVE-ERROR
-*.pdf
+main.pdf
 
 # Local TeX Live state and caches
 .texmf-var/
