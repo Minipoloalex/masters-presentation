@@ -170,17 +170,67 @@
 \subsection{Reinforcement Learning}
 \begin{frame}{Reinforcement Learning}
   \begin{columns}[T,onlytextwidth]
-    \column{0.45\textwidth}
-    placeholder
-    \column{0.45\textwidth}
-    placeholder
-    % Effective in complex decision problems through heavy tuning
-    % Nonstationarity of problems make them complex
-
+    \column{0.55\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/basic-rl-diagram.pdf}
+    \column{0.35\textwidth}
+    \begin{itemize}
+      \item Effective in complex decision problems
+      \item No single algorithm outperforms others in all types of problems
+      \item Requires heavy tuning and configuration
+    \end{itemize}
   \end{columns}
 \end{frame}
 
-\begin{frame}{A theme for modern talks}
+\subsection{Instance Space Analysis}
+\begin{frame}{Instance Space Analysis (ISA)}
+  \centering
+  \includegraphics[width=0.75\linewidth]{figures/fw-isa.pdf}
+\end{frame}
+
+\begin{frame}{Instance Space Analysis: Example}
+  \begin{columns}
+    \column{0.65\textwidth}
+    \centering
+    % different figure here
+    \includegraphics[width=0.75\linewidth]{figures/fw-isa.pdf}
+
+    \column{0.25\textwidth}
+    Table here
+  \end{columns}
+\end{frame}
+
+\subsection{Metafeatures}
+\begin{frame}{Metafeatures}
+  High-level measurable characteristics that describe a task that can %
+  be informative of algorithm performance. Should be:
+  \begin{itemize}
+    \item Highly discriminative
+    \item Efficiently computable
+    \item Independent of algorithms in study
+  \end{itemize}
+  
+  There are well-established metafeatures in fields like classification and regression.
+
+  ISA uses these metafeatures to capture the different properties of instances.
+
+\end{frame}
+
+\section{Literature Review}
+\begin{frame}{Literature Review}
+  Metafeatures are well-established for classical ML fields such as classification and regression %
+  but not RL
+
+  However, there are many studies on properties that impact RL algorithm performance:
+  \begin{itemize}
+    \item Complexity Measures: . Not efficiently computable for an unknown problem
+    \item Benchmarks: isolate environment properties and evaluate their impact on algorithms
+  \end{itemize}
+
+  Implicit knowledge of what impacts algorithm performance and no clear computable measures
+\end{frame}
+
+\begin{frame}{Literature Review}
   \begin{columns}[T,onlytextwidth]
     \column{.31\textwidth}
       \cookiekicker{Awesome-style frame}
