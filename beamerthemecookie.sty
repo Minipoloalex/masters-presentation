@@ -557,6 +557,7 @@
 \newdimen\cookie@progresswidth
 \newdimen\cookie@sectionbarwidth
 \newdimen\cookie@globalprogresswidth
+\newcount\cookie@activesectioncount
 \newcount\cookie@activesubsectioncount
 \cookie@sectionbarwidth=.58\paperwidth
 \cookie@globalprogresswidth=.82\paperwidth
@@ -592,6 +593,7 @@
     \def\babel@toc##1##2\relax{}%
     \def\beamer@sectionintoc##1##2##3##4##5{%
       \expandafter\gdef\csname cookie@sectionname@##1\endcsname{##2}%
+      \xdef\cookie@totalsections{##1}%
     }%
     \def\beamer@subsectionintoc##1##2##3##4##5##6{}%
     \IfFileExists{\jobname.toc}{\@input{\jobname.toc}}{}%
@@ -611,6 +613,10 @@
   \begingroup
     \@tempcnta=\cookie@totalsections\relax
     \ifnum\@tempcnta<1\relax\@tempcnta=1\relax\fi
+    \cookie@activesectioncount=\value{section}\relax
+    \ifnum\cookie@activesectioncount>\@tempcnta\relax
+      \cookie@activesectioncount=\@tempcnta\relax
+    \fi
     \begin{tikzpicture}[baseline]
       \path[use as bounding box] (0,-.06cm) rectangle (\cookie@globalprogresswidth,.13cm);
       \pgfmathsetlengthmacro{\cookie@sectorwidth}{\cookie@globalprogresswidth/\the\@tempcnta}
@@ -618,19 +624,23 @@
         \pgfmathsetlengthmacro{\cookie@sectorleft}{(\cookie@sectionindex-1)*\cookie@sectorwidth}
         \pgfmathsetlengthmacro{\cookie@sectorright}{\cookie@sectionindex*\cookie@sectorwidth}
         \fill[cookieLine] (\cookie@sectorleft,0) rectangle (\cookie@sectorright,.045cm);
-        \ifnum\cookie@sectionindex<\value{section}\relax
+        \ifnum\cookie@sectionindex<\cookie@activesectioncount\relax
           \fill[themeColorFive] (\cookie@sectorleft,0) rectangle (\cookie@sectorright,.045cm);
         \fi
-        \ifnum\cookie@sectionindex=\value{section}\relax
+        \ifnum\cookie@sectionindex=\cookie@activesectioncount\relax
           \fill[themeColorFive!22!cookiePaper] (\cookie@sectorleft,0) rectangle (\cookie@sectorright,.045cm);
-          \@tempcntb=\cookie@subsectiontotalfor{\cookie@sectionindex}\relax
-          \ifnum\@tempcntb>0\relax
-            \cookie@activesubsectioncount=\value{subsection}\relax
-            \ifnum\cookie@activesubsectioncount>\@tempcntb\relax\cookie@activesubsectioncount=\@tempcntb\relax\fi
-            \pgfmathsetlengthmacro{\cookie@activewidth}{\cookie@sectorwidth*\the\cookie@activesubsectioncount/\the\@tempcntb}
-            \fill[themeColorFive] (\cookie@sectorleft,0) rectangle ($(\cookie@sectorleft,0)+(\cookie@activewidth,.045cm)$);
-          \else
+          \ifnum\value{section}>\@tempcnta\relax
             \fill[themeColorFive] (\cookie@sectorleft,0) rectangle (\cookie@sectorright,.045cm);
+          \else
+            \@tempcntb=\cookie@subsectiontotalfor{\cookie@sectionindex}\relax
+            \ifnum\@tempcntb>0\relax
+              \cookie@activesubsectioncount=\value{subsection}\relax
+              \ifnum\cookie@activesubsectioncount>\@tempcntb\relax\cookie@activesubsectioncount=\@tempcntb\relax\fi
+              \pgfmathsetlengthmacro{\cookie@activewidth}{\cookie@sectorwidth*\the\cookie@activesubsectioncount/\the\@tempcntb}
+              \fill[themeColorFive] (\cookie@sectorleft,0) rectangle ($(\cookie@sectorleft,0)+(\cookie@activewidth,.045cm)$);
+            \else
+              \fill[themeColorFive] (\cookie@sectorleft,0) rectangle (\cookie@sectorright,.045cm);
+            \fi
           \fi
         \fi
       }%
@@ -643,15 +653,19 @@
       \foreach \cookie@sectionindex in {1,...,\the\@tempcnta}{%
         \pgfmathsetlengthmacro{\cookie@sectorleft}{(\cookie@sectionindex-1)*\cookie@sectorwidth}
         \pgfmathsetlengthmacro{\cookie@sectorright}{\cookie@sectionindex*\cookie@sectorwidth}
-        \ifnum\cookie@sectionindex=\value{section}\relax
-          \@tempcntb=\cookie@subsectiontotalfor{\cookie@sectionindex}\relax
-          \ifnum\@tempcntb>0\relax
-            \cookie@activesubsectioncount=\value{subsection}\relax
-            \ifnum\cookie@activesubsectioncount>\@tempcntb\relax\cookie@activesubsectioncount=\@tempcntb\relax\fi
-            \pgfmathsetlengthmacro{\cookie@activewidth}{\cookie@sectorwidth*\the\cookie@activesubsectioncount/\the\@tempcntb}
-            \pgfmathsetlengthmacro{\cookie@dotx}{\cookie@sectorleft+\cookie@activewidth}
-          \else
+        \ifnum\cookie@sectionindex=\cookie@activesectioncount\relax
+          \ifnum\value{section}>\@tempcnta\relax
             \pgfmathsetlengthmacro{\cookie@dotx}{\cookie@sectorright}
+          \else
+            \@tempcntb=\cookie@subsectiontotalfor{\cookie@sectionindex}\relax
+            \ifnum\@tempcntb>0\relax
+              \cookie@activesubsectioncount=\value{subsection}\relax
+              \ifnum\cookie@activesubsectioncount>\@tempcntb\relax\cookie@activesubsectioncount=\@tempcntb\relax\fi
+              \pgfmathsetlengthmacro{\cookie@activewidth}{\cookie@sectorwidth*\the\cookie@activesubsectioncount/\the\@tempcntb}
+              \pgfmathsetlengthmacro{\cookie@dotx}{\cookie@sectorleft+\cookie@activewidth}
+            \else
+              \pgfmathsetlengthmacro{\cookie@dotx}{\cookie@sectorright}
+            \fi
           \fi
           \fill[themeColorFive] (\cookie@dotx,.0225cm) circle[radius=.052cm];
         \fi
@@ -664,12 +678,16 @@
   \begingroup
     \@tempcnta=\cookie@totalsections\relax
     \ifnum\@tempcnta<1\relax\@tempcnta=1\relax\fi
+    \cookie@activesectioncount=\value{section}\relax
+    \ifnum\cookie@activesectioncount>\@tempcnta\relax
+      \cookie@activesectioncount=\@tempcnta\relax
+    \fi
     \begin{tikzpicture}[baseline]
       \path[use as bounding box] (0,-.08cm) rectangle (\cookie@globalprogresswidth,.24cm);
       \pgfmathsetlengthmacro{\cookie@sectorwidth}{\cookie@globalprogresswidth/\the\@tempcnta}
       \foreach \cookie@sectionindex in {1,...,\the\@tempcnta}{%
         \pgfmathsetlengthmacro{\cookie@labelx}{(\cookie@sectionindex-.5)*\cookie@sectorwidth}
-        \ifnum\cookie@sectionindex=\value{section}\relax
+        \ifnum\cookie@sectionindex=\cookie@activesectioncount\relax
           \node[anchor=base,text=themeColorFive,font=\fontsize{5.9}{6.7}\selectfont\bfseries,align=center,text width=\dimexpr\cookie@sectorwidth-.45em\relax]
             at (\cookie@labelx,0) {\cookie@sectionname{\cookie@sectionindex}};
         \else
@@ -858,14 +876,25 @@
   \cookie@frametitlegap=.014\paperwidth
 }
 \cookie@setframetitledimensions
+\newcommand{\cookie@setframetitlelayout}{%
+  \cookie@setframetitledimensions
+  \ifnum\value{section}>\beamer@tocsectionnumber\relax
+    \cookie@numberrailwidth=0pt
+    \cookie@frametitlegap=0pt
+  \fi
+}
 
 \newcommand{\cookie@railnumber}{%
   \ifdefstring{\cookie@numberrail}{none}{}{%
     \ifnum\value{section}>0
-      {\cookie@railsectioncolor\insertsectionnumber}%
-      \ifdefstring{\cookie@numberrail}{subsection}{%
-        \ifnum\value{subsection}>0{\cookie@railsubsectioncolor.\insertsubsectionnumber}\fi
-      }{}%
+      \ifnum\value{section}>\beamer@tocsectionnumber\relax
+        % Starred sections are intentionally omitted from the structural rail.
+      \else
+        {\cookie@railsectioncolor\insertsectionnumber}%
+        \ifdefstring{\cookie@numberrail}{subsection}{%
+          \ifnum\value{subsection}>0{\cookie@railsubsectioncolor.\insertsubsectionnumber}\fi
+        }{}%
+      \fi
     \else
       % The rail is structural, not a duplicate page counter.  Introductory
       % frames (including the automatic agenda) therefore leave it empty.
@@ -878,7 +907,7 @@
 % before the divider is drawn.
 \setbeamertemplate{frametitle}{%
   \nointerlineskip
-  \cookie@setframetitledimensions
+  \cookie@setframetitlelayout
   \hbox to \textwidth{\hspace*{-\beamer@leftmargin}%
   \begin{beamercolorbox}[wd=\paperwidth,sep=0pt]{frametitle}%
     \vbox{%
@@ -1079,7 +1108,7 @@
 % -----------------------------------------------------------------------------
 \providecommand{\cookie@totalsections}{1}
 \AtEndDocument{%
-  \immediate\write\@auxout{\string\gdef\string\cookie@totalsections{\arabic{section}}}%
+  \immediate\write\@auxout{\string\gdef\string\cookie@totalsections{\the\beamer@tocsectionnumber}}%
 }
 
 % Track subsection totals per section in the auxiliary file.  This lets the

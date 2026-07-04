@@ -171,6 +171,15 @@ The structural number rail uses dimmed accent colors by default so values such
 as `1.1` support the title instead of competing with it. Use
 `numberrailcolor=accent` for a brighter accent treatment.
 
+Cookie's global progress bar follows numbered sections from Beamer's table of
+contents. Starred sections such as `\section*{Extras}` are excluded from the
+bar and labels; frames inside them show the progress state clamped to the last
+numbered section.
+
+The structural number rail is also hidden on frames inside starred sections,
+and its reserved title-space is collapsed so those frame titles align to the
+left rail position. Ordinary numbered sections keep the rail.
+
 The progress subsection page reports the current subsection and the number of
 subsections in its section. Run LuaLaTeX twice after changing the section
 structure; `latexmk` handles this automatically.
