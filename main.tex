@@ -201,15 +201,16 @@
     Problem~\cite{isa_discussing_suitability_tsp}.
 
     \column{0.3\textwidth}
-    \begin{tabularx}{\textwidth}{ll}
+    \scriptsize
+    \begin{tabular}{@{}Xc@{}}
       \toprule
-      Algorithms & Success Rate \\
+      \textbf{Algorithms} & \textbf{Success}
       \midrule
       CLK  & 0.2 \\
       LKCC & 0.8 \\
-      Selector & 0.907 \\
+      \textbf{Selector} & \textbf{0.907} \\
       \bottomrule
-    \end{tabularx}
+    \end{tabular}
   \end{columns}
 \end{frame}
 
@@ -415,18 +416,75 @@ the random policy and the baseline heuristic policy, respectively.
 \end{frame}
 
 \section{Results}
-\begin{frame}{Individual Environments}
+\begin{frame}{Individual Environments}{Highway projection}
+  \begin{columns}[c,onlytextwidth]
+    \column{.55\textwidth}
+      \footnotesize
+      \[
+        \begin{bmatrix}
+          Z_1\\
+          Z_2
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+          0.14 & -0.12 \\
+          -0.50 & 0.32 \\
+          0.35 & -0.41 \\
+          0.50 & 0.37 \\
+          0.09 & 0.38 \\
+          -0.38 & -0.37 \\
+          \end{bmatrix}^{T}
+          \begin{bmatrix}
+          \text{\tiny\ttfamily lanes-count} \\
+          \text{\tiny\ttfamily traffic-density} \\
+          \text{\tiny\ttfamily baseline-speed-snr} \\
+          \text{\tiny\ttfamily baseline-obs-volatility-mean} \\
+          \text{\tiny\ttfamily state-entropy} \\
+          \text{\tiny\ttfamily action-state-discontinuity-p95}
+        \end{bmatrix}
+      \]
 
-  \begin{tabularx}{cccc}
-    \toprule
-    \textbf{Algorithms} & \textbf{\ Avg perf\ } & \textbf{\ Std perf\ } & \textbf{Success Rate} \\ \midrule
-    A2C & 0.587 & 0.379 & 0.425 \\
-    DQN & 0.512 & 0.488 & 0.467 \\
-    PPO & 0.648 & 0.386 & 0.675 \\
-    \textbf{Selector} & 0.660 & 0.403 & \textbf{0.750} \\
-    Oracle & 0.691 & 0.401 & 1.000 \\
-    \bottomrule
-  \end{tabularx}
+    \column{.45\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/results/single-envs/highway/7_sources.pdf}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Individual Environments}{Highway projection}
+  \centering
+  \begingroup
+  \setlength{\tabcolsep}{.35em}
+  \begin{tabular}{ccc}
+    \includegraphics[width=.275\textwidth]{figures/results/single-envs/highway/2_lanes_count.pdf} &
+    \includegraphics[width=.275\textwidth]{figures/results/single-envs/highway/2_traffic_density.pdf} &
+    \includegraphics[width=.275\textwidth]{figures/results/single-envs/highway/2_baseline_speed_snr.pdf} \\
+    \includegraphics[width=.275\textwidth]{figures/results/single-envs/highway/2_baseline_obs_volatility_mean.pdf} &
+    \includegraphics[width=.275\textwidth]{figures/results/single-envs/highway/2_state_entropy.pdf} &
+    \includegraphics[width=.275\textwidth]{figures/results/single-envs/highway/2_action_state_discontinuity_p95.pdf}
+  \end{tabular}
+  \endgroup
+\end{frame}
+
+\begin{frame}{Individual Environments}{Highway selector portfolio}
+  \begin{columns}[c,onlytextwidth]
+    \column{.58\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/results/single-envs/highway/6_svm_port.pdf}
+
+    \column{.38\textwidth}
+      \scriptsize
+      \begin{tabular}{@{}lccc@{}}
+        \toprule
+        \textbf{Algorithms} & \textbf{Avg.} & \textbf{Std.} & \textbf{Success} \\
+        \midrule
+        A2C & 0.587 & 0.379 & 0.425 \\
+        DQN & 0.512 & 0.488 & 0.467 \\
+        PPO & 0.648 & 0.386 & 0.675 \\
+        \textbf{Selector} & 0.660 & 0.403 & \textbf{0.750} \\
+        Oracle & 0.691 & 0.401 & 1.000 \\
+        \bottomrule
+      \end{tabular}
+  \end{columns}
 \end{frame}
 
 \begin{frame}{Multiple Environments}
@@ -573,7 +631,7 @@ the random policy and the baseline heuristic policy, respectively.
   \cookiedemomathcomparisonbody
 \end{frame}
 
-\begin{frame}[fragile]{Code is part of the slide}
+\begin{frame}[fragile=singleslide]{Code is part of the slide}
   \begin{columns}[T,onlytextwidth]
     \column{.53\textwidth}
       \begin{cookiecode}[title=Scalar C]{C}
@@ -597,7 +655,7 @@ void square4(float *x) {
   \end{columns}
 \end{frame}
 
-\begin{frame}[fragile]{Longer code listing}{The title wraps without changing the code box}
+\begin{frame}[fragile=singleslide]{Longer code listing}{The title wraps without changing the code box}
   \begin{cookiecode}[title=Sleep sort sketch]{C}
 #include <stdio.h>
 #include <stdlib.h>
