@@ -115,6 +115,10 @@ The CARLA simulator slide uses a two-by-two image grid with `.38\textwidth`
 minipages. It includes `road_and_intersection.png`, `intersection.png`,
 `highway_enter.png`, and `highway_exit.png` from `figures/sims/carla/`.
 
+The RL Algorithms methodology slide places the algorithm hyperparameter
+configuration note inside a `cookiecard` in the right column. Keep this content
+compact because the card lives beside the algorithm/action-space list.
+
 The individual-environment results in `main.tex` are split into four
 HighwayEnv frames:
 

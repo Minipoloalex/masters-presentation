@@ -45,7 +45,7 @@
 \titlelogoone{\includegraphics[width=.235\paperwidth]{figures/feup-logo.png}}
 \titlelogotwo{\includegraphics[width=.235\paperwidth]{figures/fcup-logo.png}}
 \cookieclosingtitle{Thank you}
-\cookieclosingtext{Questions, forks, and bug reports are welcome.}
+\cookieclosingtext{TODO closing text?}
 
 \begin{document}
 
@@ -120,7 +120,7 @@
   A few issues arise to apply ISA to RL:
   \begin{itemize}
     \item No established metafeature set for RL
-    \item Nonstationarity of RL: the actions of an agent affect the data it learns from;
+    \item Nonstationarity of RL: the actions of an agent affect the data it learns from
     \item RL does not have a fixed dataset, only environment interactions;
   \end{itemize}
 
@@ -261,16 +261,29 @@
 \begin{frame}{RL Algorithms}
   Algorithms and training/evaluation protocol from %
   \texttt{stable-baselines3}~\cite{stable_baselines3}.
+  \vspace{1em}
 
-  RL algorithms may support discrete (D) and/or continuous (C) action spaces.
-  \begin{itemize}
-    \item \textbf{A2C}: D/C
-    \item \textbf{DQN}: D
-    \item \textbf{PPO}: D/C
-    \item \textbf{SAC}: C
-  \end{itemize}
-  Fixed hyperparameter configuration for each instance, adapted based on observation space, %
-  action space, and maximum episode timesteps
+  \begin{columns}[c,onlytextwidth]
+    \column{.49\textwidth}
+    RL algorithms may support discrete (D) and/or continuous (C) action spaces.
+    \begin{itemize}
+      \item \textbf{A2C}: D/C
+      \item \textbf{DQN}: D
+      \item \textbf{PPO}: D/C
+      \item \textbf{SAC}: C
+    \end{itemize}
+
+    \column{.49\textwidth}
+    \begin{cookiecard}[title=Hyperparameter configurations]
+      \small
+      We use a single algorithm hyperparameter configuration for each instance, %
+      adapted based on observation space, action space, and maximum episode timesteps.
+    \end{cookiecard}
+  \end{columns}
+
+  \vspace{1em}
+  Each instance requires training and evaluating 3 algorithms.
+  This leads to a total of 3219 trained agents.
 \end{frame}
 
 \subsection{Metafeature Design}
@@ -319,7 +332,7 @@ the random policy and the baseline heuristic policy, respectively.
 \end{frame}
 
 \section{Results}
-\begin{frame}{Generating Instance Spaces}
+\begin{frame}{Generating Instance Space Results}
   The ISA methodology requires defining specific hyperparameters by experimenting and iterating.
   We defined the most important parameters:
   \begin{itemize}
@@ -333,8 +346,8 @@ the random policy and the baseline heuristic policy, respectively.
 
 \subsection{Individual Environments}
 \begin{frame}{Individual Environments}{\texttt{HighwayEnv} Highway projection}
-  Resulting projection from selected features and dimension reduction:
-  \vspace{0.5em}
+  Resulting projection from selected features and dimension reduction method:
+  \vspace{1.5em}
 
   \centering
   \small
@@ -353,27 +366,27 @@ the random policy and the baseline heuristic policy, respectively.
       -0.38 & -0.37 \\
       \end{bmatrix}^{T}
       \begin{bmatrix}
-      \text{\tiny\ttfamily lanes-count} \\
-      \text{\tiny\ttfamily traffic-density} \\
-      \text{\tiny\ttfamily baseline-speed-snr} \\
-      \text{\tiny\ttfamily baseline-obs-volatility-mean} \\
-      \text{\tiny\ttfamily state-entropy} \\
-      \text{\tiny\ttfamily action-state-discontinuity-p95}
+      \text{\ttfamily lanes-count} \\
+      \text{\ttfamily traffic-density} \\
+      \text{\ttfamily baseline-speed-snr} \\
+      \text{\ttfamily baseline-obs-volatility-mean} \\
+      \text{\ttfamily state-entropy} \\
+      \text{\ttfamily action-state-discontinuity-p95}
     \end{bmatrix}
   $}
 \end{frame}
 
-\begin{frame}{Individual Environments}{Highway Sources and Best Algorithms}
+\begin{frame}{Individual Environments}{Highway Observation Space Sources and Best Algorithms}
   \begin{columns}[c,onlytextwidth]
     \column{.49\textwidth}
       \centering
       \includegraphics[width=\linewidth]{figures/results/single-envs/highway/7_sources.pdf}
-      {Observation Space Type}
+      {\small Observation Space Type\par}
 
     \column{.49\textwidth}
       \centering
       \includegraphics[width=\linewidth]{figures/results/single-envs/highway/5_port.pdf}
-      {Best-Performing Algorithm}
+      {\small Best-Performing Algorithm\par}
   \end{columns}
 \end{frame}
 
@@ -420,7 +433,8 @@ the random policy and the baseline heuristic policy, respectively.
   \begin{columns}[c,onlytextwidth]
     \column{.58\textwidth}
       \centering
-      \includegraphics[width=\linewidth]{figures/results/single-envs/highway/6_svm_port.pdf}
+      \includegraphics[width=0.9\linewidth]{figures/results/single-envs/highway/6_svm_port.pdf}
+      {\small Selector Algorithm Choices\par}
 
     \column{.38\textwidth}
       \scriptsize
@@ -444,12 +458,12 @@ the random policy and the baseline heuristic policy, respectively.
     \column{.49\textwidth}
       \centering
       \includegraphics[width=\linewidth]{figures/results/cross-envs/hedisc/7_sources.pdf}
-      {\scriptsize Environment Source\par}
+      {\small Environment Sources\par}
 
     \column{.49\textwidth}
       \centering
       \includegraphics[width=\linewidth]{figures/results/cross-envs/hedisc/5_port.pdf}
-      {\scriptsize Best-Performing Algorithm\par}
+      {\small Best-Performing Algorithm\par}
   \end{columns}
 \end{frame}
 
@@ -473,12 +487,12 @@ the random policy and the baseline heuristic policy, respectively.
     \column{.49\textwidth}
       \centering
       \includegraphics[width=\linewidth]{figures/results/cross-envs/allcont/7_sources.pdf}
-      {\scriptsize Environment Source\par}
+      {\small Environment Sources\par}
 
     \column{.49\textwidth}
       \centering
       \includegraphics[width=\linewidth]{figures/results/cross-envs/allcont/5_port.pdf}
-      {\scriptsize Best-Performing Algorithm\par}
+      {\small Best-Performing Algorithm\par}
   \end{columns}
 \end{frame}
 
@@ -500,14 +514,14 @@ the random policy and the baseline heuristic policy, respectively.
 \subsection{Domain-Specific Characteristics}
 \begin{frame}{Domain-Specific Characteristics}{\texttt{HighwayEnv} Discrete-Action Projection Without %
 Domain-Specific Metafeatures}
-  By removing all domain-specific metafeatures, we study their impact on the ability to %
-  separate algorithms.
+  By excluding all domain-specific metafeatures, we study their impact on separating algorithms.
 
   \vspace{.45em}
   \begin{columns}[c,onlytextwidth]
     \column{.4\textwidth}
       \centering
       \includegraphics[width=\linewidth]{figures/results/edsm/7_sources.pdf}
+      {\small Environment Sources\par}
 
     \column{.58\textwidth}
       \centering
@@ -534,10 +548,10 @@ Domain-Specific Metafeatures}
     \item Analyzing individual environments provides context for multi-environment projections.
     \item Results based on multiple environments yield better instance space coverage and %
     provide more generalizable results
-    \item The algorithm selection methodology is capable of gaining significant performance over %
-    the best-performing algorithm in some cases
-    \item Some projections yield weaker selection performance, likely due to the predominance of %
-    a single algorithm or because the metafeatures are not discriminative enough
+    \item The algorithm selection methodology gains significant performance over %
+    the best-performing algorithms for some projections
+    \item A few projections yield weaker selection performance, likely due to the predominance of %
+    a single algorithm, or because the metafeatures are not discriminative enough
   \end{itemize}
 \end{frame}
 
@@ -578,7 +592,7 @@ Domain-Specific Metafeatures}
   \vspace*{\fill}
 
   \centering
-  \includegraphics[width=0.8\linewidth]{figures/project-logos.pdf}
+  \includegraphics[width=\linewidth]{figures/project-logos.pdf}
 \end{frame}
 
 \begin{frame}[allowframebreaks]{References}
