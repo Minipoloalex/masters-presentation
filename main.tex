@@ -9,6 +9,7 @@
 \babelprovide[import]{polish}
 \usepackage{ragged2e}
 \usepackage{csquotes}
+\usepackage{comment}
 \usepackage[
   backend=biber,
   style=authoryear,
@@ -210,7 +211,7 @@
     \item Independent of algorithms in study
   \end{itemize}
   
-  There are well-established metafeatures in fields like classification and regression.
+  Classication and regression have well-established metafeatures.
 
   ISA uses these metafeatures to capture the different properties of instances.
 
@@ -218,19 +219,160 @@
 
 \section{Literature Review}
 \begin{frame}{Literature Review}
-  Metafeatures are well-established for classical ML fields such as classification and regression %
-  but not RL
-
-  However, there are many studies on properties that impact RL algorithm performance:
+  A few issues arise to apply ISA to RL:
   \begin{itemize}
-    \item Complexity Measures: . Not efficiently computable for an unknown problem
+    \item No established metafeature set for RL
+    \item Nonstationarity of RL: the actions of an agent affect the data it learns from;
+    \item RL does not have a fixed dataset, only environment interactions;
+  \end{itemize}
+
+  Many works study properties that impact RL algorithm performance:
+  \begin{itemize}
+    \item Complexity Measures: capture the difficulty to solve a specific RL problem, %
+    but are not efficiently computable for all problems
     \item Benchmarks: isolate environment properties and evaluate their impact on algorithms
   \end{itemize}
 
-  Implicit knowledge of what impacts algorithm performance and no clear computable measures
+  Implicit knowledge of what impacts algorithm performance but no clear computable measures
 \end{frame}
 
-\begin{frame}{Literature Review}
+\section{Methodology}
+\subsection{Simulators}
+\begin{frame}{Simulators}{HighwayEnv}
+  Minimalist environment designed for training simple RL agents for autonomous driving %
+  decision-making.
+
+  \vspace{.45em}
+  \centering
+  \begingroup
+  \begin{minipage}[t]{.235\textwidth}
+    \vspace{0pt}
+    \includegraphics[width=\linewidth]{figures/sims/he/highway.png}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{.235\textwidth}
+    \vspace{0pt}
+    \includegraphics[width=\linewidth]{figures/sims/he/merge_image.png}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{.235\textwidth}
+    \vspace{0pt}
+    \includegraphics[width=\linewidth]{figures/sims/he/exit_image.png}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{.235\textwidth}
+    \vspace{0pt}
+    \includegraphics[width=\linewidth]{figures/sims/he/lane_keeping_smaller.png}
+  \end{minipage}
+
+  \vspace{.55em}
+  \begin{minipage}[t]{.235\textwidth}
+    \vspace{0pt}
+    \includegraphics[width=\linewidth]{figures/sims/he/fixed_racetrack.png}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{.235\textwidth}
+    \vspace{0pt}
+    \includegraphics[width=\linewidth]{figures/sims/he/oval_racetrack.png}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{.235\textwidth}
+    \vspace{0pt}
+    \includegraphics[width=\linewidth]{figures/sims/he/roundabout.png}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{.235\textwidth}
+    \vspace{0pt}
+    \includegraphics[width=\linewidth]{figures/sims/he/parking.png}
+  \end{minipage}
+  \endgroup
+\end{frame}
+
+\begin{frame}{Simulators}{MetaDrive}
+  Designed to efficiently train generalizable RL agents using procedurally generated of maps.
+
+  \vspace{.45em}
+  \centering
+  \includegraphics[width=0.5\linewidth]{figures/sims/md/md.png}
+\end{frame}
+
+\begin{frame}{Simulators}{MetaDrive Maps}
+  \centering
+  \begingroup
+  \begin{minipage}[t]{.29\textwidth}
+    \vspace{0pt}
+    \includegraphics[width=\linewidth]{figures/sims/md/maps/image_SC_vector.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{.29\textwidth}
+    \vspace{0pt}
+    \includegraphics[width=\linewidth]{figures/sims/md/maps/image_TXT_vector.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{.29\textwidth}
+    \vspace{0pt}
+    \includegraphics[width=\linewidth]{figures/sims/md/maps/image_rORY_vector.pdf}
+  \end{minipage}
+  \endgroup
+\end{frame}
+
+\begin{frame}{Simulators}{CARLA}
+  High-fidelity simulator designed to evaluate state-of-the-art autonomous driving solutions.
+
+  \vspace{.45em}
+  \centering
+  \begingroup
+
+  \begin{minipage}[t]{.3\textwidth}
+    \vspace{0pt}
+    \includegraphics[width=\linewidth]{figures/sims/carla/road_and_intersection.png}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{.3\textwidth}
+    \vspace{0pt}
+    \includegraphics[width=\linewidth]{figures/sims/carla/intersection.png}
+  \end{minipage}
+
+  \vspace{.35em}
+  \begin{minipage}[t]{.3\textwidth}
+    \vspace{0pt}
+    \includegraphics[width=\linewidth]{figures/sims/carla/highway_enter.png}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{.3\textwidth}
+    \vspace{0pt}
+    \includegraphics[width=\linewidth]{figures/sims/carla/highway_exit.png}
+  \end{minipage}
+  \endgroup
+\end{frame}
+
+\begin{frame}{Pipeline}
+
+\end{frame}
+
+
+\begin{frame}{RL Algorithms}
+
+\end{frame}
+
+\begin{frame}{Metafeature Design}
+
+\end{frame}
+
+\begin{frame}{Metadata Dataset}
+
+\end{frame}
+
+\section{Results}
+\begin{frame}{Individual Environments}
+\end{frame}
+
+\begin{frame}{Multiple Environments}
+\end{frame}
+
+\begin{frame}{Domain-Specific Characteristics}
+\end{frame}
+
+\section{Conclusions}
+\begin{frame}{Contributions}
+\end{frame}
+
+\begin{frame}{Future Work}
+\end{frame}
+
+
+
+\begin{frame}{Example 1}
   \begin{columns}[T,onlytextwidth]
     \column{.31\textwidth}
       \cookiekicker{Awesome-style frame}
@@ -252,7 +394,7 @@
   \end{columns}
 
   \vfill
-  \cookiebadge{single .sty} \hspace{.35em}
+  \cookiebadge{single.sty} \hspace{.35em}
   \cookiebadge{LuaLaTeX} \hspace{.35em}
   \cookiebadge{old-deck friendly}
 \end{frame}
@@ -649,8 +791,6 @@ int main(int argc, char **argv) {
   \note{Advance through the request, branch, and convergence overlays. The modal explains why the layout does not jump.}
 \end{frame}
 
-\section{Literature Review}
-
 \begin{frame}{Let the footer carry progress}
   \begin{wide}
     \centering
@@ -828,8 +968,6 @@ The audience sees this.
   }
 \end{frame}
 
-\section{Methodology}
-
 \begin{frame}{Options in one place}
   \begin{columns}[T,onlytextwidth]
     \column{.48\textwidth}
@@ -895,8 +1033,6 @@ The audience sees this.
   \end{block}
 \end{frame}
 
-\section{Experimental Results}
-
 \begin{frame}{Build the demo with LuaLaTeX}
   \cookiekicker{Local build}
   \vspace{.55em}
@@ -911,8 +1047,6 @@ The audience sees this.
     \item If you copy only the theme file into another deck, build that deck with LuaLaTeX.
   \end{itemize}
 \end{frame}
-
-\section{Conclusions}
 
 \begin{frame}{Citations use normal BibLaTeX}{No theme-specific bibliography syntax}
   Cookie is still ordinary Beamer: the typesetting stack builds on \TeX\ \parencite{knuth1984},

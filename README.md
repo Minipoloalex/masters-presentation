@@ -68,6 +68,27 @@ make build
 latexmk -lualatex main.tex
 ```
 
+## Presentation notes
+
+The HighwayEnv simulator slide in `main.tex` uses a compact image grid instead
+of `figure`/`subfloat` captions. The layout is:
+
+- two rows with four images each;
+- each image is placed in a `.235\textwidth` minipage;
+- captions and labels are intentionally omitted to keep the frame clean.
+
+This keeps all simulator screenshots visible on one Beamer frame without
+caption overflow. Adjust the minipage width directly if the image set changes.
+
+The MetaDrive maps slide uses three representative vector maps from
+`figures/sims/md/maps/`: `image_SC_vector.pdf`, `image_TXT_vector.pdf`, and
+`image_rORY_vector.pdf`. They are placed in one row using `.29\textwidth`
+minipages.
+
+The CARLA simulator slide uses a two-by-two image grid with `.38\textwidth`
+minipages. It includes `road_and_intersection.png`, `intersection.png`,
+`highway_enter.png`, and `highway_exit.png` from `figures/sims/carla/`.
+
 ## Theme options
 
 | Option | Values | Default |
@@ -400,35 +421,6 @@ Cookie uses standard Beamer block syntax:
 \end{block}
 ```
 
-When porting an awesome-beamer deck, replace `\begin{block}[Title]` with
-`\begin{block}{Title}`. The same standard syntax applies to `alertblock` and
-`exampleblock`. Beamer theorem environments such as `definition`, `theorem`,
-and `proof` use related but distinct palettes. Proofs end with Cookie's accent
-smiley QED when `tikzsymbols` is available.
-
-## Moving from awesome-beamer
-
-1. Download or copy `beamerthemecookie.sty` into the project.
-2. Remove the `awesome-beamer` and `smile` input-path/submodule setup.
-3. Replace the theme line.
-
-```tex
-% Before
-\usetheme[english,coloraccent=forest,secslide,subsecslide]{awesome}
-
-% After
-\usetheme[
-  accent=forest,
-  sectionpage=progressbar,
-  subsectionpage=none
-]{cookie}
-```
-
-Compatibility aliases are retained for `english`, `german`, `color`, `notoc`,
-`secslide`, `subsecslide`, and `nonumbersinframetitle`. Cookie does not recreate
-every general-purpose macro from `smile.sty`; load specialized packages and
-TikZ libraries explicitly when a deck uses them.
-
 ## Files
 
 - `beamerthemecookie.sty` - the theme.
@@ -436,7 +428,6 @@ TikZ libraries explicitly when a deck uses them.
   system diagrams, quotes, notes source, citations, QR closing, three-column
   composition, and image backgrounds.
 - `refs.bib` - bibliography data used by the demo.
-- `assets/cookie-background.png` - demo image; replace it with your own.
 - `.latexmkrc` - local demo builds with LuaLaTeX and Biber.
 
 ## License and credit
