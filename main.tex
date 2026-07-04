@@ -202,9 +202,9 @@
 
     \column{0.3\textwidth}
     \scriptsize
-    \begin{tabular}{@{}Xc@{}}
+    \begin{tabular}{@{}lc@{}}
       \toprule
-      \textbf{Algorithms} & \textbf{Success}
+      \textbf{Algorithms} & \textbf{Success Rate} \\
       \midrule
       CLK  & 0.2 \\
       LKCC & 0.8 \\
@@ -416,56 +416,98 @@ the random policy and the baseline heuristic policy, respectively.
 \end{frame}
 
 \section{Results}
-\begin{frame}{Individual Environments}{Highway projection}
-  \begin{columns}[c,onlytextwidth]
-    \column{.55\textwidth}
-      \footnotesize
-      \[
-        \begin{bmatrix}
-          Z_1\\
-          Z_2
-        \end{bmatrix}
-        =
-        \begin{bmatrix}
-          0.14 & -0.12 \\
-          -0.50 & 0.32 \\
-          0.35 & -0.41 \\
-          0.50 & 0.37 \\
-          0.09 & 0.38 \\
-          -0.38 & -0.37 \\
-          \end{bmatrix}^{T}
-          \begin{bmatrix}
-          \text{\tiny\ttfamily lanes-count} \\
-          \text{\tiny\ttfamily traffic-density} \\
-          \text{\tiny\ttfamily baseline-speed-snr} \\
-          \text{\tiny\ttfamily baseline-obs-volatility-mean} \\
-          \text{\tiny\ttfamily state-entropy} \\
-          \text{\tiny\ttfamily action-state-discontinuity-p95}
-        \end{bmatrix}
-      \]
+\begin{frame}{Analyzing Instance Space Analysis Results}
+  The ISA methodology requires defining specific hyperparameters.
+  Based on iteration, we defined the most important parameters:
+  \begin{itemize}
+    \item Performance threshold for success: within 5\% of best-performing algorithm
+    \item Number of selected features: 6 for discrete-action and 8 for continuous-action environments
+  \end{itemize}
+\end{frame}
 
-    \column{.45\textwidth}
+\begin{frame}{Individual Environments}{HighwayEnv Highway projection}
+  Resulting projection from selected features and dimension reduction:
+  \vspace{0.4em}
+  \centering
+  \resizebox{.78\linewidth}{!}{$
+    \begin{bmatrix}
+      Z_1\\
+      Z_2
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      0.14 & -0.12 \\
+      -0.50 & 0.32 \\
+      0.35 & -0.41 \\
+      0.50 & 0.37 \\
+      0.09 & 0.38 \\
+      -0.38 & -0.37 \\
+      \end{bmatrix}^{T}
+      \begin{bmatrix}
+      \text{\tiny\ttfamily lanes-count} \\
+      \text{\tiny\ttfamily traffic-density} \\
+      \text{\tiny\ttfamily baseline-speed-snr} \\
+      \text{\tiny\ttfamily baseline-obs-volatility-mean} \\
+      \text{\tiny\ttfamily state-entropy} \\
+      \text{\tiny\ttfamily action-state-discontinuity-p95}
+    \end{bmatrix}
+  $}
+\end{frame}
+
+\begin{frame}{Individual Environments}{Sources and Best Algorithms}
+  \begin{columns}[c,onlytextwidth]
+    \column{.49\textwidth}
       \centering
       \includegraphics[width=\linewidth]{figures/results/single-envs/highway/7_sources.pdf}
+      {Observation Space Type}
+
+    \column{.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/results/single-envs/highway/5_port.pdf}
+      {Best-Performing Algorithm}
   \end{columns}
 \end{frame}
 
-\begin{frame}{Individual Environments}{Highway projection}
+\begin{frame}{Individual Environments}{Features Distribution}
   \centering
   \begingroup
-  \setlength{\tabcolsep}{.35em}
+  \setlength{\tabcolsep}{.25em}
   \begin{tabular}{ccc}
-    \includegraphics[width=.275\textwidth]{figures/results/single-envs/highway/2_lanes_count.pdf} &
-    \includegraphics[width=.275\textwidth]{figures/results/single-envs/highway/2_traffic_density.pdf} &
-    \includegraphics[width=.275\textwidth]{figures/results/single-envs/highway/2_baseline_speed_snr.pdf} \\
-    \includegraphics[width=.275\textwidth]{figures/results/single-envs/highway/2_baseline_obs_volatility_mean.pdf} &
-    \includegraphics[width=.275\textwidth]{figures/results/single-envs/highway/2_state_entropy.pdf} &
-    \includegraphics[width=.275\textwidth]{figures/results/single-envs/highway/2_action_state_discontinuity_p95.pdf}
+    \begin{minipage}[t]{.29\textwidth}
+      \centering
+      \includegraphics[width=.91\linewidth]{figures/results/single-envs/highway/2_lanes_count.pdf}
+      {\tiny\ttfamily lanes-count\par}
+    \end{minipage} &
+    \begin{minipage}[t]{.29\textwidth}
+      \centering
+      \includegraphics[width=.91\linewidth]{figures/results/single-envs/highway/2_traffic_density.pdf}
+      {\tiny\ttfamily traffic-density\par}
+    \end{minipage} &
+    \begin{minipage}[t]{.29\textwidth}
+      \centering
+      \includegraphics[width=.91\linewidth]{figures/results/single-envs/highway/2_baseline_speed_snr.pdf}
+      {\tiny\ttfamily baseline-speed-snr\par}
+    \end{minipage} \\
+    \begin{minipage}[t]{.29\textwidth}
+      \centering
+      \includegraphics[width=.91\linewidth]{figures/results/single-envs/highway/2_baseline_obs_volatility_mean.pdf}
+      {\tiny\ttfamily baseline-obs-volatility-mean\par}
+    \end{minipage} &
+    \begin{minipage}[t]{.29\textwidth}
+      \centering
+      \includegraphics[width=.91\linewidth]{figures/results/single-envs/highway/2_state_entropy.pdf}
+      {\tiny\ttfamily state-entropy\par}
+    \end{minipage} &
+    \begin{minipage}[t]{.29\textwidth}
+      \centering
+      \includegraphics[width=.91\linewidth]{figures/results/single-envs/highway/2_action_state_discontinuity_p95.pdf}
+      {\tiny\ttfamily action-state-discontinuity-p95\par}
+    \end{minipage}
   \end{tabular}
   \endgroup
 \end{frame}
 
-\begin{frame}{Individual Environments}{Highway selector portfolio}
+\begin{frame}{Individual Environments}{Highway Selector Algorithm Choices}
   \begin{columns}[c,onlytextwidth]
     \column{.58\textwidth}
       \centering

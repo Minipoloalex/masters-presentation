@@ -89,11 +89,13 @@ The CARLA simulator slide uses a two-by-two image grid with `.38\textwidth`
 minipages. It includes `road_and_intersection.png`, `intersection.png`,
 `highway_enter.png`, and `highway_exit.png` from `figures/sims/carla/`.
 
-The individual-environment results in `main.tex` are split into three
+The individual-environment results in `main.tex` are split into four
 HighwayEnv frames:
 
-- projection matrix plus source distribution:
-  `figures/results/single-envs/highway/7_sources.pdf`;
+- projection matrix only;
+- source distribution, `figures/results/single-envs/highway/7_sources.pdf`,
+  paired with the best-performing-algorithm portfolio plot,
+  `figures/results/single-envs/highway/5_port.pdf`;
 - six metafeature slices matching the projection matrix variables:
   `2_lanes_count.pdf`, `2_traffic_density.pdf`,
   `2_baseline_speed_snr.pdf`, `2_baseline_obs_volatility_mean.pdf`,
