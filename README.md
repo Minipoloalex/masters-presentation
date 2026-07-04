@@ -88,6 +88,14 @@ auxiliary files smaller.
 
 ## Presentation notes
 
+`main.tex` is the dissertation-defense deck. `demo.tex` keeps the broader theme
+examples as a reference deck for available Cookie features.
+
+Use `\texttt{...}` for inline software, simulator, and package names such as
+`\texttt{HighwayEnv}`, `\texttt{MetaDrive}`, `\texttt{CARLA}`, and
+`\texttt{stable-baselines3}`. Avoid `\ttfamily{...}` for inline text because
+`\ttfamily` is a font declaration and can leak into following text.
+
 The HighwayEnv simulator slide in `main.tex` uses a compact image grid instead
 of `figure`/`subfloat` captions. The layout is:
 
@@ -120,6 +128,17 @@ HighwayEnv frames:
   `2_state_entropy.pdf`, and `2_action_state_discontinuity_p95.pdf`;
 - SVM portfolio plot, `6_svm_port.pdf`, paired with the algorithm performance
   table.
+
+Each multiple-environment result uses two frames: one projection frame with
+source and best-performing-algorithm plots side by side, followed by a
+performance-comparison table frame.
+
+- discrete-action HighwayEnv environments:
+  `figures/results/cross-envs/hedisc/7_sources.pdf` and
+  `figures/results/cross-envs/hedisc/5_port.pdf`;
+- all continuous-action environments:
+  `figures/results/cross-envs/allcont/7_sources.pdf` and
+  `figures/results/cross-envs/allcont/5_port.pdf`.
 
 ## Theme options
 

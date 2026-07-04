@@ -47,119 +47,6 @@
 \cookieclosingtitle{Thank you}
 \cookieclosingtext{Questions, forks, and bug reports are welcome.}
 
-\newsavebox{\cookieDemoPenguin}
-\savebox{\cookieDemoPenguin}{\cookiepenguin[scale=.31]}
-\newcommand{\cookiedemomathcomparisonbody}{%
-  \footnotesize
-  \setlength{\abovedisplayskip}{.24em}%
-  \setlength{\belowdisplayskip}{.24em}%
-  \begin{columns}[T,onlytextwidth]
-    \column{.18\textwidth}
-      \centering
-      \cookiekicker{Lining}\par
-      \vspace{.45em}
-      1234567890
-
-    \column{.18\textwidth}
-      \centering
-      \cookiekicker{Oldstyle}\par
-      \vspace{.45em}
-      \oldstylenums{1234567890}
-
-    \column{.22\textwidth}
-      \centering
-      \cookiekicker{Accents}\par
-      \vspace{.45em}
-      $\hat{x},\;\check{x},\;\tilde{a},\;\bar{a},\;\dot{y},\;\ddot{y}$
-
-    \column{.36\textwidth}
-      \centering
-      \cookiekicker{Differentials}\par
-      \vspace{.45em}
-      $\displaystyle \iiint f(x,y,z)\,\mathrm dx\,\mathrm dy\,\mathrm dz$
-  \end{columns}
-
-  \vspace{.30em}
-  \begin{columns}[c,onlytextwidth]
-    \column{.47\textwidth}
-      \[
-        \frac{1}{\displaystyle 1+
-          \frac{1}{\displaystyle 2+
-          \frac{1}{\displaystyle 3+x}}}
-        +
-        \frac{1}{1+\frac{1}{2+\frac{1}{3+x}}}
-      \]
-
-    \column{.47\textwidth}
-      \[
-        F:\left|\begin{array}{ccc}
-          F''_{xx} & F''_{xy} & F'_x \\
-          F''_{yx} & F''_{yy} & F'_y \\
-          F'_x     & F'_y     & 0
-        \end{array}\right|=0
-      \]
-  \end{columns}
-
-  \vspace{.02em}
-  \begin{columns}[c,onlytextwidth]
-    \column{.30\textwidth}
-      \[
-        \mathop{\int\!\!\!\int}_{\mathbf{x}\in\mathbb R^2}
-        \!\langle \mathbf{x},\mathbf{y}\rangle\,\mathrm d\mathbf{x}
-      \]
-
-    \column{.34\textwidth}
-      \[
-        \overline{\overline{a\alpha}^2+\underline{b\beta}
-        +\overline{\overline{d\delta}}}
-      \]
-
-    \column{.30\textwidth}
-      \[
-        \left]0,1\right[+\lceil x\rfloor-\langle x,y\rangle
-      \]
-  \end{columns}
-
-  \vspace{.05em}
-  \begin{columns}[c,onlytextwidth]
-    \column{.44\textwidth}
-      \[
-        \begin{aligned}
-          e^x &\approx 1+x+x^2/2! \\
-              &\quad{}+x^3/3!+x^4/4!
-        \end{aligned}
-      \]
-
-    \column{.50\textwidth}
-      \[
-        \binom{n+1}{k}=\binom{n}{k}+\binom{n}{k-1}
-      \]
-  \end{columns}
-
-  \vspace{-.15em}
-  {\scriptsize
-  \[
-    \begin{aligned}
-      p(R,\phi)
-      &\sim \int_{-\infty}^{\infty}
-      \frac{
-        \tilde{W}_n(\gamma)
-        \exp\!\left[
-          \imath R/a
-          \left(\sqrt{k^2a^2-\gamma^2}\cos\phi\right)
-        \right]
-      }{
-        \left(k^2a^2-\gamma^2\right)^{3/4}
-      }\\[-.15em]
-      &\qquad{}\times
-      \frac{1}{
-        {H_n^{\prime}}_n^{(1)}
-        \left(\sqrt{k^2a^2-\gamma^2}\right)
-      }\,d\gamma .
-    \end{aligned}
-  \]
-  }%
-}
 \begin{document}
 
 \maketitle
@@ -249,7 +136,7 @@
 
 \section{Methodology}
 \subsection{Simulators}
-\begin{frame}{Simulators}{\ttfamily{HighwayEnv}}
+\begin{frame}{Simulators}{\texttt{HighwayEnv}}
   Minimalist environment designed for training simple RL agents for autonomous driving %
   decision-making.
 
@@ -293,7 +180,7 @@
   \endgroup
 \end{frame}
 
-\begin{frame}{Simulators}{MetaDrive}
+\begin{frame}{Simulators}{\texttt{MetaDrive}}
   Designed to efficiently train generalizable RL agents using procedurally generated of maps.
 
   \vspace{.45em}
@@ -301,7 +188,7 @@
   \includegraphics[width=0.5\linewidth]{figures/sims/md/md.png}
 \end{frame}
 
-\begin{frame}{Simulators}{MetaDrive Maps}
+\begin{frame}{Simulators}{\texttt{MetaDrive} Maps}
   \centering
   \begingroup
   \begin{minipage}[t]{.29\textwidth}
@@ -319,7 +206,7 @@
   \endgroup
 \end{frame}
 
-\begin{frame}{Simulators}{CARLA}
+\begin{frame}{Simulators}{\texttt{CARLA}}
   High-fidelity simulator designed to evaluate state-of-the-art autonomous driving solutions.
 
   \vspace{.45em}
@@ -364,14 +251,16 @@
     \item Vehicle density and number of vehicles
     \item Other parameters such as road length, number of parking spots, \dots
   \end{itemize}
-  This yields a total of 1073 instances: 845 for HighwayEnv, 210 for MetaDrive, and 18 for %
-  CARLA, due to its much heavier and longer training and evaluation times.
+  This yields a total of 1073 instances: 845 for \texttt{HighwayEnv}, 210 for %
+  \texttt{MetaDrive}, and 18 for \texttt{CARLA}, due to its much heavier and longer %
+  training and evaluation times.
 \end{frame}
 
 \subsection{RL Algorithms}
 
 \begin{frame}{RL Algorithms}
-  Algorithms and training/evaluation protocol from stable-baselines3~\cite{stable_baselines3}.
+  Algorithms and training/evaluation protocol from %
+  \texttt{stable-baselines3}~\cite{stable_baselines3}.
 
   RL algorithms may support discrete (D) and/or continuous (C) action spaces.
   \begin{itemize}
@@ -443,9 +332,9 @@ the random policy and the baseline heuristic policy, respectively.
 \end{frame}
 
 \subsection{Individual Environments}
-\begin{frame}{Individual Environments}{\ttfamily{HighwayEnv} Highway projection}
+\begin{frame}{Individual Environments}{\texttt{HighwayEnv} Highway projection}
   Resulting projection from selected features and dimension reduction:
-  \vspace{0.4em}
+  \vspace{0.5em}
 
   \centering
   \small
@@ -550,30 +439,77 @@ the random policy and the baseline heuristic policy, respectively.
 \end{frame}
 
 \subsection{Multiple Environments}
-\begin{frame}{Multiple Environments}{\ttfamily{HighwayEnv} Discrete-Action Environments Projection}
-% Sources, best-performing algos
-% table of performance
+\begin{frame}{Multiple Environments}{\texttt{HighwayEnv} Discrete-Action Environments Projection}
+  \begin{columns}[c,onlytextwidth]
+    \column{.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/results/cross-envs/hedisc/7_sources.pdf}
+      {\scriptsize Environment Source\par}
+
+    \column{.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/results/cross-envs/hedisc/5_port.pdf}
+      {\scriptsize Best-Performing Algorithm\par}
+  \end{columns}
 \end{frame}
 
-\subsection{Multiple Environments}
+\begin{frame}{Multiple Environments}{\texttt{HighwayEnv} Discrete-Action Environments Performance Comparison}
+  \centering
+  \begin{tabular}{@{}lccc@{}}
+    \toprule
+    \textbf{Algorithms} & \textbf{Avg.} & \textbf{Std.} & \textbf{Success} \\
+    \midrule
+    A2C & 1.266 & 1.351 & 0.597 \\
+    DQN & 1.009 & 1.920 & 0.458 \\
+    PPO & 1.419 & 2.065 & 0.648 \\
+    \textbf{Selector} & 1.551 & 1.598 & \textbf{0.725} \\
+    Oracle & 1.780 & 2.347 & 1.000 \\
+    \bottomrule
+  \end{tabular}
+\end{frame}
+
 \begin{frame}{Multiple Environments}{All Continuous-Action Environments Projection}
-% Sources, best-performing algos
-% table of performance
+  \begin{columns}[c,onlytextwidth]
+    \column{.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/results/cross-envs/allcont/7_sources.pdf}
+      {\scriptsize Environment Source\par}
+
+    \column{.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/results/cross-envs/allcont/5_port.pdf}
+      {\scriptsize Best-Performing Algorithm\par}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Multiple Environments}{All Continuous-Action Environments Performance Comparison}
+  \centering
+  \begin{tabular}{@{}lccc@{}}
+    \toprule
+    \textbf{Algorithms} & \textbf{Avg.} & \textbf{Std.} & \textbf{Success} \\
+    \midrule
+    A2C & 0.468 & 0.325 & 0.232 \\
+    PPO & 0.410 & 0.344 & 0.199 \\
+    SAC & 0.746 & 0.427 & \textbf{0.813} \\
+    \textbf{Selector} & 0.738 & 0.444 & 0.784 \\
+    Oracle & 0.787 & 0.374 & 1.000 \\
+    \bottomrule
+  \end{tabular}
 \end{frame}
 
 \subsection{Domain-Specific Characteristics}
-\begin{frame}{Domain-Specific Characteristics}{\ttfamily{HighwayEnv} Discrete-Action Environments Projection: %
-No domain-specific metafeatures}
+\begin{frame}{Domain-Specific Characteristics}{\texttt{HighwayEnv} Discrete-Action Projection Without %
+Domain-Specific Metafeatures}
   By removing all domain-specific metafeatures, we study their impact on the ability to %
   separate algorithms.
 
   \vspace{.45em}
   \begin{columns}[c,onlytextwidth]
-    \column{.49\textwidth}
+    \column{.4\textwidth}
       \centering
       \includegraphics[width=\linewidth]{figures/results/edsm/7_sources.pdf}
 
-    \column{.49\textwidth}
+    \column{.58\textwidth}
       \centering
       \scriptsize
       \begin{tabular}{@{}lccc@{}}
@@ -591,18 +527,58 @@ No domain-specific metafeatures}
 \end{frame}
 
 \section{Conclusions}
-% Analyzing individual environments provides context for multi-environment projections.
-% Results based on multiple environments provide more generalizable results.
+\subsection{Results Discussion}
+\begin{frame}{Results Discussion}
+  \begin{itemize}
+    \item Single-environment projections may lack instance diversity
+    \item Analyzing individual environments provides context for multi-environment projections.
+    \item Results based on multiple environments yield better instance space coverage and %
+    provide more generalizable results
+    \item The algorithm selection methodology is capable of gaining significant performance over %
+    the best-performing algorithm in some cases
+    \item Some projections yield weaker selection performance, likely due to the predominance of %
+    a single algorithm or because the metafeatures are not discriminative enough
+  \end{itemize}
+\end{frame}
+
 \subsection{Contributions}
 \begin{frame}{Contributions}
+  \begin{itemize}
+    \item Adaptation of ISA concepts to the RL domain:
+    \begin{itemize}
+      \item Pipeline from RL problems to ISA results and projections
+      \item Metafeature design based on extracted trajectories from simple non-learned policies
+    \end{itemize}
+    \item Extensions of \texttt{HighwayEnv} environments to support further configuration
+    \item Dataset of trajectories, algorithm evaluation results, and extracted environment %
+    characteristics
+  \end{itemize}
 \end{frame}
 
 \subsection{Future Work}
 \begin{frame}{Future Work}
+  Although this work showcases the applicability of ISA to RL problems, there are a few %
+  potential avenues for future work:
+  \begin{itemize}
+    \item Using more hyperparameter configurations
+    \item Evaluating more diverse modern RL algorithms
+    \item Continue iterating and improving RL metafeatures
+    \item Focusing the analysis on other specific domains or broadening it to generic environments, %
+    with a much heavier computational cost
+  \end{itemize}
 \end{frame}
 
 \section*{Extras}
 \begin{frame}{Acknowledgment}
+  This work is a result of project ISA4RL --- Integrating Instance Space Analysis with %
+  Auto-Reinforcement Learning for Adaptive Algorithm Selection and Configuration, %
+  with number 15456, and the operation code at the Funds Platform COMPETE2030-FEDER00913800, %
+  co-financed by COMPETE 2030, by Portugal 2030, and by the European Union.
+
+  \vspace*{\fill}
+
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/project-logos.pdf}
 \end{frame}
 
 \begin{frame}[allowframebreaks]{References}
