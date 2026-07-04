@@ -1,5 +1,5 @@
 $pdf_mode = 4;
-$pdflatex = 'lualatex %O %S';
+$lualatex = 'lualatex %O %S';
 $bibtex = 'biber %O %B';
 $bibtex_use = 2;
 

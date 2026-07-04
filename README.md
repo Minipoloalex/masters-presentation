@@ -68,6 +68,24 @@ make build
 latexmk -lualatex main.tex
 ```
 
+For the fastest edit loop, keep `latexmk` running in preview-continuous mode:
+
+```sh
+make watch
+```
+
+If a previous failed build leaves corrupted auxiliary files, force a clean
+rebuild by removing generated state and then asking `latexmk` to rebuild:
+
+```sh
+make clean
+make build
+```
+
+The theme does not load `qrcode`. Keeping QR generation out of the deck avoids
+large QR matrices in `main.aux`, making rebuilds more reliable and keeping the
+auxiliary files smaller.
+
 ## Presentation notes
 
 The HighwayEnv simulator slide in `main.tex` uses a compact image grid instead
@@ -172,19 +190,15 @@ All extended title-page fields are optional and safe when empty:
 `\cookietitleimage` clips an image into the colored title-page wedge. Standard
 Beamer `\titlegraphic{...}` also works.
 
-The closing slide can include contact details, the Cookie penguin, and an
-optional clickable QR code:
+The closing slide can include contact details and the Cookie penguin:
 
 ```tex
 \cookieclosingtitle{Thank you}
 \cookieclosingtext{Questions?}
-\cookieclosingqr{https://example.org/my-slides}
-\cookieclosingqrlabel{Slides and source}
 \makeclosing
 ```
 
-Add `closing=contact` to insert the closing slide automatically. Cookie uses
-`qrcode` when it is installed and falls back to a clickable URL otherwise.
+Add `closing=contact` to insert the closing slide automatically.
 
 ## Background images on ordinary frames
 

@@ -25,8 +25,6 @@
 
 % Optional, TeX-Live-standard helpers. Cookie keeps graceful fallbacks so the
 % theme still compiles in deliberately minimal installations.
-\newif\ifcookie@qrcodeavailable
-\IfFileExists{qrcode.sty}{\RequirePackage{qrcode}\cookie@qrcodeavailabletrue}{\cookie@qrcodeavailablefalse}
 \newif\ifcookie@penguinavailable
 \IfFileExists{tikzlings-penguins.sty}{\RequirePackage{tikzlings-penguins}\cookie@penguinavailabletrue}{\cookie@penguinavailablefalse}
 \newif\ifcookie@tikzsymbolsavailable
@@ -357,8 +355,6 @@
 \newcommand{\insertcookiebackgroundimage}{}
 \newcommand{\insertcookieclosingtitle}{Thank you}
 \newcommand{\insertcookieclosingtext}{Questions?}
-\newcommand{\insertcookieclosingqr}{}
-\newcommand{\insertcookieclosingqrlabel}{Scan for the slides}
 
 \newcommand{\cookieemail}[1]{\gdef\insertcookieemail{#1}}
 \newcommand{\cookielocation}[1]{\gdef\insertcookielocation{#1}}
@@ -374,8 +370,6 @@
 \newcommand{\cookieclearbackgroundimage}{\gdef\insertcookiebackgroundimage{}}
 \newcommand{\cookieclosingtitle}[1]{\gdef\insertcookieclosingtitle{#1}}
 \newcommand{\cookieclosingtext}[1]{\gdef\insertcookieclosingtext{#1}}
-\newcommand{\cookieclosingqr}[1]{\gdef\insertcookieclosingqr{#1}}
-\newcommand{\cookieclosingqrlabel}[1]{\gdef\insertcookieclosingqrlabel{#1}}
 
 
 % Full-canvas background images.  The global command applies to subsequent
@@ -1449,22 +1443,7 @@
     \hfill
     \begin{minipage}[c]{.25\paperwidth}
       \centering
-      \ifdefempty{\insertcookieclosingqr}{%
-        \cookiepenguin[scale=.78]
-      }{%
-        \ifcookie@qrcodeavailable
-          \begingroup
-          \setlength{\fboxsep}{2.0mm}%
-          \href{\insertcookieclosingqr}{\colorbox{white}{{\color{black}\normalfont\normalsize\qrcode[height=.18\paperheight]{\insertcookieclosingqr}}}}%
-          \endgroup
-        \else
-          {\small\ttfamily\url{\insertcookieclosingqr}}%
-        \fi
-        \par\vspace{.45em}
-        {\fontsize{7.2}{9}\selectfont\mdseries\insertcookieclosingqrlabel\par}%
-        \vspace{.45em}
-        \cookiepenguin[scale=.36]
-      }%
+      \cookiepenguin[scale=.78]
     \end{minipage}%
   \end{frame}%
 }

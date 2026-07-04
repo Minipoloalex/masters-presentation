@@ -1,6 +1,8 @@
 MAIN := main
 PDF := $(MAIN).pdf
 LATEXMK := latexmk
+LUALATEX := TEXMFVAR=$(CURDIR)/.texmf-var lualatex -interaction=nonstopmode -halt-on-error
+BIBER := biber
 
 LATEX_ARTIFACTS := \
 	*.acn *.acr *.alg *.aux *.bbl *.bcf *.blg *.fdb_latexmk *.fls \
@@ -12,10 +14,11 @@ LATEX_ARTIFACTS := \
 
 all: build
 
-build: $(PDF)
-
-$(PDF): $(MAIN).tex refs.bib beamerthemecookie.sty figures/feup-logo.png figures/fcup-logo.png
-	$(LATEXMK) -lualatex $(MAIN).tex
+build: $(MAIN).tex refs.bib beamerthemecookie.sty figures/feup-logo.png figures/fcup-logo.png
+	$(LUALATEX) $(MAIN).tex
+	$(BIBER) $(MAIN)
+	$(LUALATEX) $(MAIN).tex
+	$(LUALATEX) $(MAIN).tex
 
 watch:
 	$(LATEXMK) -lualatex -pvc $(MAIN).tex
