@@ -191,13 +191,25 @@
 
 \begin{frame}{Instance Space Analysis: Example}
   \begin{columns}
-    \column{0.65\textwidth}
+    \column{0.6\textwidth}
     \centering
-    % different figure here
-    \includegraphics[width=0.75\linewidth]{figures/fw-isa.pdf}
+    \includegraphics[width=0.7\linewidth]{figures/example_svm_selection.png}
 
-    \column{0.25\textwidth}
-    Table here
+    \vspace{0.25em}
+
+    Example ISA algorithm selection for the Travelling Salesman %
+    Problem~\cite{isa_discussing_suitability_tsp}.
+
+    \column{0.3\textwidth}
+    \begin{tabularx}{\textwidth}{ll}
+      \toprule
+      Algorithms & Success Rate \\
+      \midrule
+      CLK  & 0.2 \\
+      LKCC & 0.8 \\
+      Selector & 0.907 \\
+      \bottomrule
+    \end{tabularx}
   \end{columns}
 \end{frame}
 
@@ -336,25 +348,85 @@
   \endgroup
 \end{frame}
 
-\begin{frame}{Pipeline}
+\subsection{Pipeline}
 
+\begin{frame}{Pipeline}
+  \centering
+  \includegraphics[width=\linewidth]{figures/meth_summary.pdf}
 \end{frame}
 
+\subsection{RL Algorithms}
 
 \begin{frame}{RL Algorithms}
-
+  RL algorithms may support discrete (D) and/or continuous (C) actions.
+  \begin{itemize}
+    \item \textbf{A2C}: D/C
+    \item \textbf{DQN}: D
+    \item \textbf{PPO}: D/C
+    \item \textbf{SAC}: C
+  \end{itemize}
+  Fixed hyperparameter configuration for each instance, adapted based on observation space, %
+  action space, and maximum episode timesteps
 \end{frame}
+
+\subsection{Metafeature Design}
 
 \begin{frame}{Metafeature Design}
+The main objective is to capture relevant aspects of each task.
 
+To extract a dataset of trajectories, we use two simple non-learned %
+``probe'' policies:
+\begin{itemize}
+  \item a random actions policy
+  \item a rule-based heuristic baseline which depends on the environment
+\end{itemize}
+
+We define the following groups of metafeatures:
+\begin{itemize}
+  \item Environment structure
+  \item Probe-performance and ego-dynamics
+  \item Probe observation-stream
+  \item Surrounding-traffic behavior
+  \item Environment dynamics
+\end{itemize}
 \end{frame}
 
-\begin{frame}{Metadata Dataset}
+\subsection{Metadata Dataset}
 
+\begin{frame}{Performance Normalization}
+There is no general performance metric capable of comparing agent performance %
+across heterogeneous environments.
+
+\begin{itemize}
+  \item An environment that yields higher mean returns may actually be harder to solve.
+\end{itemize}
+
+\vspace{0.45em}
+To define performance, we use the random and baseline heuristic policies defined for %
+the metafeature computation:
+\[
+s_{i,a} = \frac{R_{i,a} - R_{i,random}}{R_{i,baseline}-R_{i,random}}
+\]
+\begin{itemize}
+  \item $s_{i,a}$: normalized performance metric for algorithm $a$
+  \item $R_{i,a}$, $R_{i,random}$, $R_{i,baseline}$: mean episodic returns for the algorithm $a$, %
+the random policy and the baseline heuristic policy, respectively.
+\end{itemize}
 \end{frame}
 
 \section{Results}
 \begin{frame}{Individual Environments}
+
+  \begin{tabularx}{cccc}
+    \toprule
+    \textbf{Algorithms} & \textbf{\ Avg perf\ } & \textbf{\ Std perf\ } & \textbf{Success Rate} \\ \midrule
+    A2C & 0.587 & 0.379 & 0.425 \\
+    DQN & 0.512 & 0.488 & 0.467 \\
+    PPO & 0.648 & 0.386 & 0.675 \\
+    \textbf{Selector} & 0.660 & 0.403 & \textbf{0.750} \\
+    Oracle & 0.691 & 0.401 & 1.000 \\
+    \bottomrule
+  \end{tabularx}
 \end{frame}
 
 \begin{frame}{Multiple Environments}
@@ -364,12 +436,17 @@
 \end{frame}
 
 \section{Conclusions}
+\subsection{Contributions}
 \begin{frame}{Contributions}
 \end{frame}
 
+\subsection{Future Work}
 \begin{frame}{Future Work}
 \end{frame}
 
+\section*{Extras}
+\begin{frame}{Acknowledgment}
+\end{frame}
 
 
 \begin{frame}{Example 1}
