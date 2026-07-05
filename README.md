@@ -154,7 +154,7 @@ performance-comparison table frame.
 | `subsectionpage` | `none`, `simple`, `progressbar` | `none` |
 | `numbering` | `none`, `counter`, `fraction` | `fraction` |
 | `numberrail` | `none`, `section`, `subsection` | `subsection` |
-| `numberrailcolor` | `muted`, `accent` | `muted` |
+| `numberrailcolor` | `muted`, `accent`, `blue` | `muted` |
 | `block` | `transparent`, `fill` | `fill` |
 | `background` | `light`, `dark` | `light` |
 | `titleformat` | `regular`, `smallcaps`, `allcaps` | `regular` |
@@ -169,12 +169,18 @@ performance-comparison table frame.
 
 The structural number rail uses dimmed accent colors by default so values such
 as `1.1` support the title instead of competing with it. Use
-`numberrailcolor=accent` for a brighter accent treatment.
+`numberrailcolor=accent` for a brighter accent treatment, or
+`numberrailcolor=blue` to color the whole rail with `themeColorFive` while
+leaving the main accent unchanged.
 
 Cookie's global progress bar follows numbered sections from Beamer's table of
 contents. Starred sections such as `\section*{Extras}` are excluded from the
 bar and labels; frames inside them show the progress state clamped to the last
 numbered section.
+
+When `progressbar=foot`, the section labels in the footer are PDF links to the
+first frame of each numbered section, using the same section start pages as the
+table of contents.
 
 The structural number rail is also hidden on frames inside starred sections,
 and its reserved title-space is collapsed so those frame titles align to the

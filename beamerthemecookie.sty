@@ -64,6 +64,7 @@
 \definecolor{themeColorTen}{HTML}{27845F}
 \colorlet{titlePanelColor}{themeColorThree}
 \colorlet{titleRuleColor}{themeColorFour}
+\colorlet{cookieRailBlue}{themeColorFive}
 \colorlet{cookieAccent}{cookieAccentDefault}
 \colorlet{cookieAlgorithmKeyword}{cookieInk}
 \colorlet{cookieAlgorithmComment}{cookieMuted}
@@ -134,6 +135,7 @@
   numberrailcolor/.is choice,
   numberrailcolor/muted/.code  = \def\cookie@numberrailcolor{muted},
   numberrailcolor/accent/.code = \def\cookie@numberrailcolor{accent},
+  numberrailcolor/blue/.code   = \def\cookie@numberrailcolor{blue},
   closing/.is choice,
   closing/none/.code    = \def\cookie@closing{none},
   closing/contact/.code = \def\cookie@closing{contact},
@@ -391,13 +393,25 @@
 
 \newcommand{\cookie@railsectioncolor}{%
   \ifdefstring{\cookie@background}{dark}{%
-    \ifdefstring{\cookie@numberrailcolor}{accent}{\color{cookieAccent!88!cookiePaper}}{\color{cookieAccent!70!cookiePaper}}%
+    \ifdefstring{\cookie@numberrailcolor}{blue}{\color{cookieRailBlue!88!cookiePaper}}{%
+      \ifdefstring{\cookie@numberrailcolor}{accent}{\color{cookieAccent!88!cookiePaper}}{\color{cookieAccent!70!cookiePaper}}%
+    }%
   }{%
-    \ifdefstring{\cookie@numberrailcolor}{accent}{\color{cookieAccent}}{\color{cookieAccent!78!cookieInk}}%
+    \ifdefstring{\cookie@numberrailcolor}{blue}{\color{cookieRailBlue}}{%
+      \ifdefstring{\cookie@numberrailcolor}{accent}{\color{cookieAccent}}{\color{cookieAccent!78!cookieInk}}%
+    }%
   }%
 }
 \newcommand{\cookie@railsubsectioncolor}{%
-  \ifdefstring{\cookie@background}{dark}{\color{cookiePaper!45!cookieInk}}{\color{cookieMuted}}%
+  \ifdefstring{\cookie@numberrailcolor}{blue}{%
+    \ifdefstring{\cookie@background}{dark}{\color{cookieRailBlue!88!cookiePaper}}{\color{cookieRailBlue}}%
+  }{%
+    \ifdefstring{\cookie@numberrailcolor}{accent}{%
+      \ifdefstring{\cookie@background}{dark}{\color{cookieAccent!88!cookiePaper}}{\color{cookieAccent}}%
+    }{%
+      \ifdefstring{\cookie@background}{dark}{\color{cookiePaper!45!cookieInk}}{\color{cookieMuted}}%
+    }%
+  }%
 }
 \newcommand{\cookie@frametitledivider}{%
   {\color{cookieLine}\rule{\paperwidth}{.35pt}}%
@@ -593,6 +607,7 @@
     \def\babel@toc##1##2\relax{}%
     \def\beamer@sectionintoc##1##2##3##4##5{%
       \expandafter\gdef\csname cookie@sectionname@##1\endcsname{##2}%
+      \expandafter\xdef\csname cookie@sectionpage@##1\endcsname{##3}%
       \xdef\cookie@totalsections{##1}%
     }%
     \def\beamer@subsectionintoc##1##2##3##4##5##6{}%
@@ -603,6 +618,12 @@
 
 \newcommand{\cookie@sectionname}[1]{%
   \ifcsdef{cookie@sectionname@#1}{\csuse{cookie@sectionname@#1}}{#1}%
+}
+
+\newcommand{\cookie@sectionlink}[2]{%
+  \ifcsdef{cookie@sectionpage@#1}{%
+    \hyperlink{Navigation\csuse{cookie@sectionpage@#1}}{#2}%
+  }{#2}%
 }
 
 \newcommand{\cookie@subsectiontotalfor}[1]{%
@@ -689,10 +710,10 @@
         \pgfmathsetlengthmacro{\cookie@labelx}{(\cookie@sectionindex-.5)*\cookie@sectorwidth}
         \ifnum\cookie@sectionindex=\cookie@activesectioncount\relax
           \node[anchor=base,text=themeColorFive,font=\fontsize{5.9}{6.7}\selectfont\bfseries,align=center,text width=\dimexpr\cookie@sectorwidth-.45em\relax]
-            at (\cookie@labelx,0) {\cookie@sectionname{\cookie@sectionindex}};
+            at (\cookie@labelx,0) {\cookie@sectionlink{\cookie@sectionindex}{\cookie@sectionname{\cookie@sectionindex}}};
         \else
           \node[anchor=base,text=cookieMuted,font=\fontsize{5.7}{6.5}\selectfont,align=center,text width=\dimexpr\cookie@sectorwidth-.45em\relax]
-            at (\cookie@labelx,0) {\cookie@sectionname{\cookie@sectionindex}};
+            at (\cookie@labelx,0) {\cookie@sectionlink{\cookie@sectionindex}{\cookie@sectionname{\cookie@sectionindex}}};
         \fi
       }%
     \end{tikzpicture}%
