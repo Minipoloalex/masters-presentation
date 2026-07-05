@@ -671,7 +671,7 @@
       \foreach \cookie@sectionindex in {1,...,\the\@tempcnta}{%
         \pgfmathsetlengthmacro{\cookie@sectorright}{\cookie@sectionindex*\cookie@sectorwidth}
         \ifnum\cookie@sectionindex<\@tempcnta\relax
-          \draw[cookieProgressLine!45!cookiePaper,line width=1.05pt] (\cookie@sectorright,-.020cm) -- (\cookie@sectorright,.072cm);
+          \draw[cookieProgressLine!85!cookiePaper,line width=1.05pt] (\cookie@sectorright,-.020cm) -- (\cookie@sectorright,.072cm);
         \fi
       }%
       \foreach \cookie@sectionindex in {1,...,\the\@tempcnta}{%
@@ -1479,23 +1479,29 @@
 % Closing frame
 % -----------------------------------------------------------------------------
 \newcommand{\makeclosing}{%
-  \begin{frame}[noframenumbering,standout]
-    \begin{minipage}[c]{.62\paperwidth}
-      \raggedright
-      {\usebeamerfont{standout}\insertcookieclosingtitle\par}
-      \vspace{.55em}
-      {\Large\mdseries\insertcookieclosingtext\par}
-      \vspace{1.15em}
-      {\small\mdseries
-        \ifx\@author\@empty\else\insertauthor\fi%
-        \ifdefempty{\insertcookieemail}{}{\par\vspace{.22em}\href{mailto:\insertcookieemail}{\insertcookieemail}}%
-      }
-    \end{minipage}%
-    \hfill
-    \begin{minipage}[c]{.25\paperwidth}
-      \centering
-      \cookiepenguin[scale=.78]
-    \end{minipage}%
+  \begin{frame}[plain,noframenumbering]
+    \begin{tikzpicture}[remember picture,overlay]
+      \fill[cookiePaper] (current page.south west) rectangle (current page.north east);
+      \fill[cookieTitleBar]
+        (current page.south west) rectangle ($(current page.north west)+(.012\paperwidth,0)$);
+      \node[anchor=west,text width=.68\paperwidth,align=left]
+        at ($(current page.west)+(.070\paperwidth,.065\paperheight)$)
+        {{\usebeamerfont{standout}\color{cookieInk}\insertcookieclosingtitle\par}};
+      \node[anchor=west,text width=.68\paperwidth,align=left]
+        at ($(current page.west)+(.070\paperwidth,-.035\paperheight)$)
+        {{\fontsize{18}{22}\selectfont\bfseries\color{themeColorFive}\insertcookieclosingtext\par}};
+      \draw[cookieProgressLine,line width=1.2pt]
+        ($(current page.west)+(.070\paperwidth,-.105\paperheight)$)
+        -- ($(current page.west)+(.285\paperwidth,-.105\paperheight)$);
+      \node[anchor=west,text width=.62\paperwidth,align=left]
+        at ($(current page.west)+(.070\paperwidth,-.185\paperheight)$)
+        {{\small\color{cookieMuted}%
+          \ifx\@author\@empty\else\insertauthor\fi%
+          \ifdefempty{\insertcookieemail}{}{\par\vspace{.22em}\href{mailto:\insertcookieemail}{\insertcookieemail}}%
+        }};
+      \node[anchor=east,text=themeColorFive!9,font=\fontsize{82}{82}\selectfont\bfseries]
+        at ($(current page.east)+(-.070\paperwidth,-.030\paperheight)$) {?};
+    \end{tikzpicture}%
   \end{frame}%
 }
 
