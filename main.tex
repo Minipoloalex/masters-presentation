@@ -10,15 +10,22 @@
 \usepackage{ragged2e}
 \usepackage{csquotes}
 \usepackage{comment}
+% \usepackage[
+%   backend=biber,
+%   style=authoryear,
+%   maxcitenames=2,
+%   doi=false,
+%   isbn=false,
+%   url=true
+% ]{biblatex}
 \usepackage[
   backend=biber,
-  style=authoryear,
+  style=apa,
   maxcitenames=2,
-  doi=false,
-  isbn=false,
-  url=true
 ]{biblatex}
+
 \addbibresource{refs.bib}
+\input{bib_helpers.tex}
 
 \usetheme[
   accent=themeColorThree,
@@ -46,7 +53,7 @@
 \titlelogoone{\includegraphics[width=.235\paperwidth]{figures/feup-logo.png}}
 \titlelogotwo{\includegraphics[width=.235\paperwidth]{figures/fcup-logo.png}}
 \cookieclosingtitle{Thank you}
-\cookieclosingtext{TODO closing text?}
+\cookieclosingtext{Questions?}
 
 \begin{document}
 
@@ -55,7 +62,7 @@
 \section{Context}
 
 \subsection{Reinforcement Learning}
-\begin{frame}{Reinforcement Learning}
+\begin{frame}{Reinforcement Learning (RL)}
   \begin{columns}[T,onlytextwidth]
     \column{0.55\textwidth}
     \centering
@@ -84,7 +91,7 @@
     \vspace{0.25em}
 
     Example ISA algorithm selection for the Travelling Salesman %
-    Problem~\cite{isa_discussing_suitability_tsp}.
+    Problem~\cite{isa_trace_footprints}.
 
     \column{0.3\textwidth}
     \scriptsize
@@ -120,9 +127,9 @@
 \begin{frame}{Literature Review}
   A few issues arise to apply ISA to RL:
   \begin{itemize}
-    \item No established metafeature set for RL
-    \item Nonstationarity of RL: the actions of an agent affect the data it learns from
-    \item RL does not have a fixed dataset, only environment interactions;
+    \item No established metafeature set
+    \item Nonstationarity: the actions of an agent affect the data it learns from
+    \item No fixed dataset, only environment interactions;
   \end{itemize}
 
   Many works study properties that impact RL algorithm performance:
@@ -139,7 +146,7 @@
 \subsection{Simulators}
 \begin{frame}{Simulators}{\texttt{HighwayEnv}}
   Minimalist environment designed for training simple RL agents for autonomous driving %
-  decision-making.
+  decision-making~\cite{highway_env}.
 
   \vspace{.45em}
   \centering
@@ -158,7 +165,7 @@
   \end{minipage}\hfill
   \begin{minipage}[t]{.235\textwidth}
     \vspace{0pt}
-    \includegraphics[width=\linewidth]{figures/sims/he/lane_keeping_smaller.png}
+    \includegraphics[width=\linewidth]{figures/sims/he/lane_keeping_presentation.png}
   \end{minipage}
 
   \vspace{.55em}
@@ -176,13 +183,13 @@
   \end{minipage}\hfill
   \begin{minipage}[t]{.235\textwidth}
     \vspace{0pt}
-    \includegraphics[width=\linewidth]{figures/sims/he/parking.png}
+    \includegraphics[width=\linewidth]{figures/sims/he/parking_presentation.png}
   \end{minipage}
   \endgroup
 \end{frame}
 
 \begin{frame}{Simulators}{\texttt{MetaDrive}}
-  Designed to efficiently train generalizable RL agents using procedurally generated maps.
+  Designed to efficiently train generalizable RL agents using procedurally generated maps~\cite{metadrive}.
 
   \vspace{.45em}
   \centering
@@ -208,7 +215,7 @@
 \end{frame}
 
 \begin{frame}{Simulators}{\texttt{CARLA}}
-  High-fidelity simulator designed to evaluate state-of-the-art autonomous driving solutions.
+  High-fidelity simulator designed to evaluate state-of-the-art autonomous driving solutions~\cite{carla}.
 
   \vspace{.45em}
   \centering

@@ -6,8 +6,6 @@ low-noise configuration habits people like in Metropolis: optional progress
 bars, section pages, compact blocks, predictable options, and useful defaults
 for technical slides.
 
-![Cookie demo preview](cookie-demo-preview.png)
-
 ## Quick start
 
 Cookie is a single `.sty` file. There is no package installer, scaffold, or
@@ -222,7 +220,7 @@ No fonts are bundled. To use your own setup, choose `fonts=none` and load
 \setmonofont{Your Mono Font}
 ```
 
-## Metadata, title images, and the closing QR
+## Metadata and title images
 
 All extended title-page fields are optional and safe when empty:
 
@@ -246,6 +244,10 @@ The closing slide can include contact details and the Cookie penguin:
 ```
 
 Add `closing=contact` to insert the closing slide automatically.
+
+The default closing slide uses a light `cookiePaper` background, the same
+`cookieTitleBar` left bar as contents and section slides, `themeColorFive` for
+the question prompt, and `cookieProgressLine` for the small closing rule.
 
 ## Background images on ordinary frames
 

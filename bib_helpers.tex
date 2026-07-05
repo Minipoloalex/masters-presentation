@@ -1,0 +1,122 @@
+% Version of July 5, 2026
+
+% bib penalties to make more line breaks (avoid going over border)
+\setcounter{biburllcpenalty}{100}
+\setcounter{biburlucpenalty}{100}
+\setcounter{biburlnumpenalty}{100}
+
+% This adds "[" and "]" to in-text citations
+\DeclareCiteCommand{\cite}[\mkbibbrackets]
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite}%
+   \usebibmacro{cite:post}}
+  {}
+  {\usebibmacro{postnote}}
+
+% DOI and URL formatting in bibliography
+\DeclareFieldFormat{doi}{DOI\addcolon\space\nolinkurl{#1}}
+\DeclareFieldFormat{url}{Available online at \url{#1} (last accessed: June 2026)}
+\DeclareFieldFormat{howpublished}{
+    \IfSubStr{\detokenize{#1}}{\detokenize{\url}}
+    {Available online at #1 (last accessed: June 2026)}
+    {Available online at \url{#1} (last accessed: June 2026)}
+}
+
+% arXiv formatting
+\DeclareFieldFormat{eprint:arxiv}{arXiv:\nolinkurl{#1}}
+\DeclareFieldFormat{eprintclass}{\mkbibbrackets{#1}}
+
+\newbibmacro*{arxiv+eprintclass}{
+  \iffieldundef{eprint}
+    {}
+    {
+      \printfield[eprint:arxiv]{eprint}
+      \iffieldundef{eprintclass}
+        {}
+        {\setunit{\addspace}\printfield{eprintclass}}
+    }
+}
+
+\ExecuteBibliographyOptions{
+  date=year,
+  isbn=true,
+  eventdate=comp,
+}
+
+\DeclareFieldFormat{isbn}{ISBN: #1}
+
+% Print arXiv identifier for arXiv entries.
+% Otherwise print DOI if available; otherwise ISBN; otherwise URL/howpublished.
+\renewbibmacro*{doi+url}{
+  \iffieldequalstr{eprinttype}{arxiv}
+    {
+      \usebibmacro{arxiv+eprintclass}
+    }
+    {
+      \iffieldundef{doi}
+        {
+          \printfield{isbn}
+          \iffieldundef{isbn}
+            {
+              \newunit\newblock
+              \iffieldundef{url}
+                {\printfield{howpublished}}
+                {\printfield{url}}
+            }
+            {}
+        }
+        {
+          \printfield{doi}
+        }
+    }
+}
+
+% Conference/event information after the proceedings title
+\newbibmacro*{conferenceinfo}{
+  \iffieldundef{eventtitle}
+    {}
+    {\setunit{\addspace}\printtext[parens]{\printfield{eventtitle}}}
+  \iffieldundef{eventyear}
+    {}
+    {\setunit{\addcomma\space}\printeventdate}
+  \iffieldundef{venue}
+    {}
+    {\setunit{\addcomma\space}\printfield{venue}}
+}
+
+% For normal @inproceedings/@inbook-style output
+\renewbibmacro*{booktitle}{%
+  \ifboolexpr{
+    test {\iffieldundef{booktitle}}
+    and
+    test {\iffieldundef{booksubtitle}}
+  }
+    {}
+    {
+      \printtext[booktitle]{
+        \printfield[apacase]{booktitle}
+        \iffieldundef{booksubtitle}
+          {}
+          {\setunit{\subtitlepunct}\printfield[apacase]{booksubtitle}}
+      }
+      \usebibmacro{conferenceinfo}
+      \setunit{\addspace}
+    }
+  \printfield{booktitleaddon}
+}
+
+% For biblatex-apa remapped @inproceedings -> @article output
+\renewbibmacro*{journal+issuetitle}{
+  \usebibmacro{journal}
+  \usebibmacro{conferenceinfo}
+  \setunit*{\addcomma\addspace}
+  \printfield{volume}
+  \printfield{number}
+  \setunit{\addcomma\addspace}
+  \printfield{eid}
+  \newunit\newblock
+  \usebibmacro{issuename}
+  \newunit
+}

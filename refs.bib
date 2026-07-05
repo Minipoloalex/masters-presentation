@@ -37,22 +37,29 @@
   urldate = {2026-06-21}
 }
 
-@article{isa_discussing_suitability_tsp,
-  author       = {Smith-Miles, Kate and Hemert, Jano},
-  title        = {{Discovering the suitability of optimisation algorithms by learning from evolved instances}},
-  journaltitle = {Annals of Mathematics and Artificial Intelligence},
-  date         = {2011-02},
-  volume       = {61},
-  number       = {2},
-  pages        = {87--104},
-  doi          = {10.1007/s10472-011-9230-5},
+@book{rl_sutton_and_barto,
+  author    = {Sutton, Richard S. and Barto, Andrew G.},
+  title     = {{Reinforcement Learning: An Introduction}},
+  edition   = {2nd},
+  publisher = {The MIT Press},
+  venue  = {Cambridge, MA, USA},
+  date      = {2018-11-13},
+  isbn      = {978-0-262-03924-6},
 
-  publisher    = {Kluwer Academic Publishers},
-  venue     = {USA},
-  numpages     = {18},
-  issn         = {1012-2443},
-  issue_date   = {February  2011},
-  keywords     = {49-04, 68Q25, 68Q87, 68T05, 68T20, 90B99, Algorithm selection, Combinatorial optimization, Hardness prediction, Instance difficulty, Phase transition, Travelling salesman problem},
+  series    = {Adaptive Computation and Machine Learning},
+}
+@inproceedings{isa_trace_footprints,
+  author    = {Smith-Miles, Kate and Tan, Thomas T.},
+  title     = {Measuring algorithm footprints in instance space},
+  booktitle = {Proceedings of the 2012 IEEE Congress on Evolutionary Computation},
+  eventtitle = {CEC'12},
+  venue  = {Brisbane, Australia},
+  date      = {2012},
+  pages     = {1--8},
+  publisher = {IEEE},
+  doi       = {10.1109/CEC.2012.6252992},
+
+  keywords  = {Cities and towns;Prediction algorithms;Algorithm design and analysis;Visualization;Optimization;Extraterrestrial measurements;instance difficulty;heuristics;traveling salesman problem;performance metrics;algorithm footprints},
 }
 @article{stable_baselines3,
   author       = {Antonin Raffin and Ashley Hill and Adam Gleave and Anssi Kanervisto and Maximilian Ernestus and Noah Dormann},
@@ -64,4 +71,47 @@
   pages        = {1--8},
 
   url          = {https://www.jmlr.org/papers/v22/20-1364.html},
+}
+@misc{highway_env,
+  author       = {Leurent, Edouard},
+  title        = {An Environment for Autonomous Driving Decision-Making},
+  publisher    = {GitHub},
+  date         = {2018},
+  url          = {https://github.com/Farama-Foundation/HighwayEnv},
+
+  journaltitle = {GitHub repository},
+  howpublished = {\url{https://github.com/Farama-Foundation/HighwayEnv}},
+}
+
+@article{metadrive,
+  author       = {Li, Quanyi and Peng, Zhenghao and Feng, Lan and Zhang, Qihang and Xue, Zhenghai and Zhou, Bolei},
+  title        = {{{MetaDrive}: Composing Diverse Driving Scenarios for Generalizable {Reinforcement Learning}}},
+  journaltitle = {IEEE Transactions on Pattern Analysis \& Machine Intelligence},
+  date         = {2023-03},
+  volume       = {45},
+  number       = {03},
+  pages        = {3461--3475},
+  doi          = {10.1109/TPAMI.2022.3190471},
+
+  issn         = {1939-3539},
+  keywords     = {Task analysis;Roads;Reinforcement learning;Benchmark testing;Training;Safety;Autonomous vehicles},
+  publisher    = {IEEE Computer Society},
+  venue     = {Los Alamitos, CA, USA},
+}
+
+@inproceedings{carla,
+  author     = {Dosovitskiy, Alexey and Ros, German and Codevilla, Felipe and Lopez, Antonio and Koltun, Vladlen},
+  title      = {{CARLA}: {An} Open Urban Driving Simulator},
+  booktitle  = {Proceedings of the 1st Annual Conference on Robot Learning},
+  eventtitle = {CoRL'17},
+  eventdate  = {2017-11-13/2017-11-15},
+  date       = {2017},
+  pages      = {1--16},
+  publisher  = {PMLR},
+  url        = {https://proceedings.mlr.press/v78/dosovitskiy17a.html},
+
+  editor     = {Levine, Sergey and Vanhoucke, Vincent and Goldberg, Ken},
+  volume     = {78},
+  series     = {Proceedings of Machine Learning Research},
+  pdf        = {http://proceedings.mlr.press/v78/dosovitskiy17a/dosovitskiy17a.pdf},
 }
