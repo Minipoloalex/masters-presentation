@@ -173,6 +173,15 @@ as `1.1` support the title instead of competing with it. Use
 `numberrailcolor=blue` to color the whole rail with `themeColorFive` while
 leaving the main accent unchanged.
 
+Section and subsection numbers use `themeColorFive` directly so they remain
+blue even when the main accent is changed for title-page artwork or other
+structural marks.
+
+Progress bars use `themeColorEleven` (`#5D4037`) for the completed line and a
+lightened `themeColorFour` (`#C89B6A`) shade for the remaining/current area.
+The active footer section label and frame-title divider use mixes of the same
+brown. Contents and section-slide left bars use `themeColorFour`.
+
 Cookie's global progress bar follows numbered sections from Beamer's table of
 contents. Starred sections such as `\section*{Extras}` are excluded from the
 bar and labels; frames inside them show the progress state clamped to the last

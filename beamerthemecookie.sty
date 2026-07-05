@@ -57,6 +57,7 @@
 \definecolor{themeColorThree}{HTML}{000000}
 \definecolor{themeColorFour}{HTML}{C89B6A}
 \definecolor{themeColorFive}{HTML}{426B9E}
+\definecolor{themeColorEleven}{HTML}{5D4037}
 \definecolor{themeColorSix}{HTML}{111827}
 \definecolor{themeColorSeven}{HTML}{DADDE4}
 \definecolor{themeColorEight}{HTML}{F0F2F6}
@@ -64,7 +65,9 @@
 \definecolor{themeColorTen}{HTML}{27845F}
 \colorlet{titlePanelColor}{themeColorThree}
 \colorlet{titleRuleColor}{themeColorFour}
-\colorlet{cookieRailBlue}{themeColorFive}
+\colorlet{cookieProgressLine}{themeColorEleven}
+\colorlet{cookieProgressShade}{themeColorFour!38!cookiePaper}
+\colorlet{cookieTitleBar}{themeColorFour}
 \colorlet{cookieAccent}{cookieAccentDefault}
 \colorlet{cookieAlgorithmKeyword}{cookieInk}
 \colorlet{cookieAlgorithmComment}{cookieMuted}
@@ -393,18 +396,18 @@
 
 \newcommand{\cookie@railsectioncolor}{%
   \ifdefstring{\cookie@background}{dark}{%
-    \ifdefstring{\cookie@numberrailcolor}{blue}{\color{cookieRailBlue!88!cookiePaper}}{%
+    \ifdefstring{\cookie@numberrailcolor}{blue}{\color{themeColorFive!88!cookiePaper}}{%
       \ifdefstring{\cookie@numberrailcolor}{accent}{\color{cookieAccent!88!cookiePaper}}{\color{cookieAccent!70!cookiePaper}}%
     }%
   }{%
-    \ifdefstring{\cookie@numberrailcolor}{blue}{\color{cookieRailBlue}}{%
+    \ifdefstring{\cookie@numberrailcolor}{blue}{\color{themeColorFive}}{%
       \ifdefstring{\cookie@numberrailcolor}{accent}{\color{cookieAccent}}{\color{cookieAccent!78!cookieInk}}%
     }%
   }%
 }
 \newcommand{\cookie@railsubsectioncolor}{%
   \ifdefstring{\cookie@numberrailcolor}{blue}{%
-    \ifdefstring{\cookie@background}{dark}{\color{cookieRailBlue!88!cookiePaper}}{\color{cookieRailBlue}}%
+    \ifdefstring{\cookie@background}{dark}{\color{themeColorFive!88!cookiePaper}}{\color{themeColorFive}}%
   }{%
     \ifdefstring{\cookie@numberrailcolor}{accent}{%
       \ifdefstring{\cookie@background}{dark}{\color{cookieAccent!88!cookiePaper}}{\color{cookieAccent}}%
@@ -414,7 +417,7 @@
   }%
 }
 \newcommand{\cookie@frametitledivider}{%
-  {\color{cookieLine}\rule{\paperwidth}{.35pt}}%
+  {\color{cookieProgressLine!75!cookiePaper}\rule{\paperwidth}{1.0pt}}%
 }
 \newcommand{\cookie@footersection}[1]{%
   \textcolor{cookieMuted}{#1}%
@@ -499,7 +502,7 @@
   }%
   \setbeamercolor{alerted text}{fg=cookieAccent}%
   \setbeamercolor{example text}{fg=cookieExample}%
-  \setbeamercolor{progress bar}{fg=cookieAccent,bg=cookieLine}%
+  \setbeamercolor{progress bar}{fg=cookieProgressLine,bg=cookieProgressShade}%
   \setbeamercolor{page number in head/foot}{fg=white,bg=cookieAccent}%
   \setbeamercolor{caption name}{fg=cookieAccent}%
 
@@ -595,9 +598,9 @@
   \begin{tikzpicture}[baseline]
     \path[use as bounding box] (0,-.055cm) rectangle (#1,.10cm);
     \clip (0,-.055cm) rectangle (#1,.10cm);
-    \fill[cookieLine] (0,0) rectangle (#1,.045cm);
-    \fill[cookieAccent] (0,0) rectangle (\cookie@progresswidth,.045cm);
-    \fill[cookieAccent] (\cookie@progresswidth,.0225cm) circle[radius=.055cm];
+    \fill[cookieProgressShade] (0,0) rectangle (#1,.045cm);
+    \fill[cookieProgressLine] (0,0) rectangle (\cookie@progresswidth,.045cm);
+    \fill[cookieProgressLine] (\cookie@progresswidth,.0225cm) circle[radius=.055cm];
   \end{tikzpicture}%
 }
 
@@ -644,23 +647,23 @@
       \foreach \cookie@sectionindex in {1,...,\the\@tempcnta}{%
         \pgfmathsetlengthmacro{\cookie@sectorleft}{(\cookie@sectionindex-1)*\cookie@sectorwidth}
         \pgfmathsetlengthmacro{\cookie@sectorright}{\cookie@sectionindex*\cookie@sectorwidth}
-        \fill[cookieLine] (\cookie@sectorleft,0) rectangle (\cookie@sectorright,.045cm);
+        \fill[cookieProgressShade] (\cookie@sectorleft,0) rectangle (\cookie@sectorright,.045cm);
         \ifnum\cookie@sectionindex<\cookie@activesectioncount\relax
-          \fill[themeColorFive] (\cookie@sectorleft,0) rectangle (\cookie@sectorright,.045cm);
+          \fill[cookieProgressLine] (\cookie@sectorleft,0) rectangle (\cookie@sectorright,.045cm);
         \fi
         \ifnum\cookie@sectionindex=\cookie@activesectioncount\relax
-          \fill[themeColorFive!22!cookiePaper] (\cookie@sectorleft,0) rectangle (\cookie@sectorright,.045cm);
+          \fill[themeColorFour!52!cookiePaper] (\cookie@sectorleft,0) rectangle (\cookie@sectorright,.045cm);
           \ifnum\value{section}>\@tempcnta\relax
-            \fill[themeColorFive] (\cookie@sectorleft,0) rectangle (\cookie@sectorright,.045cm);
+            \fill[cookieProgressLine] (\cookie@sectorleft,0) rectangle (\cookie@sectorright,.045cm);
           \else
             \@tempcntb=\cookie@subsectiontotalfor{\cookie@sectionindex}\relax
             \ifnum\@tempcntb>0\relax
               \cookie@activesubsectioncount=\value{subsection}\relax
               \ifnum\cookie@activesubsectioncount>\@tempcntb\relax\cookie@activesubsectioncount=\@tempcntb\relax\fi
               \pgfmathsetlengthmacro{\cookie@activewidth}{\cookie@sectorwidth*\the\cookie@activesubsectioncount/\the\@tempcntb}
-              \fill[themeColorFive] (\cookie@sectorleft,0) rectangle ($(\cookie@sectorleft,0)+(\cookie@activewidth,.045cm)$);
+              \fill[cookieProgressLine] (\cookie@sectorleft,0) rectangle ($(\cookie@sectorleft,0)+(\cookie@activewidth,.045cm)$);
             \else
-              \fill[themeColorFive] (\cookie@sectorleft,0) rectangle (\cookie@sectorright,.045cm);
+              \fill[cookieProgressLine] (\cookie@sectorleft,0) rectangle (\cookie@sectorright,.045cm);
             \fi
           \fi
         \fi
@@ -668,7 +671,7 @@
       \foreach \cookie@sectionindex in {1,...,\the\@tempcnta}{%
         \pgfmathsetlengthmacro{\cookie@sectorright}{\cookie@sectionindex*\cookie@sectorwidth}
         \ifnum\cookie@sectionindex<\@tempcnta\relax
-          \draw[cookieMuted,line width=1.05pt] (\cookie@sectorright,-.020cm) -- (\cookie@sectorright,.072cm);
+          \draw[cookieProgressLine!45!cookiePaper,line width=1.05pt] (\cookie@sectorright,-.020cm) -- (\cookie@sectorright,.072cm);
         \fi
       }%
       \foreach \cookie@sectionindex in {1,...,\the\@tempcnta}{%
@@ -688,7 +691,7 @@
               \pgfmathsetlengthmacro{\cookie@dotx}{\cookie@sectorright}
             \fi
           \fi
-          \fill[themeColorFive] (\cookie@dotx,.0225cm) circle[radius=.052cm];
+          \fill[cookieProgressLine] (\cookie@dotx,.0225cm) circle[radius=.052cm];
         \fi
       }%
     \end{tikzpicture}%
@@ -709,7 +712,7 @@
       \foreach \cookie@sectionindex in {1,...,\the\@tempcnta}{%
         \pgfmathsetlengthmacro{\cookie@labelx}{(\cookie@sectionindex-.5)*\cookie@sectorwidth}
         \ifnum\cookie@sectionindex=\cookie@activesectioncount\relax
-          \node[anchor=base,text=themeColorFive,font=\fontsize{5.9}{6.7}\selectfont\bfseries,align=center,text width=\dimexpr\cookie@sectorwidth-.45em\relax]
+          \node[anchor=base,text=cookieProgressLine,font=\fontsize{5.9}{6.7}\selectfont\bfseries,align=center,text width=\dimexpr\cookie@sectorwidth-.45em\relax]
             at (\cookie@labelx,0) {\cookie@sectionlink{\cookie@sectionindex}{\cookie@sectionname{\cookie@sectionindex}}};
         \else
           \node[anchor=base,text=cookieMuted,font=\fontsize{5.7}{6.5}\selectfont,align=center,text width=\dimexpr\cookie@sectorwidth-.45em\relax]
@@ -815,14 +818,14 @@
 % TOC styling
 \setbeamertemplate{section in toc}{%
   \leavevmode
-  \parbox[t]{2.4em}{\raggedleft\textcolor{cookieAccent}{\bfseries\inserttocsectionnumber.}}%
+  \parbox[t]{2.4em}{\raggedleft\textcolor{themeColorFive}{\bfseries\inserttocsectionnumber.}}%
   \hspace{.85em}%
   \parbox[t]{.74\linewidth}{\inserttocsection}\par\vspace{.30em}%
 }
 \setbeamertemplate{subsection in toc}{%
   \leavevmode
   \hspace*{3.25em}%
-  \parbox[t]{2.4em}{\raggedleft\textcolor{cookieMuted}{\inserttocsectionnumber.\inserttocsubsectionnumber}}%
+  \parbox[t]{2.4em}{\raggedleft\textcolor{themeColorFive}{\inserttocsectionnumber.\inserttocsubsectionnumber}}%
   \hspace{.85em}%
   \parbox[t]{.64\linewidth}{\textcolor{cookieMuted}{\inserttocsubsection}}\par\vspace{.18em}%
 }
@@ -874,7 +877,7 @@
         \noindent\hspace*{4.10em}%
         \hangindent=7.97em\hangafter=1%
         \makebox[3.05em][r]{%
-          \textcolor{cookieMuted}{\fontsize{7.7}{9}\selectfont\bfseries
+          \textcolor{themeColorFive}{\fontsize{7.7}{9}\selectfont\bfseries
             \inserttocsectionnumber.\inserttocsubsectionnumber}%
         }%
         \hspace{.82em}%
@@ -1095,12 +1098,12 @@
   \begin{frame}[plain,t]
     \begin{tikzpicture}[remember picture,overlay]
       \fill[cookiePaper] (current page.south west) rectangle (current page.north east);
-      \fill[titlePanelColor]
+      \fill[cookieTitleBar]
         (current page.south west)
         rectangle
-        ($(current page.north west)+(.013\paperwidth,0)$);
+        ($(current page.north west)+(.012\paperwidth,0)$);
       \node[anchor=west,text=cookieInk,font=\fontsize{30}{34}\selectfont\bfseries]
-        at ($(current page.west)+(.122\paperwidth,-.010\paperheight)$) {Contents};
+        at ($(current page.west)+(.070\paperwidth,-.010\paperheight)$) {Contents};
       \node[anchor=west,inner sep=0pt,text width=.49\paperwidth]
         at ($(current page.west)+(.405\paperwidth,0)$)
         {\begin{minipage}[t]{.49\paperwidth}
@@ -1166,8 +1169,8 @@
   \divide\cookie@progresswidth by \@tempcnta
   \multiply\cookie@progresswidth by \value{subsection}
   \begin{tikzpicture}[baseline]
-    \fill[cookieLine] (0,0) rectangle (\cookie@subsectionbarwidth,.045cm);
-    \fill[cookieAccent] (0,0) rectangle (\cookie@progresswidth,.045cm);
+    \fill[cookieProgressShade] (0,0) rectangle (\cookie@subsectionbarwidth,.045cm);
+    \fill[cookieProgressLine] (0,0) rectangle (\cookie@progresswidth,.045cm);
   \end{tikzpicture}%
 }
 
@@ -1178,15 +1181,15 @@
   \divide\cookie@progresswidth by \@tempcnta
   \multiply\cookie@progresswidth by \insertsectionnumber
   \begin{tikzpicture}[baseline]
-    \fill[cookieLine] (0,0) rectangle (\cookie@sectionbarwidth,.055cm);
-    \fill[cookieAccent] (0,0) rectangle (\cookie@progresswidth,.055cm);
+    \fill[cookieProgressShade] (0,0) rectangle (\cookie@sectionbarwidth,.055cm);
+    \fill[cookieProgressLine] (0,0) rectangle (\cookie@progresswidth,.055cm);
   \end{tikzpicture}%
 }
 
 \newcommand{\cookie@sectionpageframe}{%
   \begin{frame}[plain,noframenumbering,c]
     \begin{tikzpicture}[remember picture,overlay]
-      \fill[cookieAccent]
+      \fill[cookieTitleBar]
         (current page.south west) rectangle ($(current page.north west)+(.012\paperwidth,0)$);
       \node[anchor=base west,text=themeColorFive,font=\fontsize{28}{28}\selectfont\bfseries]
         at ($(current page.west)+(.070\paperwidth,.012\paperheight)$) {\insertsectionnumber};
@@ -1196,8 +1199,6 @@
       \ifdefstring{\cookie@sectionpage}{progressbar}{%
         \node[anchor=west] at ($(current page.west)+(.070\paperwidth,-.130\paperheight)$) {\cookie@sectionprogress};
       }{}%
-      \fill[cookieAccent] ($(current page.east)+(-.095\paperwidth,.24\paperheight)$) circle[radius=.014\paperheight];
-      \fill[cookieAccent,opacity=.45] ($(current page.east)+(-.072\paperwidth,.18\paperheight)$) circle[radius=.008\paperheight];
     \end{tikzpicture}
   \end{frame}%
 }
@@ -1206,10 +1207,10 @@
   \begin{frame}[plain,noframenumbering,c]
     \begin{tikzpicture}[remember picture,overlay]
       % The airy 0.3 composition, with one horizontal signal instead of two.
-      \fill[cookieAccent]
+      \fill[cookieTitleBar]
         (current page.south west) rectangle ($(current page.north west)+(.012\paperwidth,0)$);
 
-      \node[anchor=west,text=cookieAccent,font=\fontsize{7.5}{9}\selectfont\bfseries]
+      \node[anchor=west,text=themeColorFive,font=\fontsize{7.5}{9}\selectfont\bfseries]
         at ($(current page.west)+(.085\paperwidth,.145\paperheight)$)
         {SECTION~\insertsectionnumber\hspace{.65em}\textcolor{cookieLine}{/}\hspace{.65em}\MakeUppercase{\insertsectionhead}};
 
@@ -1222,7 +1223,7 @@
         % Here the local progress bar is also the underline.
         \node[anchor=west] at ($(current page.west)+(.085\paperwidth,-.205\paperheight)$)
           {\cookie@subsectionprogress};
-        \node[anchor=west,text=cookieMuted,font=\fontsize{6.8}{8}\selectfont\bfseries]
+        \node[anchor=west,text=themeColorFive,font=\fontsize{6.8}{8}\selectfont\bfseries]
           at ($(current page.west)+(.405\paperwidth,-.205\paperheight)$)
           {\insertsubsectionnumber\,/\,\cookie@subsectiontotal};
       }{%
@@ -1231,7 +1232,7 @@
           -- ($(current page.west)+(.185\paperwidth,-.145\paperheight)$);
       }%
 
-      \node[anchor=east,text=cookieAccent!12,font=\fontsize{58}{58}\selectfont\bfseries]
+      \node[anchor=east,text=themeColorFive!12,font=\fontsize{58}{58}\selectfont\bfseries]
         at ($(current page.east)+(-.070\paperwidth,.225\paperheight)$)
         {\insertsectionnumber.\insertsubsectionnumber};
     \end{tikzpicture}
