@@ -36,7 +36,7 @@
   numberrail=subsection,
   numberrailcolor=blue,
   block=fill,
-  notes=hide,
+  notes=second,
   toc=aftertitle,
   closing=none,
 ]{cookie}
@@ -74,12 +74,40 @@
       \item Requires heavy tuning and configuration
     \end{itemize}
   \end{columns}
+  \note{
+    \begin{itemize}
+      \small
+      \item \textbf{What is RL}: methodology to solve \textbf{sequential decision problems}
+      \item \textbf{Diagram and MDP-style definitions}: agent and environment, interaction between them. \textbf{On each step}, %
+      the agent receives information about the \textbf{environment state} and decides what \textbf{action to perform}. %
+      It also \textbf{receives rewards} which help determine the best actions in a state
+      \item \textbf{Compare with other ML problems}: opposed to other problems where we want to determine a class or value, here %
+      we have a more complex setup because of the \textbf{sequential} nature of decisions
+      \item \textbf{Different algorithms}: algorithms with different ideas --- optimize policy directly or through the estimation %
+      of the return value from a state or others. No algorithm is best every time. Solutions to RL problems require heavy tuning: %
+      trying many algorithms and parameters
+    \end{itemize}
+  }
 \end{frame}
 
 \subsection{Instance Space Analysis}
 \begin{frame}{Instance Space Analysis (ISA)}
   \centering
   \includegraphics[width=0.75\linewidth]{figures/fw-isa.pdf}
+  \note{
+    \begin{itemize}
+      \small
+      \item \textbf{Problem and Algorithm Space}
+      \item \textbf{Problem Subset}: Instances
+      \item \textbf{Feature Space}: Extract features from selected instances
+      \item \textbf{Performance Space}: measure performance of algorithms on the selected instances (training if necessary)
+      \item \textbf{Dataset of features and performance metrics}
+      \item \textbf{Dimension Reduction}: Select most relevant features to split algorithms and use a specific ISA dimension %
+      reduction method to reduce to 2 dimensions and enable visualizations.
+      \item \textbf{Get Results from ISA}: AS and performance metrics, instance space visualizations and algorithm footprints.
+      \item \textbf{Interpret ISA results}: Iterate on the selected instances, used features, and algorithms
+    \end{itemize}
+  }
 \end{frame}
 
 \begin{frame}{Instance Space Analysis: Example}
@@ -105,6 +133,16 @@
       \bottomrule
     \end{tabular}
   \end{columns}
+  \note{
+    \begin{itemize}
+      \item \textbf{Example of how ISA can be used}: a study that uses 2 Algorithms for TSP
+      \item Explain \textbf{what is the visualization}
+      \item One algorithm \textbf{dominates on average}, but the other is better in textbf{specific areas} of the instance space
+      \item \textbf{Selector} achieves much better performance
+      \item \textbf{Visualization of features}: would be able to identify the types of problems where an algorithm %
+      outperforms the other
+    \end{itemize}
+  }
 \end{frame}
 
 \subsection{Metafeatures}
@@ -114,13 +152,21 @@
   \begin{itemize}
     \item Highly discriminative
     \item Efficiently computable
-    \item Independent of algorithms in study
   \end{itemize}
   
   Classication and regression have well-established metafeatures.
 
   ISA uses these metafeatures to capture the different properties of instances.
+  \notes{
+    To perform ISA, we \textbf{need these features} that we extract from instances and use to define the dimension reduction:
 
+    Those are typically called metafeatures:
+    \begin{itemize}
+      \item \textbf{Definition}: Measurable characteristics that describe a problem and may help distinguish %
+      algorithm performance
+      \item \textbf{Properties}: 
+    \end{itemize}
+  }
 \end{frame}
 
 \section{Literature Review}

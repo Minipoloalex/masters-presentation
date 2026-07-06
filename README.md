@@ -448,7 +448,7 @@ Cookie uses native Beamer `\note{...}` commands and adds a styled note page.
 Choose the output mode in the theme options:
 
 ```tex
-\usetheme[notes=second]{cookie} % slide on the left, notes on the right
+\usetheme[notes=second]{cookie} % presenter-style PDF with note content
 ```
 
 ```tex
@@ -467,6 +467,13 @@ Choose the output mode in the theme options:
 
 `notes=show` emits note pages after slides, `notes=only` emits only note pages,
 and `notes=hide` creates the ordinary audience deck.
+
+In `main.tex`, speaker notes can be written in the source and hidden from the
+audience PDF with `notes=hide`. The first Reinforcement Learning slide includes
+an example note. For rehearsal, use `notes=second` for a presenter PDF or
+`notes=show` to inspect the styled note pages after each slide. Cookie's note
+pages intentionally omit the current-slide preview because presenter tools can
+already show the current and next slide.
 
 ## Citations and bibliography
 

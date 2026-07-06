@@ -1002,17 +1002,18 @@
 }
 
 
-% A clean note page for notes=show, notes=second, and notes=only. It includes a
-% small slide preview but gives most of the page to actual speaking prompts.
+% A clean note page for notes=show, notes=second, and notes=only. The presenter
+% tool can provide current/next slide context, so the page focuses on prompts.
 \setbeamertemplate{note page}{%
   \begin{tikzpicture}[remember picture,overlay]
     \fill[cookiePaper] (current page.south west) rectangle (current page.north east);
     \fill[cookieAccent] (current page.south west) rectangle ($(current page.north west)+(.014\paperwidth,0)$);
   \end{tikzpicture}%
   \begingroup\color{cookieInk}\usebeamerfont{note page}
-  \vspace*{.045\paperheight}%
-  \begin{minipage}[t]{.61\paperwidth}
-    \cookiekicker{Speaker notes}\par\vspace{.55em}
+  \vspace*{.005\paperheight}%
+  \begin{minipage}[t]{.86\paperwidth}
+    \vspace{0.1em}
+    \cookiekicker{Speaker notes}\par\vspace{.15em}
     {\fontsize{18}{22}\selectfont\bfseries\insertshortframetitle\par}%
     \vspace{.35em}
     {\footnotesize\color{cookieMuted}%
@@ -1020,12 +1021,8 @@
       \ifx\insertsubsectionhead\@empty\else\hspace{.55em}/\hspace{.55em}\insertsubsectionhead\fi
     }%
   \end{minipage}%
-  \hfill
-  \begin{minipage}[t]{.27\paperwidth}
-    \raggedleft\insertslideintonotes{0.25}
-  \end{minipage}%
-  \par\vspace{.55em}
-  {\color{cookieLine}\rule{\textwidth}{.45pt}}\par\vspace{.8em}
+  \par\vspace{.15em}
+  {\color{cookieLine}\rule{\textwidth}{.45pt}}\par\vspace{.15em}
   \insertnote
   \endgroup
 }
