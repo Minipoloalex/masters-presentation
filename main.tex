@@ -157,14 +157,17 @@
   Classication and regression have well-established metafeatures.
 
   ISA uses these metafeatures to capture the different properties of instances.
-  \notes{
+  \note{
     To perform ISA, we \textbf{need these features} that we extract from instances and use to define the dimension reduction:
 
     Those are typically called metafeatures:
     \begin{itemize}
       \item \textbf{Definition}: Measurable characteristics that describe a problem and may help distinguish %
       algorithm performance
-      \item \textbf{Properties}: 
+      \item \textbf{Properties}: discriminative, efficient, not depend on the trained algorithms or heavy computation, since %
+      that limits the gains from algorithm selection
+      \item ISA has used \textbf{well-established metafeatures from other problem types} %
+      to capture the different properties of instances and enable visualizations and other stuff.
     \end{itemize}
   }
 \end{frame}
@@ -186,6 +189,13 @@
   \end{itemize}
 
   Implicit knowledge of what impacts algorithm performance but no clear computable measures
+
+  \note{
+    \begin{itemize}
+      \item Opposed to other problems: RL has no established metafeatures
+      \item RL issues that complicate this: \textbf{nonstationarity} and \textbf{no fixed dataset}
+    \end{itemize}
+  }
 \end{frame}
 
 \section{Methodology}
