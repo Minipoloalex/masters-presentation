@@ -78,9 +78,10 @@
     \begin{itemize}
       \small
       \item \textbf{What is RL}: methodology to solve \textbf{sequential decision problems}
-      \item \textbf{Diagram and MDP-style definitions}: agent and environment, interaction between them. \textbf{On each step}, %
-      the agent receives information about the \textbf{environment state} and decides what \textbf{action to perform}. %
-      It also \textbf{receives rewards} which help determine the best actions in a state
+      \item \textbf{Diagram and MDP-style definitions}: agent and environment, interaction between them. \textbf{On each timestep}, %
+      the agent receives information about the \textbf{environment state} and decides what \textbf{action to perform} %
+      using what is called its policy. Then, it also \textbf{receives rewards} which help adjust the policy towards the %
+      best actions in a state.
       \item \textbf{Compare with other ML problems}: opposed to other problems where we want to determine a class or value, here %
       we have a more complex setup because of the \textbf{sequential} nature of decisions
       \item \textbf{Different algorithms}: algorithms with different ideas --- optimize policy directly or through the estimation %
@@ -194,6 +195,17 @@
     \begin{itemize}
       \item Opposed to other problems: RL has no established metafeatures
       \item RL issues that complicate this: \textbf{nonstationarity} and \textbf{no fixed dataset}
+      \begin{itemize}
+        \item Mention how \textbf{a policy may bias} the trajectories and dataset obtained. %
+        That makes it harder to characterize RL problems
+      \end{itemize}
+      \item Even though there are no efficiently computable metafeatures for RL, there %
+      are works that study properties that impact RL performance:
+      \begin{itemize}
+        \item Complexity Measures: study properties that \textbf{make it difficult to solve} %
+        RL problems, for instance, to design algorithms that use those properties
+        \item Benchmarks: evaluate algorithms by varying environment properties
+      \end{itemize}
     \end{itemize}
   }
 \end{frame}
@@ -242,6 +254,37 @@
     \includegraphics[width=\linewidth]{figures/sims/he/parking_presentation.png}
   \end{minipage}
   \endgroup
+
+  \note{
+    Before the pipeline, we explore \textbf{which simulators/environments} we use.
+
+    \textbf{One per level of complexity}: one simpler, medium, and more complex.
+    
+    HighwayEnv: the simplest
+    \begin{itemize}
+      \item 2D only, fully implemented in Python
+      \item Has several environments
+
+      \begin{itemize}
+        \item Highway
+        \item Highway with an incoming vehicle from an entry and must give space
+        \item Highway where the objective is to exit
+        \item Lane keeping
+        \item Racetrack and Oval Racetrack
+        \item Roundabout
+        \item Parking: may have walls or not
+      \end{itemize}
+
+      The actions that the agent performs depend on the environment:
+      \begin{itemize}
+        \item \textbf{Discrete actions} (5 actions) for Highway cases and roundabout: %
+        accelerate a set amount of, for instance, 10 km/h, decelerate, %
+        turn to left or right lane
+        \item \textbf{Continuous actions} for others: accelerate any possible amount, turn %
+        steering any possible angle
+      \end{itemize}
+    \end{itemize}
+  }
 \end{frame}
 
 \begin{frame}{Simulators}{\texttt{MetaDrive}}
@@ -250,6 +293,22 @@
   \vspace{.45em}
   \centering
   \includegraphics[width=0.5\linewidth]{figures/sims/md/md.png}
+  \note{
+    Medium complexity simulator: has 3D components. But still very efficient.
+
+    Generates the maps in a way that allows defining each block.
+
+    The image shows the simulator view and debug information.
+    \begin{itemize}
+      \item Block of road with several vehicles.
+      \item The blue squares represent debug navigation information
+      \item On the top, we also have the agent camera view and more information on the vehicle
+    \end{itemize}
+
+    This environment allows using continuous action similarly to HighwayEnv and discretized of those actions.
+    
+    For example, instead of being able to specify any angle, we can say only 5 values (-50, -25, 0, 25, 50)
+  }
 \end{frame}
 
 \begin{frame}{Simulators}{\texttt{MetaDrive} Maps}
@@ -268,6 +327,14 @@
     \includegraphics[width=\linewidth]{figures/sims/md/maps/image_rORY_vector.pdf}
   \end{minipage}
   \endgroup
+  \note{
+    These are 3 of the maps that we used, composed of different blocks:
+    \begin{itemize}
+      \item Straight road (estrada em linha reta) and a curve
+      \item 3 intersections
+      \item a roundabout with adjacent roads
+    \end{itemize}
+  }
 \end{frame}
 
 \begin{frame}{Simulators}{\texttt{CARLA}}
@@ -301,6 +368,17 @@
     \includegraphics[width=0.6\linewidth]{figures/sims/carla/highway_exit.png}
   \end{minipage}
   \endgroup
+  \note{
+    Last simulator: Very complex and heavy
+    \begin{itemize}
+      \item Objective is really to evaluate state-of-the-art autonomous driving solutions.
+      \item The algorithms we evaluate are not those types of solutions, but we can still %
+      use the simulator and evaluate them here
+      \item Visualizations: Road, intersection, enter to highway, exit from highway
+      \item We can see the real-world fidelity (realismo muito superior)
+      \item For this simulator, we also use both continuous and discretized versions of actions, like in MetaDrive
+    \end{itemize}
+  }
 \end{frame}
 
 \subsection{Pipeline}
@@ -308,6 +386,17 @@
 \begin{frame}{Pipeline}
   \centering
   \includegraphics[width=\linewidth]{figures/meth_summary.pdf}
+  \note{
+    \begin{itemize}
+      \item Define instances to use from the environments, by varying specific`' parameters.
+      \item Define algorithms
+      \item Train all algorithms in all instances
+      \item Then, we can evaluate the algorithms and also collect other trajectories %
+      to extract metafeatures for each instance
+      \item Using these performance metrics and metafeatures, we can obtain a metadata dataset %
+      that we can then use for ISA
+    \end{itemize}
+  }
 \end{frame}
 
 \subsection{Instance Generation}
@@ -323,6 +412,9 @@
   This yields a total of 1073 instances: 845 for \texttt{HighwayEnv}, 210 for %
   \texttt{MetaDrive}, and 18 for \texttt{CARLA}, due to its much heavier and longer %
   training and evaluation times.
+  \note{
+    To generate instances, we vary several parameters for each environment. (see slide)
+  }
 \end{frame}
 
 \subsection{RL Algorithms}
@@ -353,31 +445,66 @@
   \vspace{1em}
   Each instance requires training and evaluating 3 algorithms.
   This leads to a total of 3219 trained agents.
+  \note{
+    We use \texttt{stable-baselines3} to train the agents.
+
+    Like we saw, there are certain environments that support discrete or continuous actions.
+    The same happens with algorithms. For example, A2C supports both types but %
+    DQN only discrete.
+
+    So, since each action type has 3 algorithms, we need to train 3 algorithms %
+    for each instance.
+
+    In fact, for each algorithm, we use a single hyperparameter configuration %
+    per instance, primarily (maioritariamente) to keep experiments feasible %
+    (experiências computacionalmente viáveis).
+  }
 \end{frame}
 
 \subsection{Metafeature Design}
 
 \begin{frame}{Metafeature Design}
-The main objective is to capture relevant aspects of each task.
+  The main objective is to capture relevant aspects of each task.
 
-To extract a dataset of trajectories, we use two simple non-learned %
-``probe'' policies:
-\begin{itemize}
-  \item a random actions policy
-  \item a rule-based heuristic baseline which depends on the environment
-\end{itemize}
+  To extract a dataset of trajectories, we use two simple non-learned %
+  ``probe'' policies:
+  \begin{itemize}
+    \item a random actions policy
+    \item a rule-based heuristic baseline which depends on the environment
+  \end{itemize}
 
-We define the following groups of metafeatures:
-\begin{itemize}
-  \item Environment structure
-  \item Probe-performance and ego-dynamics
-  \item Probe observation-stream
-  \item Surrounding-traffic behavior
-  \item Environment dynamics
-\end{itemize}
+  We define the following groups of metafeatures:
+  \begin{itemize}
+    \item Environment structure
+    \item Probe-performance and ego-dynamics
+    \item Probe observation-stream
+    \item Surrounding-traffic behavior
+    \item Environment dynamics
+  \end{itemize}
+  \note{
+    Beyond training agents, we need to characterize instances and capture their properties.
+    That is (ou seja), we need metafeatures.
+
+    There is no fixed dataset, so we collect trajectories to make a dataset.
+
+    To ensure efficiency, we cannot use the algorithms we trained, because this would almost %
+    be like using the ground-truth. So, we use 2 simple policies that did not require training: %
+    (see slide)
+
+    Based on these trajectories, we extract different types of metafeatures:
+    \begin{enumerate}
+      \item observation, action size
+      \item reward statistics (mean, standard deviation)
+      \item observation statistics
+      \item statistics of other vehicles
+      \item transition linearity (quao lineares sao as transicoes)
+    \end{enumerate}
+
+    Some are generic to RL problems, and others are specific to the autonomous driving domain.
+  }
 \end{frame}
 
-\subsection{Metadata Dataset}
+\subsection{Performance Normalization}
 
 \begin{frame}{Performance Normalization}
 There is no general performance metric capable of comparing agent performance %
@@ -398,6 +525,20 @@ s_{i,a} = \frac{R_{i,a} - R_{i,random}}{R_{i,baseline}-R_{i,random}}
   \item $R_{i,a}$, $R_{i,random}$, $R_{i,baseline}$: mean episodic returns for the algorithm $a$, %
 the random policy and the baseline heuristic policy, respectively.
 \end{itemize}
+
+\note{
+  Rewards are not a good general metric for comparing agents between heterogeneous environments
+  
+  For example, we can have an agent with reward 10 in one environment and 1 in another and the first may be harder.
+  The reward scale may be very different.
+
+  So, to avoid this, we use this formula to normalize performance.
+  It also allows comparing with environments that have negative rewards.
+  The formula uses the simple policies we also used for metafeatures.
+
+  For example, a value close to 1 means great agent performance, similar to the heuristic policy.
+  A low value closer to 0 means the environment was harder for the agent.
+}
 \end{frame}
 
 \section{Results}
@@ -408,9 +549,19 @@ the random policy and the baseline heuristic policy, respectively.
     \item Performance threshold for success: within 5\% of best-performing algorithm
     \item Number of selected features: 6 for discrete-action and 8 for continuous-action environments
   \end{itemize}
+  \note{
+    Now, we have the normalized agent performances and the extracted metafeatures.
+    
+    So, we can generate the instance space results and analyze them.
 
-  % Analyzing individual environments provides context for multi-environment projections.
-  % Results based on multiple environments provide more generalizable results.
+    To generate the results, we still need to define a few parameters for specific ISA methods.
+    \begin{itemize}
+      \item Performance threshold for success (limite que define sucesso dos algoritmos): we defined a relative %
+      threshold of 5\% to the best algorithm. For example, the best algorithm has a score of 1 and the 2nd best of 0.95 %
+      --- both are deemed successful.
+      \item Nr of selected features: we filter the 6 or 8 features that are the most relevant
+    \end{itemize}
+  }
 \end{frame}
 
 \subsection{Individual Environments}
@@ -443,6 +594,14 @@ the random policy and the baseline heuristic policy, respectively.
       \text{\ttfamily action-state-discontinuity-p95}
     \end{bmatrix}
   $}
+  \note{
+    Now, we can analyze the results.
+
+    First, we present here the results for a single environment: the highway from the HighwayEnv platform.
+
+    We have the 2D projection obtained here.
+    Z1 and Z2 are the 2 axes, and are just linear combinations of the selected features.
+  }
 \end{frame}
 
 \begin{frame}{Individual Environments}{Highway Observation Space Sources and Best Algorithms}
@@ -457,6 +616,19 @@ the random policy and the baseline heuristic policy, respectively.
       \includegraphics[width=\linewidth]{figures/results/single-envs/highway/5_port.pdf}
       {\small Best-Performing Algorithm\par}
   \end{columns}
+  \note{
+    These figures show the visualizations of the instance space projection.
+
+    The first shows the types of observations for each instance. Here, we won't go in depth to what each represents. %
+    Basically, they change what the agent observes in each timestep.
+
+    In the second figure, we see the best algorithm for each instance.
+    It's easy to see that DQN and PPO perform best on (<pointer>) these instances, while A2C is best on (<pointer>) these.
+
+    To understand better what separates the instances and what makes algorithms perform differently, we can see the %
+    feature distributions. In this case, we already know some of the reason for this performance difference, because %
+    of the observation types.
+  }
 \end{frame}
 
 \begin{frame}{Individual Environments}{Highway Features Distribution}
@@ -496,6 +668,10 @@ the random policy and the baseline heuristic policy, respectively.
     \end{minipage}
   \end{tabular}
   \endgroup
+  \note{
+    Difference in performance explained by observation type, which is captured in the (<pointer>) this feature, %
+    which measures a specific observation property, larger in images. 
+  }
 \end{frame}
 
 \begin{frame}{Individual Environments}{Highway Selector Algorithm Choices}
@@ -519,6 +695,21 @@ the random policy and the baseline heuristic policy, respectively.
         \bottomrule
       \end{tabular}
   \end{columns}
+  \note{
+    Finally, we can see the selector choices and performance.
+    
+    In fact, the choices went according to our interpretation.
+    
+    Performance shows great algorithm selection improvements.
+    
+    On these tables, we focus more on the success rate, specifically comparing the best algorithm %
+    with the selection performance.
+
+    Here, the oracle represents the ground-truth, which would be the best algorithm selection possible.
+
+    From now on (a partir de agora), we will only analyze here a more limited set of figures, but that still lets us %
+    understand if the methodology was successful.
+  }
 \end{frame}
 
 \subsection{Multiple Environments}
@@ -534,6 +725,16 @@ the random policy and the baseline heuristic policy, respectively.
       \includegraphics[width=\linewidth]{figures/results/cross-envs/hedisc/5_port.pdf}
       {\small Best-Performing Algorithm\par}
   \end{columns}
+  \note{
+    \begin{itemize}
+      \item Going to the multi-environment projections, we analyze the discrete action instances from the HighwayEnv platform.
+      \item As mentioned before, it includes 4 different environments, including the highway we just individually analyzed.
+      \item In contrary to the previous projection, there is much more instance space coverage %
+      (instance space está mais preenchido).
+      \item Similar to before, the DQN algorithm performs well only in a subset of instances, with %
+      others performing generally well
+    \end{itemize}
+  }
 \end{frame}
 
 \begin{frame}{Multiple Environments}{\texttt{HighwayEnv} Discrete-Action Environments Performance Comparison}
@@ -549,6 +750,12 @@ the random policy and the baseline heuristic policy, respectively.
     Oracle & 1.780 & 2.347 & 1.000 \\
     \bottomrule
   \end{tabular}
+  \note{
+    \begin{itemize}
+      \item The selection performance gains here are also considerable.
+      \item We have 0.725 success rate for the selection, over 7\% better than PPO, which is best algorithm.
+    \end{itemize}
+  }
 \end{frame}
 
 \begin{frame}{Multiple Environments}{All Continuous-Action Environments Projection}
@@ -563,6 +770,24 @@ the random policy and the baseline heuristic policy, respectively.
       \includegraphics[width=\linewidth]{figures/results/cross-envs/allcont/5_port.pdf}
       {\small Best-Performing Algorithm\par}
   \end{columns}
+  \note{
+    \begin{itemize}
+      \item Contains all environments we used with continuous actions: from HighwayEnv, MetaDrive, CARLA.
+      \item Covers the instance space much worse, for two specific reasons;
+      \begin{itemize}
+        \item For HighwayEnv, the environments are quite different: in discrete-actions, all are lane-based, but here %
+        lane keeping and parking are not exactly lane-based tasks with other vehicles.
+        Lane Keeping is just a task to center in a lane, without any other vehicles.
+
+        \item There is also an outlier, which is a consequence of the parking heuristic policy always %
+        receiving the same rewards. Since one of the selected metafeatures was calculated by dividing %
+        by standard deviation, that metafeature remained a 0, since it was not possible to compute.
+      \end{itemize}
+      \item Furthermore, the figure that shows the best algorithms shows that there is one algorithm %
+      that almost always outperforms the others. This probably will limit the performance of the %
+      algorithm selection method.
+    \end{itemize}
+  }
 \end{frame}
 
 \begin{frame}{Multiple Environments}{All Continuous-Action Environments Performance Comparison}
@@ -578,6 +803,10 @@ the random policy and the baseline heuristic policy, respectively.
     Oracle & 0.787 & 0.374 & 1.000 \\
     \bottomrule
   \end{tabular}
+  \note{
+    As expected, we see that the selector is much weaker. It even decreases upon the best algorithm, %
+    since it tries to generalize
+  }
 \end{frame}
 
 \subsection{Domain-Specific Characteristics}
@@ -607,6 +836,22 @@ Domain-Specific Metafeatures}
         \bottomrule
       \end{tabular}
   \end{columns}
+  \note{
+    To finish the results section, we assess the impact of the domain-specific metafeatures we used.
+    These are features related to autonomous driving and not RL in general.
+    For instance, these are features directly related to the vehicles.
+
+    If we compare with the previous projection for HighwayEnv, we can see that it's much more dense %
+    and the instances are less separated.
+
+    Looking at the metrics, we can confirm how much impact it had.
+    \begin{itemize}
+      \item metrics before, when we used these features, and now, for this projection, which corresponds to %
+      not including these types of features
+      \item we can see there is a considerable impact, with almost 5\% success rate difference.
+      \item still improves but only by 3\%
+    \end{itemize}
+  }
 \end{frame}
 
 \section{Conclusions}
@@ -622,6 +867,18 @@ Domain-Specific Metafeatures}
     \item A few projections yield weaker selection performance, likely due to the predominance of %
     a single algorithm, or because the metafeatures are not discriminative enough
   \end{itemize}
+  \note{
+    To conclude the results:
+    \begin{itemize}
+      \item with a \textbf{single environment give context} for the other projections, but may lack \textbf{instance diversity}
+      \item \textbf{multi-environment} projections provide \textbf{more generalizable results}
+      \item some projections have good performance gains while others weaker. The reason for these may be:
+      \begin{itemize}
+        \item Single algorithm dominance
+        \item Metafeatures not discriminative enough and would require further iteration and improvements
+      \end{itemize}
+    \end{itemize}
+  }
 \end{frame}
 
 \subsection{Contributions}
@@ -636,6 +893,22 @@ Domain-Specific Metafeatures}
     \item Dataset of trajectories, algorithm evaluation results, and extracted environment %
     characteristics
   \end{itemize}
+  \note{
+    \begin{itemize}
+      \item The most important part of this project and contributions was adapting ISA to RL:
+      \begin{itemize}
+        \item Pipeline from instance generation to performance normalization and projections
+        \item Metafeature design for RL
+      \end{itemize}
+      \item Other secondary contributions:
+      \begin{itemize}
+        \item to support more configurations and more varied instances, made some extensions to %
+        HighwayEnv environments and contributed to the project
+        \item large collection of experiments produced a dataset that could be used in the future %
+        by other researchers
+      \end{itemize}
+    \end{itemize}
+  }
 \end{frame}
 
 \subsection{Future Work}
@@ -649,6 +922,17 @@ Domain-Specific Metafeatures}
     \item Focusing the analysis on other specific domains or broadening it to generic environments, %
     with a much heavier computational cost
   \end{itemize}
+  \note{
+    To finish, there still are several ways to continue our work.
+    
+    Simplifying, for example:
+    \begin{itemize}
+      \item More hyperparameter configurations: integrating more in some way
+      \item Evaluate more and more diverse algorithms, with more different types of algorithms
+      \item Metafeatures: typical in Instance Space Analysis
+      \item Other domains or generic. In the generic case, would need a lot of environments
+    \end{itemize}
+  }
 \end{frame}
 
 \section*{Extras}
