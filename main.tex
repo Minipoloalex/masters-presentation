@@ -85,8 +85,8 @@
       \item \textbf{Compare with other ML problems}: opposed to other problems where we want to determine a class or value, here %
       we have a more complex setup because of the \textbf{sequential} nature of decisions
       \item \textbf{Different algorithms}: algorithms with different ideas --- optimize policy directly or through the estimation %
-      of the return value from a state or others. No algorithm is best every time. Solutions to RL problems require heavy tuning: %
-      trying many algorithms and parameters
+      of the return value from a state or others. No algorithm is best every time.
+      \item Solutions to RL problems \textbf{require heavy tuning}: trying many algorithms and parameters
     \end{itemize}
   }
 \end{frame}
@@ -116,15 +116,15 @@
   \begin{columns}
     \column{0.6\textwidth}
     \centering
-    \includegraphics[width=0.7\linewidth]{figures/example_svm_selection.png}
+    \includegraphics[width=0.6\linewidth]{figures/example_svm_selection.png}
 
     \vspace{0.25em}
-
+    \small
     Example ISA algorithm selection for the Travelling Salesman %
-    Problem~\cite{isa_trace_footprints}.
+    Problem~\slidecite{isa_trace_footprints}.
 
-    \column{0.3\textwidth}
-    \scriptsize
+    \column{0.35\textwidth}
+    \small
     \begin{tabular}{@{}lc@{}}
       \toprule
       \textbf{Algorithms} & \textbf{Success Rate} \\
@@ -135,11 +135,12 @@
       \bottomrule
     \end{tabular}
   \end{columns}
+  \slidereferences{isa_trace_footprints}
   \note{
     \begin{itemize}
       \item \textbf{Example of how ISA can be used}: a study that uses 2 Algorithms for TSP
       \item Explain \textbf{what is the visualization}
-      \item One algorithm \textbf{dominates on average}, but the other is better in textbf{specific areas} of the instance space
+      \item One algorithm \textbf{dominates on average}, but the other is better in \textbf{specific areas} of the instance space
       \item \textbf{Selector} achieves much better performance
       \item \textbf{Visualization of features}: would be able to identify the types of problems where an algorithm %
       outperforms the other
@@ -215,7 +216,7 @@
 \subsection{Simulators}
 \begin{frame}{Simulators}{\texttt{HighwayEnv}}
   Minimalist environment designed for training simple RL agents for autonomous driving %
-  decision-making~\cite{highway_env}.
+  decision-making~\slidecite{highway_env}.
 
   \vspace{.45em}
   \centering
@@ -255,6 +256,7 @@
     \includegraphics[width=\linewidth]{figures/sims/he/parking_presentation.png}
   \end{minipage}
   \endgroup
+  \slidereferences{highway_env}
 
   \note{
     Before the pipeline, we explore \textbf{which simulators/environments} we use.
@@ -281,11 +283,13 @@
 \end{frame}
 
 \begin{frame}{Simulators}{\texttt{MetaDrive}}
-  Designed to efficiently train generalizable RL agents using procedurally generated maps~\cite{metadrive}.
+  Designed to efficiently train generalizable RL agents using procedurally generated maps~\slidecite{metadrive}.
 
   \vspace{.45em}
   \centering
-  \includegraphics[width=0.5\linewidth]{figures/sims/md/md.png}
+  \includegraphics[width=0.43\linewidth]{figures/sims/md/md.png}
+  \vspace{0.5em}
+  \slidereferences{metadrive}
   \note{
     Medium complexity simulator: has 3D components. But still very efficient.
 
@@ -331,36 +335,37 @@
 \end{frame}
 
 \begin{frame}{Simulators}{\texttt{CARLA}}
-  High-fidelity simulator designed to evaluate state-of-the-art autonomous driving solutions~\cite{carla}.
+  High-fidelity simulator designed to evaluate state-of-the-art autonomous driving solutions~\slidecite{carla}.
 
-  \vspace{.45em}
   \centering
   \begingroup
 
   \begin{minipage}[t]{.5\textwidth}
     \vspace{0pt}
     \centering
-    \includegraphics[width=0.6\linewidth]{figures/sims/carla/road_and_intersection.png}
+    \includegraphics[width=0.52\linewidth]{figures/sims/carla/road_and_intersection.png}
   \end{minipage}\hfill
   \begin{minipage}[t]{.5\textwidth}
     \vspace{0pt}
     \centering
-    \includegraphics[width=0.6\linewidth]{figures/sims/carla/intersection.png}
+    \includegraphics[width=0.52\linewidth]{figures/sims/carla/intersection.png}
   \end{minipage}
 
-  \vspace{.35em}
+  \vspace{.25em}
 
   \begin{minipage}[t]{.5\textwidth}
     \vspace{0pt}
     \centering
-    \includegraphics[width=0.6\linewidth]{figures/sims/carla/highway_enter.png}
+    \includegraphics[width=0.52\linewidth]{figures/sims/carla/highway_enter.png}
   \end{minipage}\hfill
   \begin{minipage}[t]{.5\textwidth}
     \vspace{0pt}
     \centering
-    \includegraphics[width=0.6\linewidth]{figures/sims/carla/highway_exit.png}
+    \includegraphics[width=0.52\linewidth]{figures/sims/carla/highway_exit.png}
   \end{minipage}
   \endgroup
+  \vspace{2em}
+  \slidereferences{carla}
   \note{
     Last simulator: Very complex and heavy
     \begin{itemize}
@@ -414,7 +419,7 @@
 
 \begin{frame}{RL Algorithms}
   Algorithms and training/evaluation protocol from %
-  \texttt{stable-baselines3}~\cite{stable_baselines3}.
+  \texttt{stable-baselines3}~\slidecite{stable_baselines3}.
   \vspace{1em}
 
   \begin{columns}[c,onlytextwidth]
@@ -438,6 +443,7 @@
   \vspace{1em}
   Each instance requires training and evaluating 3 algorithms.
   This leads to a total of 3219 trained agents.
+  \slidereferences{stable_baselines3}
   \note{
     \begin{itemize}
       \item We use \texttt{stable-baselines3} to train the agents.
@@ -479,11 +485,8 @@
     Beyond training agents, we need to characterize instances and capture their properties.
     That is (ou seja), we need metafeatures.
 
-    There is no fixed dataset, so we collect trajectories to make a dataset.
-
-    To ensure efficiency, we cannot use the algorithms we trained, because this would almost %
-    be like using the ground-truth. So, we use 2 simple policies that did not require training: %
-    (see slide)
+    There is no fixed dataset, so we collect trajectories to make a dataset using 2 simple policies %
+    (see slide), to \textbf{ensure efficiency}.
 
     Based on these trajectories, we extract different types of metafeatures:
     \begin{enumerate}
@@ -531,7 +534,7 @@ the random policy and the baseline heuristic policy, respectively.
     \item It also allows comparing with environments that have negative rewards.
     \item The formula uses the simple policies we also used for metafeatures.
 
-    \item (<Meaning of example values --- close to 0 and 1>)
+    \item (<Explain meaning of example values --- close to 0 and 1>)
     \begin{itemize}
       \item For example, a value close to 1 means great agent performance, similar to the heuristic policy.
       \item A low value closer to 0 means the environment was harder for the agent.
@@ -600,7 +603,7 @@ the random policy and the baseline heuristic policy, respectively.
       \item Now, we can analyze the results.
       \item First, we present here the results for a single environment: the highway from the HighwayEnv platform.
       \item We have the 2D projection obtained here.
-      \item Z1 and Z2 are the 2 axes, and are just linear combinations of the selected features.
+      \item $Z_1$ and $Z_2$ are the 2 axes, and are just linear combinations of the selected features.
     \end{itemize}
   }
 \end{frame}
@@ -938,10 +941,7 @@ Domain-Specific Metafeatures}
   }
 \end{frame}
 
-\section*{Extras}
-\begin{frame}[allowframebreaks]{References}
-  \printbibliography[heading=none]
-\end{frame}
+\section*{Extra}
 
 \begin{frame}{Acknowledgment}
   This work is a result of project ISA4RL --- Integrating Instance Space Analysis with %

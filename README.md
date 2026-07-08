@@ -495,6 +495,30 @@ A cited claim \parencite{my-source}.
 The theme styles bibliography colors and markers while leaving citation style
 and data ownership to BibLaTeX.
 
+For this thesis defense deck, citations that should be visible on the same slide use:
+
+```tex
+A cited claim \slidecite{my-source}.
+```
+
+Use `\slidecite` for the compact in-text citation, then place
+`\slidereferences{my-source}` once near the end of the frame. The full reference
+list is drawn in tiny text directly above the footer, spanning almost the full
+slide width and independent of the frame's columns or main content layout.
+
+The placement is controlled in `bib_helpers.tex`:
+
+```tex
+text width=.89\paperwidth
+at ([xshift=.055\paperwidth,yshift=.055\paperheight]current page.south west)
+```
+
+`text width` is the available line width for the reference block. Increase it to
+use more horizontal space, or decrease it to wrap earlier. `xshift` moves the
+left edge of the reference block from the left side of the slide. `yshift` moves
+the bottom edge up from the bottom of the slide; increase it to move references
+up, decrease it to move them closer to the footer.
+
 ## Blocks and old decks
 
 Cookie uses standard Beamer block syntax:

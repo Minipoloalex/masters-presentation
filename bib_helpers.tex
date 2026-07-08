@@ -15,9 +15,39 @@
   {}
   {\usebibmacro{postnote}}
 
+\makeatletter
+\newcommand{\slide@referenceitem}[1]{%
+  \par\hangindent=.8em\hangafter=1\relax #1%
+}
+\newcommand{\slidereferenceentry}[1]{%
+  % \fullcite{#1}%
+  \NoHyper\fullcite{#1}\endNoHyper%
+}
+\newcommand{\slide@referencekey}[1]{%
+  \slide@referenceitem{\slidereferenceentry{#1}}%
+}
+\newcommand{\slidereferences}[1]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[
+      anchor=south west,
+      align=left,
+      inner sep=0pt,
+      text width=.95\paperwidth,
+      font=\tiny,
+      text=cookieMuted!72!cookiePaper
+    ] at ([xshift=.025\paperwidth,yshift=.07\paperheight]current page.south west) {%
+      \color{cookieMuted!72!cookiePaper}\RaggedRight\sloppy  
+      \forcsvlist{\slide@referencekey}{#1}%
+    };
+  \end{tikzpicture}%
+}
+% \newcommand{\slidecite}[1]{\cite{#1}}
+\newcommand{\slidecite}[1]{\NoHyper\cite{#1}\endNoHyper}
+\makeatother
+
 % DOI and URL formatting in bibliography
 \DeclareFieldFormat{doi}{DOI\addcolon\space\nolinkurl{#1}}
-\DeclareFieldFormat{url}{Available online at \url{#1} (last accessed: June 2026)}
+\DeclareFieldFormat{url}{Available online at \url{#1}}
 \DeclareFieldFormat{howpublished}{
     \IfSubStr{\detokenize{#1}}{\detokenize{\url}}
     {Available online at #1 (last accessed: June 2026)}
