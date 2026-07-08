@@ -23,6 +23,12 @@
   % \fullcite{#1}%
   \NoHyper\fullcite{#1}\endNoHyper%
 }
+\newcommand{\slide@referencecolors}{%
+  \setbeamercolor{bibliography entry author}{fg=cookieMuted!72!cookiePaper}%
+  \setbeamercolor{bibliography entry title}{fg=cookieMuted!72!cookiePaper}%
+  \setbeamercolor{bibliography entry location}{fg=cookieMuted!72!cookiePaper}%
+  \setbeamercolor{bibliography entry note}{fg=cookieMuted!72!cookiePaper}%
+}
 \newcommand{\slide@referencekey}[1]{%
   \slide@referenceitem{\slidereferenceentry{#1}}%
 }
@@ -36,7 +42,7 @@
       font=\tiny,
       text=cookieMuted!72!cookiePaper
     ] at ([xshift=.025\paperwidth,yshift=.07\paperheight]current page.south west) {%
-      \color{cookieMuted!72!cookiePaper}\RaggedRight\sloppy  
+      \slide@referencecolors\color{cookieMuted!72!cookiePaper}\RaggedRight\sloppy
       \forcsvlist{\slide@referencekey}{#1}%
     };
   \end{tikzpicture}%

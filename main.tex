@@ -291,9 +291,15 @@
   \vspace{0.5em}
   \slidereferences{metadrive}
   \note{
-    Medium complexity simulator: has 3D components. But still very efficient.
+    \begin{itemize}
+      \item Medium complexity simulator: has 3D components.
+      \item But still very efficient.
+    \end{itemize}
 
-    Generates the maps in a way that allows defining each block.
+    Focused on training generalizable agents:
+    \begin{itemize}
+      \item Generates the maps in a way that allows defining each block.
+    \end{itemize}
 
     The image shows the simulator view and debug information.
     \begin{itemize}
@@ -302,9 +308,8 @@
       \item On the top, we also have the agent camera view and more information on the vehicle
     \end{itemize}
 
-    This environment allows using continuous action similarly to HighwayEnv and discretized of those actions.
-    
-    For example, instead of being able to specify any angle, we can say only 5 values (-50, -25, 0, 25, 50)
+    \textbf{Actions}: This environment allows using continuous actions similarly to HighwayEnv and discretized %
+    of those actions. For example, instead of being able to specify any angle, we can specify only 5 values
   }
 \end{frame}
 
@@ -369,12 +374,11 @@
   \note{
     Last simulator: Very complex and heavy
     \begin{itemize}
-      \item Objective is really to evaluate state-of-the-art autonomous driving solutions.
-      \item The algorithms we evaluate are not those types of solutions, but we can still %
-      use the simulator and evaluate them here
+      \item High \textbf{real-world fidelity} (realismo muito superior)
+      \item Objective is really to \textbf{evaluate state-of-the-art} autonomous driving solutions.
+      \item We use generic RL algorithms, but we can still evaluate and compare them here
       \item Visualizations: Road, intersection, enter to highway, exit from highway
-      \item We can see the real-world fidelity (realismo muito superior)
-      \item For this simulator, we also use both continuous and discretized versions of actions, like in MetaDrive
+      \item \textbf{Actions}: we also use both continuous and discretized versions of actions, like in MetaDrive
     \end{itemize}
   }
 \end{frame}

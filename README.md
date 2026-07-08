@@ -505,12 +505,15 @@ Use `\slidecite` for the compact in-text citation, then place
 `\slidereferences{my-source}` once near the end of the frame. The full reference
 list is drawn in tiny text directly above the footer, spanning almost the full
 slide width and independent of the frame's columns or main content layout.
+The slide-bottom reference block locally sets all Beamer bibliography entry
+parts to the same muted gray, including author, year, title, location, and note
+fields that `biblatex` may otherwise color separately.
 
 The placement is controlled in `bib_helpers.tex`:
 
 ```tex
-text width=.89\paperwidth
-at ([xshift=.055\paperwidth,yshift=.055\paperheight]current page.south west)
+text width=.95\paperwidth
+at ([xshift=.025\paperwidth,yshift=.07\paperheight]current page.south west)
 ```
 
 `text width` is the available line width for the reference block. Increase it to
