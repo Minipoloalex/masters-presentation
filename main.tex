@@ -48,7 +48,7 @@
 \author[F\'elix]{F\'elix Martins}
 \thesissupervisor{Zafeiris Kokkinogenis}
 \thesiscosupervisor{Daniel Castro Silva}
-\thesisdegree{Masters in Artificial Intelligence}
+\thesisdegree{Master in Artificial Intelligence}
 \date{July 20, 2026}
 \titlelogoone{\includegraphics[width=.235\paperwidth]{figures/feup-logo.png}}
 \titlelogotwo{\includegraphics[width=.235\paperwidth]{figures/fcup-logo.png}}
@@ -77,7 +77,7 @@
   \note{
     \begin{itemize}
       \small
-      \item \textbf{What is RL}: methodology to solve \textbf{sequential decision problems}
+      \item \textbf{What is RL}: methodology to solve \textbf{sequential decision problems} (tomadas de decisão sequencial)
       \item \textbf{Diagram and MDP-style definitions}: agent and environment, interaction between them. \textbf{On each timestep}, %
       the agent receives information about the \textbf{environment state} and decides what \textbf{action to perform} %
       using what is called its policy. Then, it also \textbf{receives rewards} which help adjust the policy towards the %
@@ -96,6 +96,7 @@
   \centering
   \includegraphics[width=0.75\linewidth]{figures/fw-isa.pdf}
   \note{
+    \textbf{What is ISA}: Methodology to analyze the performance of algorithms
     \begin{itemize}
       \small
       \item \textbf{Problem and Algorithm Space}
@@ -155,7 +156,7 @@
     \item Efficiently computable
   \end{itemize}
   
-  Classication and regression have well-established metafeatures.
+  Classification and regression have well-established metafeatures.
 
   ISA uses these metafeatures to capture the different properties of instances.
   \note{
@@ -163,8 +164,8 @@
 
     Those are typically called metafeatures:
     \begin{itemize}
-      \item \textbf{Definition}: Measurable characteristics that describe a problem and may help distinguish %
-      algorithm performance
+      \item \textbf{Definition}: Measurable characteristics that describe a problem and may help \textbf{distinguish %
+      algorithm performance}
       \item \textbf{Properties}: discriminative, efficient, not depend on the trained algorithms or heavy computation, since %
       that limits the gains from algorithm selection
       \item ISA has used \textbf{well-established metafeatures from other problem types} %
@@ -263,26 +264,18 @@
     HighwayEnv: the simplest
     \begin{itemize}
       \item 2D only, fully implemented in Python
-      \item Has several environments
+      \item Has several environments: Highway, Highway with an incoming vehicle from an entry and must give space, %
+      Highway where the objective is to exit, Lane keeping, Racetrack and Oval Racetrack, %
+      Roundabout, Parking: may have walls or not
+    \end{itemize}
 
-      \begin{itemize}
-        \item Highway
-        \item Highway with an incoming vehicle from an entry and must give space
-        \item Highway where the objective is to exit
-        \item Lane keeping
-        \item Racetrack and Oval Racetrack
-        \item Roundabout
-        \item Parking: may have walls or not
-      \end{itemize}
-
-      The actions that the agent performs depend on the environment:
-      \begin{itemize}
-        \item \textbf{Discrete actions} (5 actions) for Highway cases and roundabout: %
-        accelerate a set amount of, for instance, 10 km/h, decelerate, %
-        turn to left or right lane
-        \item \textbf{Continuous actions} for others: accelerate any possible amount, turn %
-        steering any possible angle
-      \end{itemize}
+    The actions that the agent performs depend on the environment:
+    \begin{itemize}
+      \item \textbf{Discrete actions} (5 actions) for Highway cases and roundabout: %
+      accelerate a set amount of, for instance, 10 km/h, decelerate, %
+      turn to left or right lane
+      \item \textbf{Continuous actions} for others: accelerate any possible amount, turn %
+      steering any possible angle
     \end{itemize}
   }
 \end{frame}
@@ -388,7 +381,7 @@
   \includegraphics[width=\linewidth]{figures/meth_summary.pdf}
   \note{
     \begin{itemize}
-      \item Define instances to use from the environments, by varying specific`' parameters.
+      \item Define instances to use from the environments, by varying specific parameters.
       \item Define algorithms
       \item Train all algorithms in all instances
       \item Then, we can evaluate the algorithms and also collect other trajectories %
@@ -407,7 +400,7 @@
   \begin{itemize}
     \item Number of lanes
     \item Vehicle density and number of vehicles
-    \item Other parameters such as road length, number of parking spots, \dots
+    \item Other parameters such as observation type, road length, number of parking spots, \dots
   \end{itemize}
   This yields a total of 1073 instances: 845 for \texttt{HighwayEnv}, 210 for %
   \texttt{MetaDrive}, and 18 for \texttt{CARLA}, due to its much heavier and longer %
@@ -446,17 +439,18 @@
   Each instance requires training and evaluating 3 algorithms.
   This leads to a total of 3219 trained agents.
   \note{
-    We use \texttt{stable-baselines3} to train the agents.
+    \begin{itemize}
+      \item We use \texttt{stable-baselines3} to train the agents.
 
-    Like we saw, there are certain environments that support discrete or continuous actions.
-    The same happens with algorithms. For example, A2C supports both types but %
-    DQN only discrete.
+      \item Like we saw, there are certain environments that support discrete or continuous actions.
+      \item The same happens with algorithms. For example, A2C supports both types but DQN only discrete.
 
-    So, since each action type has 3 algorithms, we need to train 3 algorithms %
+      \item So, since each action type has 3 algorithms, we need to train 3 algorithms %
     for each instance.
+    \end{itemize}
 
     In fact, for each algorithm, we use a single hyperparameter configuration %
-    per instance, primarily (maioritariamente) to keep experiments feasible %
+    per instance, not only (maioritariamente) to keep experiments feasible %
     (experiências computacionalmente viáveis).
   }
 \end{frame}
@@ -527,17 +521,22 @@ the random policy and the baseline heuristic policy, respectively.
 \end{itemize}
 
 \note{
-  Rewards are not a good general metric for comparing agents between heterogeneous environments
-  
-  For example, we can have an agent with reward 10 in one environment and 1 in another and the first may be harder.
-  The reward scale may be very different.
+  \begin{itemize}
+    \item To compare performances, we cannot use rewards.
+    
+    \item (<Give example of different reward scales>).
+    \item The reward scale may be very different.
 
-  So, to avoid this, we use this formula to normalize performance.
-  It also allows comparing with environments that have negative rewards.
-  The formula uses the simple policies we also used for metafeatures.
+    \item So, to avoid this, we use this formula to normalize performance.
+    \item It also allows comparing with environments that have negative rewards.
+    \item The formula uses the simple policies we also used for metafeatures.
 
-  For example, a value close to 1 means great agent performance, similar to the heuristic policy.
-  A low value closer to 0 means the environment was harder for the agent.
+    \item (<Meaning of example values --- close to 0 and 1>)
+    \begin{itemize}
+      \item For example, a value close to 1 means great agent performance, similar to the heuristic policy.
+      \item A low value closer to 0 means the environment was harder for the agent.
+    \end{itemize}
+  \end{itemize}
 }
 \end{frame}
 
@@ -561,6 +560,8 @@ the random policy and the baseline heuristic policy, respectively.
       --- both are deemed successful.
       \item Nr of selected features: we filter the 6 or 8 features that are the most relevant
     \end{itemize}
+    In fact, we need different projections for discrete and continuous actions, since there are algorithms that %
+    work only with one of the action types.
   }
 \end{frame}
 
@@ -595,12 +596,12 @@ the random policy and the baseline heuristic policy, respectively.
     \end{bmatrix}
   $}
   \note{
-    Now, we can analyze the results.
-
-    First, we present here the results for a single environment: the highway from the HighwayEnv platform.
-
-    We have the 2D projection obtained here.
-    Z1 and Z2 are the 2 axes, and are just linear combinations of the selected features.
+    \begin{itemize}
+      \item Now, we can analyze the results.
+      \item First, we present here the results for a single environment: the highway from the HighwayEnv platform.
+      \item We have the 2D projection obtained here.
+      \item Z1 and Z2 are the 2 axes, and are just linear combinations of the selected features.
+    \end{itemize}
   }
 \end{frame}
 
@@ -617,17 +618,21 @@ the random policy and the baseline heuristic policy, respectively.
       {\small Best-Performing Algorithm\par}
   \end{columns}
   \note{
-    These figures show the visualizations of the instance space projection.
+    \begin{itemize}
+      \item These figures show the visualizations of the instance space projection.
 
-    The first shows the types of observations for each instance. Here, we won't go in depth to what each represents. %
-    Basically, they change what the agent observes in each timestep.
+      \item The red line represents the empirically deduced boundary for the values of features and their combinations
 
-    In the second figure, we see the best algorithm for each instance.
-    It's easy to see that DQN and PPO perform best on (<pointer>) these instances, while A2C is best on (<pointer>) these.
+      \item The first shows the types of observations for each instance. Here, we won't go in depth to what each represents. %
+      Basically, they change what the agent observes in each timestep.
 
-    To understand better what separates the instances and what makes algorithms perform differently, we can see the %
-    feature distributions. In this case, we already know some of the reason for this performance difference, because %
-    of the observation types.
+      \item In the second figure, we see the best algorithm for each instance.
+      It's easy to see that DQN and PPO perform best on (<pointer>) these instances, while A2C is best on (<pointer>) these.
+
+      \item To understand better what separates the instances and what makes algorithms perform differently, we can see the %
+      feature distributions. In this case, we already know some of the reason for this performance difference, because %
+      of the observation types.
+    \end{itemize}
   }
 \end{frame}
 
@@ -696,19 +701,18 @@ the random policy and the baseline heuristic policy, respectively.
       \end{tabular}
   \end{columns}
   \note{
-    Finally, we can see the selector choices and performance.
-    
-    In fact, the choices went according to our interpretation.
-    
-    Performance shows great algorithm selection improvements.
-    
-    On these tables, we focus more on the success rate, specifically comparing the best algorithm %
-    with the selection performance.
+    \begin{itemize}
+      \item Finally, we can see the selector choices and performance.
+      
+      \item In fact, the choices went according to our interpretation.
+      
+      \item Performance shows great algorithm selection improvements.
+      
+      \item On these tables, we focus more on the success rate, specifically comparing the best algorithm %
+      with the selection performance.
 
-    Here, the oracle represents the ground-truth, which would be the best algorithm selection possible.
-
-    From now on (a partir de agora), we will only analyze here a more limited set of figures, but that still lets us %
-    understand if the methodology was successful.
+      \item Here, the oracle represents the ground-truth, which would be the best algorithm selection possible.
+    \end{itemize}
   }
 \end{frame}
 
@@ -728,7 +732,6 @@ the random policy and the baseline heuristic policy, respectively.
   \note{
     \begin{itemize}
       \item Going to the multi-environment projections, we analyze the discrete action instances from the HighwayEnv platform.
-      \item As mentioned before, it includes 4 different environments, including the highway we just individually analyzed.
       \item In contrary to the previous projection, there is much more instance space coverage %
       (instance space está mais preenchido).
       \item Similar to before, the DQN algorithm performs well only in a subset of instances, with %
@@ -805,7 +808,7 @@ the random policy and the baseline heuristic policy, respectively.
   \end{tabular}
   \note{
     As expected, we see that the selector is much weaker. It even decreases upon the best algorithm, %
-    since it tries to generalize
+    since it tries to generalize and give importance to each different environment.
   }
 \end{frame}
 
@@ -837,12 +840,12 @@ Domain-Specific Metafeatures}
       \end{tabular}
   \end{columns}
   \note{
-    To finish the results section, we assess the impact of the domain-specific metafeatures we used.
-    These are features related to autonomous driving and not RL in general.
-    For instance, these are features directly related to the vehicles.
-
-    If we compare with the previous projection for HighwayEnv, we can see that it's much more dense %
-    and the instances are less separated.
+    \begin{itemize}
+      \item To finish the results section, we assess the impact of the domain-specific metafeatures we used.
+      \item (<Definition of what they are>): These are features related to autonomous driving and not RL in general.
+      \item If we compare with the previous projection for HighwayEnv, we can see that it's much more dense %
+      and the instances are less separated.
+    \end{itemize}
 
     Looking at the metrics, we can confirm how much impact it had.
     \begin{itemize}
