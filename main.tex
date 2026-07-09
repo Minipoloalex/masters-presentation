@@ -142,8 +142,8 @@
       \item Explain \textbf{what is the visualization}
       \item One algorithm \textbf{dominates on average}, but the other is better in \textbf{specific areas} of the instance space
       \item \textbf{Selector} achieves much better performance
-      \item \textbf{Visualization of features}: would be able to identify the types of problems where an algorithm %
-      outperforms the other
+      %\item \textbf{Visualization of features}: would be able to identify the types of problems where an algorithm %
+      %outperforms the other
     \end{itemize}
   }
 \end{frame}
@@ -159,7 +159,7 @@
   
   Classification and regression have well-established metafeatures.
 
-  ISA uses these metafeatures to capture the different properties of instances.
+  ISA studies have used these metafeatures to study those problems.
   \note{
     To perform ISA, we \textbf{need these features} that we extract from instances and use to define the dimension reduction:
 
@@ -386,12 +386,12 @@
   beyond the task or maps:
   \begin{itemize}
     \item Number of lanes
-    \item Vehicle density and number of vehicles
-    \item Other parameters such as observation type, road length, number of parking spots, \dots
+    \item Traffic density and number of vehicles
+    \item Others such as observation type, road length, number of parking spots, \dots
   \end{itemize}
   This yields a total of 1073 instances: 845 for \texttt{HighwayEnv}, 210 for %
-  \texttt{MetaDrive}, and 18 for \texttt{CARLA}, due to its much heavier and longer %
-  training and evaluation times.
+  \texttt{MetaDrive}, and 18 for \texttt{CARLA}.
+  % , due to its much heavier and longer training and evaluation times
   \note{
     To generate instances, we vary several parameters for each environment. (see slide)
   }
@@ -406,13 +406,21 @@
 
   \begin{columns}[c,onlytextwidth]
     \column{.49\textwidth}
-    RL algorithms may support discrete (D) and/or continuous (C) action spaces.
-    \begin{itemize}
-      \item \textbf{A2C}: D/C
-      \item \textbf{DQN}: D
-      \item \textbf{PPO}: D/C
-      \item \textbf{SAC}: C
-    \end{itemize}
+    RL algorithms may support discrete and/or continuous action spaces.
+
+    \begin{center}
+      \scriptsize
+      \begin{tabular}{@{}lcc@{}}
+        \toprule
+        \textbf{Algorithm} & Discrete & Continuous \\
+        \midrule
+        A2C & \cookiecheck & \cookiecheck \\
+        DQN & \cookiecheck & \\
+        PPO & \cookiecheck & \cookiecheck \\
+        SAC & & \cookiecheck \\
+        \bottomrule
+      \end{tabular}
+    \end{center}
 
     \column{.49\textwidth}
     \begin{cookiecard}[title=Hyperparameter configurations]
@@ -428,26 +436,23 @@
   \slidereferences{stable_baselines3}
   \note{
     \begin{itemize}
-      \item We use \texttt{stable-baselines3} to train the agents.
+      \item We use algorithms implemented in \texttt{stable-baselines3}.
 
-      \item Like we saw, there are certain environments that support discrete or continuous actions.
-      \item The same happens with algorithms. For example, A2C supports both types but DQN only discrete.
+      \item Like we saw in environments, \textbf{algorithms may support} only discrete or continuous actions.
 
-      \item So, since each action type has 3 algorithms, we need to train 3 algorithms %
+      \item So, since \textbf{each action type has 3 algorithms}, we need to train 3 algorithms %
     for each instance.
+      \item This makes a total of more than 3000 trained agents
     \end{itemize}
 
-    In fact, for each algorithm, we use a single hyperparameter configuration %
-    per instance, not only (maioritariamente) to keep experiments feasible %
-    (experiências computacionalmente viáveis).
+    In fact, we use a hyperparameter configuration for each instance from each algorithm, %
+    primarily (maioritariamente) to keep experiments feasible (experiências computacionalmente viáveis).
   }
 \end{frame}
 
 \subsection{Metafeature Design}
 
 \begin{frame}{Metafeature Design}
-  The main objective is to capture relevant aspects of each task.
-
   To extract a dataset of trajectories, we use two simple non-learned %
   ``probe'' policies:
   \begin{itemize}
@@ -464,11 +469,11 @@
     \item Environment dynamics
   \end{itemize}
   \note{
-    Beyond training agents, we need to characterize instances and capture their properties.
-    That is (ou seja), we need metafeatures.
-
-    There is no fixed dataset, so we collect trajectories to make a dataset using 2 simple policies %
-    (see slide), to \textbf{ensure efficiency}.
+    \begin{itemize}  
+      \item Beyond (para além) training agents, we need to characterize instances and capture their properties.
+      \item There is no fixed dataset, so we collect trajectories to make a dataset using 2 simple policies %
+      (see slide), to \textbf{ensure efficiency}.
+    \end{itemize}
 
     Based on these trajectories, we extract different types of metafeatures:
     \begin{enumerate}
@@ -507,19 +512,17 @@ the random policy and the baseline heuristic policy, respectively.
 
 \note{
   \begin{itemize}
-    \item To compare performances, we cannot use rewards.
-    
-    \item (<Give example of different reward scales>).
+    \item No good general performance metric for RL
+    \item We cannot use rewards.
     \item The reward scale may be very different.
 
     \item So, to avoid this, we use this formula to normalize performance.
-    \item It also allows comparing with environments that have negative rewards.
-    \item The formula uses the simple policies we also used for metafeatures.
+    \item The formula uses the \textbf{simple policies} we also used for metafeatures.
 
     \item (<Explain meaning of example values --- close to 0 and 1>)
     \begin{itemize}
-      \item For example, a value close to 1 means great agent performance, similar to the heuristic policy.
-      \item A low value closer to 0 means the environment was harder for the agent.
+      \item For example, a value close to 1 means \textbf{good agent performance}, similar to the heuristic policy.
+      \item A low value closer to 0 means the \textbf{environment was harder} for the agent.
     \end{itemize}
   \end{itemize}
 }
@@ -534,9 +537,7 @@ the random policy and the baseline heuristic policy, respectively.
     \item Number of selected features: 6 for discrete-action and 8 for continuous-action environments
   \end{itemize}
   \note{
-    Now, we have the normalized agent performances and the extracted metafeatures.
-    
-    So, we can generate the instance space results and analyze them.
+    \textbf{Normalized agent performances} and the \textbf{extracted metafeatures}.
 
     To generate the results, we still need to define a few parameters for specific ISA methods.
     \begin{itemize}
@@ -606,7 +607,8 @@ the random policy and the baseline heuristic policy, respectively.
     \begin{itemize}
       \item These figures show the visualizations of the instance space projection.
 
-      \item The red line represents the empirically deduced boundary for the values of features and their combinations
+      \item The red line represents the boundary for the space deduced empirically from the values of features %
+      and their combinations
 
       \item The first shows the types of observations for each instance. Here, we won't go in depth to what each represents. %
       Basically, they change what the agent observes in each timestep.
@@ -696,7 +698,7 @@ the random policy and the baseline heuristic policy, respectively.
       \item On these tables, we focus more on the success rate, specifically comparing the best algorithm %
       with the selection performance.
 
-      \item Here, the oracle represents the ground-truth, which would be the best algorithm selection possible.
+      \item Here, the \textbf{oracle} represents the ground-truth, which would be the best algorithm selection possible.
     \end{itemize}
   }
 \end{frame}
@@ -913,7 +915,7 @@ Domain-Specific Metafeatures}
   \note{
     To finish, there still are several ways to continue our work.
     
-    Simplifying, for example:
+    For example:
     \begin{itemize}
       \item More hyperparameter configurations: integrating more in some way
       \item Evaluate more and more diverse algorithms, with more different types of algorithms

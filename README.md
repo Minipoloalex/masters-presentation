@@ -98,11 +98,13 @@ The HighwayEnv simulator slide in `main.tex` uses a compact image grid instead
 of `figure`/`subfloat` captions. The layout is:
 
 - two rows with four images each;
-- each image is placed in a `.235\textwidth` minipage;
+- the rows share one fixed-width `tabular` grid so the top and bottom images
+  keep identical column positions;
+- each image is placed at `.235\textwidth`;
 - captions and labels are intentionally omitted to keep the frame clean.
 
 This keeps all simulator screenshots visible on one Beamer frame without
-caption overflow. Adjust the minipage width directly if the image set changes.
+caption overflow. Adjust the image width directly if the image set changes.
 
 The MetaDrive maps slide uses three representative vector maps from
 `figures/sims/md/maps/`: `image_SC_vector.pdf`, `image_TXT_vector.pdf`, and
@@ -115,7 +117,9 @@ minipages. It includes `road_and_intersection.png`, `intersection.png`,
 
 The RL Algorithms methodology slide places the algorithm hyperparameter
 configuration note inside a `cookiecard` in the right column. Keep this content
-compact because the card lives beside the algorithm/action-space list.
+compact because the card lives beside the algorithm/action-space list. The
+algorithm/action-space table is centered outside the `tabular` and uses
+`@{}lcc@{}` columns to keep the booktabs rules tight within the left column.
 
 The individual-environment results in `main.tex` are split into four
 HighwayEnv frames:
