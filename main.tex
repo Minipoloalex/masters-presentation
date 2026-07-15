@@ -78,14 +78,9 @@
     \begin{itemize}
       \small
       \item \textbf{What is RL}: methodology to solve \textbf{sequential decision problems} (tomadas de decisão sequencial)
-      \item \textbf{Diagram and MDP-style definitions}: agent and environment, interaction between them. \textbf{On each timestep}, %
-      the agent receives information about the \textbf{environment state} and decides what \textbf{action to perform} %
-      using what is called its policy. Then, it also \textbf{receives rewards} which help adjust the policy towards the %
-      best actions in a state.
-      \item \textbf{Compare with other ML problems}: opposed to other problems where we want to determine a class or value, here %
-      we have a more complex setup because of the \textbf{sequential} nature of decisions
-      \item \textbf{Different algorithms}: algorithms with different ideas --- optimize policy directly or through the estimation %
-      of the return value from a state or others. No algorithm is best every time.
+      \item \textbf{Compare with other ML problems}: we have a more complex setup because of the \textbf{sequential} nature of decisions
+      \item \textbf{Diagram and MDP-style definitions}: agent and environment, interaction between them. \textbf{On each timestep}, the agent receives information about the \textbf{environment state} and decides what \textbf{action to perform} using what is called its policy. Then, it also \textbf{receives rewards} which help adjust the policy towards the best actions in a state.
+      \item \textbf{Different algorithms}: algorithms of diffeerent types that use different ideas. No algorithm is best in all environments.
       \item Solutions to RL problems \textbf{require heavy tuning}: trying many algorithms and parameters
     \end{itemize}
   }
@@ -102,12 +97,11 @@
       \item \textbf{Problem and Algorithm Space}
       \item \textbf{Problem Subset}: Instances
       \item \textbf{Feature Space}: Extract features from selected instances
-      \item \textbf{Performance Space}: measure performance of algorithms on the selected instances (training if necessary)
+      \item \textbf{Performance Space}: measure performance of algorithms on instances (training if necessary)
       \item \textbf{Dataset of features and performance metrics}
-      \item \textbf{Dimension Reduction}: Select most relevant features to split algorithms and use a specific ISA dimension %
-      reduction method to reduce to 2 dimensions and enable visualizations.
-      \item \textbf{Get Results from ISA}: AS and performance metrics, instance space visualizations and algorithm footprints.
-      \item \textbf{Interpret ISA results}: Iterate on the selected instances, used features, and algorithms
+      \item \textbf{Select Features \& Dimension Reduction}: Select most relevant features and use a custom ISA (específico) dimension reduction method to reduce to 2D and enable interpretable visualizations.
+      \item \textbf{Get Results from ISA}: Algo Selection and performance metrics, instance space visualizations and algorithm footprints.
+      \item \textbf{Interpret ISA results}: Iterate on the selected instances, used features, and algorithms.
     \end{itemize}
   }
 \end{frame}
@@ -139,8 +133,8 @@
   \note{
     \begin{itemize}
       \item \textbf{Example of how ISA can be used}: a study that uses 2 Algorithms for TSP
-      \item Explain \textbf{what is the visualization}
-      \item One algorithm \textbf{dominates on average}, but the other is better in \textbf{specific areas} of the instance space
+      \item Explain \textbf{what is the visualization}: the algorithm selections obtained by ISA
+      \item \textbf{Looking to the table}: Shows algo performances --- One algorithm \textbf{dominates on average}, but the other is better in \textbf{specific areas} of the instance space (check figure)
       \item \textbf{Selector} achieves much better performance
       %\item \textbf{Visualization of features}: would be able to identify the types of problems where an algorithm %
       %outperforms the other
@@ -161,17 +155,17 @@
 
   ISA studies have used these metafeatures to study those problems.
   \note{
-    To perform ISA, we \textbf{need these features} that we extract from instances and use to define the dimension reduction:
+    To perform ISA, we \textbf{need features} (like we described before):
 
     Those are typically called metafeatures:
     \begin{itemize}
-      \item \textbf{Definition}: Measurable characteristics that describe a problem and may help \textbf{distinguish %
-      algorithm performance}
-      \item \textbf{Properties}: discriminative, efficient, not depend on the trained algorithms or heavy computation, since %
-      that limits the gains from algorithm selection
-      \item ISA has used \textbf{well-established metafeatures from other problem types} %
-      to capture the different properties of instances and enable visualizations and other stuff.
+      \item \textbf{Definition}: Measurable \textbf{characteristics} that describe a problem and should help \textbf{distinguish algorithm performance}
+      \item Should also be \textbf{efficient} since that computational cost limits the gains from algorithm selection
+      \begin{itemize}
+        \item If these metafeatures take long to compute, then we lose some of the algorithm selection gains. If they take as long as training algorithms, then we could just train the algorithms and select the best one.
+      \end{itemize}
     \end{itemize}
+    Other domains have \textbf{well-established metafeatures} and several studies have used them to apply ISA successfully.
   }
 \end{frame}
 
@@ -180,8 +174,7 @@
   A few issues arise to apply ISA to RL:
   \begin{itemize}
     \item No established metafeature set
-    \item Nonstationarity: the actions of an agent affect the data it learns from
-    \item No fixed dataset, only environment interactions;
+    \item No fixed dataset, only environment interactions
   \end{itemize}
 
   Many works study properties that impact RL algorithm performance:
@@ -196,17 +189,14 @@
   \note{
     \begin{itemize}
       \item Opposed to other problems: RL has no established metafeatures
-      \item RL issues that complicate this: \textbf{nonstationarity} and \textbf{no fixed dataset}
+      \item \textbf{no fixed dataset} where we can apply statistical measures
+      %\begin{itemize}
+      %  \item Mention how \textbf{a policy may bias} the trajectories and dataset obtained. That makes it harder to characterize RL problems
+      %\end{itemize}
+      \item Still, several works study properties that impact RL performance:
       \begin{itemize}
-        \item Mention how \textbf{a policy may bias} the trajectories and dataset obtained. %
-        That makes it harder to characterize RL problems
-      \end{itemize}
-      \item Even though there are no efficiently computable metafeatures for RL, there %
-      are works that study properties that impact RL performance:
-      \begin{itemize}
-        \item Complexity Measures: study properties that \textbf{make it difficult to solve} %
-        RL problems, for instance, to design algorithms that use those properties
-        \item Benchmarks: evaluate algorithms by varying environment properties
+        \item Complexity Measures: study properties that \textbf{make it difficult to solve} RL problems
+        \item Benchmarks: vary environment properties that affect their performance and evaluate their impact on performance 
       \end{itemize}
     \end{itemize}
   }
@@ -237,16 +227,14 @@
   \slidereferences{highway_env}
 
   \note{
-    Before the pipeline, we explore \textbf{which simulators/environments} we use.
+    Still before the pipeline, we explore \textbf{which simulators/environments} we use.
 
-    \textbf{One per level of complexity}: one simpler, medium, and more complex.
+    \textbf{Different levels of complexity}
     
     HighwayEnv: the simplest
     \begin{itemize}
-      \item 2D only, fully implemented in Python
-      \item Has several environments: Highway, Highway with an incoming vehicle from an entry and must give space, %
-      Highway where the objective is to exit, Lane keeping, Racetrack and Oval Racetrack, %
-      Roundabout, Parking: may have walls or not
+      \item 2D only
+      \item Has several environments, shown here: Highway, Highway with an incoming vehicle from an entry and must give space, Highway where the objective is to exit, Lane keeping, Racetrack and Oval Racetrack, Roundabout, Parking: may have walls or not
     \end{itemize}
 
     The actions that the agent performs depend on the environment:
@@ -382,18 +370,21 @@
 \subsection{Instance Generation}
 
 \begin{frame}{Instance Generation}
-  To generate instances based on the chosen simulators, we vary several parameters %
-  beyond the task or maps:
+  To generate instances based on the chosen simulators, we vary several parameters beyond the task or maps:
   \begin{itemize}
     \item Number of lanes
     \item Traffic density and number of vehicles
     \item Others such as observation type, road length, number of parking spots, \dots
   \end{itemize}
-  This yields a total of 1073 instances: 845 for \texttt{HighwayEnv}, 210 for %
-  \texttt{MetaDrive}, and 18 for \texttt{CARLA}.
-  % , due to its much heavier and longer training and evaluation times
+  This yields a total of 1073 instances: 845 for \texttt{HighwayEnv}, 210 for \texttt{MetaDrive}, and 18 for \texttt{CARLA}.
   \note{
+    (<Small pause>)(<Drink water?>)
+
     To generate instances, we vary several parameters for each environment. (see slide)
+    
+    For example, the number of vehicles.
+
+    These variations generate a total of 1073 instances.
   }
 \end{frame}
 
@@ -436,11 +427,11 @@
   \slidereferences{stable_baselines3}
   \note{
     \begin{itemize}
-      \item We use algorithms implemented in \texttt{stable-baselines3}.
+      \item For the algorithms, we use \texttt{stable-baselines3}.
 
       \item Like we saw in environments, \textbf{algorithms may support} only discrete or continuous actions.
 
-      \item So, since \textbf{each action type has 3 algorithms}, we need to train 3 algorithms %
+      \item In this case, \textbf{each action type has 3 algorithms}, we need to train 3 algorithms %
     for each instance.
       \item This makes a total of more than 3000 trained agents
     \end{itemize}
@@ -469,8 +460,8 @@
     \item Environment dynamics
   \end{itemize}
   \note{
-    \begin{itemize}  
-      \item Beyond (para além) training agents, we need to characterize instances and capture their properties.
+    \begin{itemize}
+      \item Beyond (para além) training agents, we need to characterize instances to capture their properties.
       \item There is no fixed dataset, so we collect trajectories to make a dataset using 2 simple policies %
       (see slide), to \textbf{ensure efficiency}.
     \end{itemize}
@@ -481,10 +472,10 @@
       \item reward statistics (mean, standard deviation)
       \item observation statistics
       \item statistics of other vehicles
-      \item transition linearity (quao lineares sao as transicoes)
+      \item transition linearity (quão lineares são as transições)
     \end{enumerate}
 
-    Some are generic to RL problems, and others are specific to the autonomous driving domain.
+    Some are \textbf{generic}, can be applied to any RL problems, and others are \textbf{specific} to the autonomous driving domain.
   }
 \end{frame}
 
@@ -512,13 +503,17 @@ the random policy and the baseline heuristic policy, respectively.
 
 \note{
   \begin{itemize}
-    \item No good general performance metric for RL
-    \item We cannot use rewards.
-    \item The reward scale may be very different.
+    \item Have performances and metafeatures, but cannot compare performances.
+    \item No good general performance metric for RL. We cannot use rewards.
+    \begin{itemize}
+      \item Because the reward scale may be very different.
+    \end{itemize}
 
     \item So, to avoid this, we use this formula to normalize performance.
-    \item The formula uses the \textbf{simple policies} we also used for metafeatures.
-
+    \begin{itemize}
+      \item uses the \textbf{simple policies} we also used for metafeatures.
+      \item Here, the heuristic policy functions as a baseline.
+    \end{itemize}
     \item (<Explain meaning of example values --- close to 0 and 1>)
     \begin{itemize}
       \item For example, a value close to 1 means \textbf{good agent performance}, similar to the heuristic policy.
@@ -537,17 +532,17 @@ the random policy and the baseline heuristic policy, respectively.
     \item Number of selected features: 6 for discrete-action and 8 for continuous-action environments
   \end{itemize}
   \note{
-    \textbf{Normalized agent performances} and the \textbf{extracted metafeatures}.
+    Now, we can go into results. Before analyzing them:
 
     To generate the results, we still need to define a few parameters for specific ISA methods.
     \begin{itemize}
-      \item Performance threshold for success (limite que define sucesso dos algoritmos): we defined a relative %
-      threshold of 5\% to the best algorithm. For example, the best algorithm has a score of 1 and the 2nd best of 0.95 %
-      --- both are deemed successful.
-      \item Nr of selected features: we filter the 6 or 8 features that are the most relevant
+      \item Performance threshold for success (limite que define sucesso dos algoritmos): a relative threshold of 5\% to the best algorithm.
+      \begin{itemize}
+        \item (<Give example>). (For example, the best algorithm has a score of 1 and the 2nd best of 0.95 --- both are deemed successful.)
+      \end{itemize}
+      \item Nr of selected features to then perform dimension reduction: we filter the 6 or 8 most relevant features
     \end{itemize}
-    In fact, we need different projections for discrete and continuous actions, since there are algorithms that %
-    work only with one of the action types.
+    In fact, we can use different values because we analyze \textbf{different projections} for \textbf{discrete and continuous actions}, since there are \textbf{algorithms} that \textbf{work only with one of the action types}.
   }
 \end{frame}
 
@@ -584,7 +579,7 @@ the random policy and the baseline heuristic policy, respectively.
   \note{
     \begin{itemize}
       \item Now, we can analyze the results.
-      \item First, we present here the results for a single environment: the highway from the HighwayEnv platform.
+      \item First, we present here the results for an \textbf{example of a single environment}: the highway from the HighwayEnv platform.
       \item We have the 2D projection obtained here.
       \item $Z_1$ and $Z_2$ are the 2 axes, and are just linear combinations of the selected features.
     \end{itemize}
@@ -605,20 +600,19 @@ the random policy and the baseline heuristic policy, respectively.
   \end{columns}
   \note{
     \begin{itemize}
-      \item These figures show the visualizations of the instance space projection.
+      \item These figures show the visualizations of the projection.
 
-      \item The red line represents the boundary for the space deduced empirically from the values of features %
-      and their combinations
+      \item The \textbf{red line} represents the \textbf{boundary} for the space \textbf{deduced empirically} from the values of features and their combinations
 
-      \item The first shows the types of observations for each instance. Here, we won't go in depth to what each represents. %
-      Basically, they change what the agent observes in each timestep.
+      \item The first shows the \textbf{types of observations of the agent} for each instance.
 
-      \item In the second figure, we see the best algorithm for each instance.
-      It's easy to see that DQN and PPO perform best on (<pointer>) these instances, while A2C is best on (<pointer>) these.
+      \item In the second figure, we see the \textbf{best algorithm for each instance}. It's easy to see that DQN and PPO perform best on (<pointer>) these instances, while A2C is best on (<pointer>) these.
 
-      \item To understand better what separates the instances and what makes algorithms perform differently, we can see the %
-      feature distributions. In this case, we already know some of the reason for this performance difference, because %
-      of the observation types.
+      \item We can kinda already tell \textbf{what separates the instances} and what makes \textbf{algorithms perform differently}.
+      \begin{itemize}
+        \item For example, the differences in \textbf{DQN's performance} are a result of the image as the observation type
+      \end{itemize}
+      \item We can consult the feature distributions and confirm this
     \end{itemize}
   }
 \end{frame}
@@ -661,8 +655,10 @@ the random policy and the baseline heuristic policy, respectively.
   \end{tabular}
   \endgroup
   \note{
-    Difference in performance explained by observation type, which is captured in the (<pointer>) this feature, %
-    which measures a specific observation property, larger in images. 
+    Difference in performance explained by observation type:
+    \begin{itemize}
+      \item captured in the (<pointer>) this feature, which measures a specific observation property, \textbf{larger in images}.
+    \end{itemize}
   }
 \end{frame}
 
@@ -689,16 +685,16 @@ the random policy and the baseline heuristic policy, respectively.
   \end{columns}
   \note{
     \begin{itemize}
-      \item Finally, we can see the selector choices and performance.
+      \item Finally, we can see the \textbf{selector choices and performance in the table}.
       
-      \item In fact, the choices went according to our interpretation.
+      \item In fact, the \textbf{choices} went according to our interpretation.
       
-      \item Performance shows great algorithm selection improvements.
-      
-      \item On these tables, we focus more on the success rate, specifically comparing the best algorithm %
-      with the selection performance.
+      \item The table shows this selection \textbf{great improvements}.
+      \begin{itemize}
+        \item Focusing on the \textbf{success rate} (percentagem de sucesso) and \textbf{comparing} the performance of the \textbf{best algorithm}, PPO, with the \textbf{selection}
+      \end{itemize}
 
-      \item Here, the \textbf{oracle} represents the ground-truth, which would be the best algorithm selection possible.
+      \item Here, the \textbf{oracle} represents the ground-truth selection.
     \end{itemize}
   }
 \end{frame}
@@ -717,12 +713,18 @@ the random policy and the baseline heuristic policy, respectively.
       {\small Best-Performing Algorithm\par}
   \end{columns}
   \note{
+    Now onto the \textbf{multi-environment projections}:
     \begin{itemize}
-      \item Going to the multi-environment projections, we analyze the discrete action instances from the HighwayEnv platform.
-      \item In contrary to the previous projection, there is much more instance space coverage %
-      (instance space está mais preenchido).
-      \item Similar to before, the DQN algorithm performs well only in a subset of instances, with %
-      others performing generally well
+      \item First, we analyze the \textbf{discrete action} instances from the HighwayEnv platform.
+      \begin{itemize}
+        \item These include the 4 environments specified in the sources figure.
+      \end{itemize}
+      \item In contrary to the previous projection, there is much \textbf{more instance space coverage} (instance space está mais preenchido).
+      \item The figure with best algorithms shows \textbf{similar tendencies as before}:
+      \begin{itemize}
+        \item The DQN algorithm performs well only in a subset of instances, with others performing generally well
+        \item \textbf{Harder to visualize} here because there are \textbf{more instances}, with a bit of \textbf{overlap}
+      \end{itemize}
     \end{itemize}
   }
 \end{frame}
@@ -742,8 +744,8 @@ the random policy and the baseline heuristic policy, respectively.
   \end{tabular}
   \note{
     \begin{itemize}
-      \item The selection performance gains here are also considerable.
-      \item We have 0.725 success rate for the selection, over 7\% better than PPO, which is best algorithm.
+      \item The \textbf{selection performance gains} here are also considerable.
+      \item We can see that the \textbf{selection} has a \textbf{significantly better performance} in comparison to \textbf{PPO}, which is \textbf{the best algorithm here}.
     \end{itemize}
   }
 \end{frame}
@@ -761,21 +763,19 @@ the random policy and the baseline heuristic policy, respectively.
       {\small Best-Performing Algorithm\par}
   \end{columns}
   \note{
+    \textbf{Another projection:} includes all environments with continuous actions: from HighwayEnv, MetaDrive, CARLA.
     \begin{itemize}
-      \item Contains all environments we used with continuous actions: from HighwayEnv, MetaDrive, CARLA.
-      \item Covers the instance space much worse, for two specific reasons;
+      \item In comparison, covers the instance space much worse (em comparação menos preenchido), for two specific reasons
       \begin{itemize}
-        \item For HighwayEnv, the environments are quite different: in discrete-actions, all are lane-based, but here %
-        lane keeping and parking are not exactly lane-based tasks with other vehicles.
-        Lane Keeping is just a task to center in a lane, without any other vehicles.
+        \item For \textbf{HighwayEnv}, the \textbf{environments are quite different}: an environment of a racetrack, parking, and lane-keeping. Their objectives in each are very different.
 
-        \item There is also an outlier, which is a consequence of the parking heuristic policy always %
-        receiving the same rewards. Since one of the selected metafeatures was calculated by dividing %
-        by standard deviation, that metafeature remained a 0, since it was not possible to compute.
+        \item There is an \textbf{outlier} instance. It is a consequence from the fact that the heuristic policy, that we used for characterize the instances, had the same reward for that instance (did not vary with the seed).
       \end{itemize}
-      \item Furthermore, the figure that shows the best algorithms shows that there is one algorithm %
-      that almost always outperforms the others. This probably will limit the performance of the %
-      algorithm selection method.
+      \item Other figure with the \textbf{best algorithms}
+      \begin{itemize}
+        \item Shows that there is \textbf{one algorithm} that \textbf{dominates}.
+        \item This probably will \textbf{limit the performance} of the algorithm selection method.
+      \end{itemize}
     \end{itemize}
   }
 \end{frame}
@@ -794,8 +794,9 @@ the random policy and the baseline heuristic policy, respectively.
     \bottomrule
   \end{tabular}
   \note{
-    As expected, we see that the selector is much weaker. It even decreases upon the best algorithm, %
-    since it tries to generalize and give importance to each different environment.
+    As expected, the selector is much weaker.
+  
+    It even decreases relative to the best algorithm, since it tries to generalize and give importance to each different environment.
   }
 \end{frame}
 
@@ -827,19 +828,17 @@ Domain-Specific Metafeatures}
       \end{tabular}
   \end{columns}
   \note{
+    To \textbf{finish the results} section, we analyze again the \textbf{discrete-action HighwayEnv projection}. Here, \textbf{excluding domain-specific metafeatures} (PT: excluíndo metafeatures específicas do domínio de condução autónoma).
+
+    This helps \textbf{assess the impact} of these metafeatures.
     \begin{itemize}
-      \item To finish the results section, we assess the impact of the domain-specific metafeatures we used.
-      \item (<Definition of what they are>): These are features related to autonomous driving and not RL in general.
-      \item If we compare with the previous projection for HighwayEnv, we can see that it's much more dense %
-      and the instances are less separated.
+      \item If we \textbf{compare with the previous projection} for HighwayEnv, we can see that it's much \textbf{more dense} and the instances are \textbf{less separated}.
     \end{itemize}
 
-    Looking at the metrics, we can confirm how much impact it had.
+    The \textbf{metrics confirm the impact} it had.
     \begin{itemize}
-      \item metrics before, when we used these features, and now, for this projection, which corresponds to %
-      not including these types of features
-      \item we can see there is a considerable impact, with almost 5\% success rate difference.
-      \item still improves but only by 3\%
+      \item We have the \textbf{selector metrics before}, when we \textbf{included these features}, and \textbf{now}, for this projection, \textbf{without them}
+      \item The selection \textbf{loses considerable performance}, but \textbf{still improves by 3\%} over the \textbf{best algorithm}
     \end{itemize}
   }
 \end{frame}
@@ -849,23 +848,24 @@ Domain-Specific Metafeatures}
 \begin{frame}{Results Discussion}
   \begin{itemize}
     \item Single-environment projections may lack instance diversity
-    \item Analyzing individual environments provides context for multi-environment projections.
-    \item Results based on multiple environments yield better instance space coverage and %
-    provide more generalizable results
-    \item The algorithm selection methodology gains significant performance over %
-    the best-performing algorithms for some projections
-    \item A few projections yield weaker selection performance, likely due to the predominance of %
-    a single algorithm, or because the metafeatures are not discriminative enough
+    \item Analyzing individual environments provides context for multi-environment projections
+    \item Results based on multiple environments yield better instance space coverage and provide more generalizable results
+    \item The algorithm selection methodology gains significant performance over the best-performing algorithms for some projections
+    \item A few projections yield weaker selection performance, likely due to the predominance of a single algorithm, or because the metafeatures are not discriminative enough
   \end{itemize}
   \note{
     To conclude the results:
     \begin{itemize}
-      \item with a \textbf{single environment give context} for the other projections, but may lack \textbf{instance diversity}
-      \item \textbf{multi-environment} projections provide \textbf{more generalizable results}
-      \item some projections have good performance gains while others weaker. The reason for these may be:
+      \item First we saw an \textbf{example} of a projection with \textbf{only one environment}
+      \begin{itemize}
+        \item these projections \textbf{have less diversity} but \textbf{can give more detailed context}
+      \end{itemize}
+      \item In contrast, \textbf{multi-environment projections} provide \textbf{more generalizable results}
+      \item In some cases, selection has good performance gains relative to the best algorithm.
+      \item In some projections, performance was \textbf{more limited}:
       \begin{itemize}
         \item Single algorithm dominance
-        \item Metafeatures not discriminative enough and would require further iteration and improvements
+        \item Metafeatures not able to distinguish algorithms sufficiently for the selection to be able to improve performance
       \end{itemize}
     \end{itemize}
   }
@@ -880,22 +880,25 @@ Domain-Specific Metafeatures}
       \item Metafeature design based on extracted trajectories from simple non-learned policies
     \end{itemize}
     \item Extensions of \texttt{HighwayEnv} environments to support further configuration
-    \item Dataset of trajectories, algorithm evaluation results, and extracted environment %
-    characteristics
+    \item Dataset of trajectories, algorithm evaluation results, and extracted environment characteristics
+    \item Research Papers:
+    \begin{itemize}
+      \item Conference paper submitted to Discovery Science 2026
+      \item Journal paper for later submission to Machine Learning Journal
+    \end{itemize}
   \end{itemize}
   \note{
     \begin{itemize}
-      \item The most important part of this project and contributions was adapting ISA to RL:
+      \item The \textbf{most important} part of this project and contributions was \textbf{adapting ISA to RL}:
       \begin{itemize}
         \item Pipeline from instance generation to performance normalization and projections
         \item Metafeature design for RL
       \end{itemize}
-      \item Other secondary contributions:
+      \item Other \textbf{secondary contributions}:
       \begin{itemize}
-        \item to support more configurations and more varied instances, made some extensions to %
-        HighwayEnv environments and contributed to the project
-        \item large collection of experiments produced a dataset that could be used in the future %
-        by other researchers
+        \item \textbf{Extension of a few HighwayEnv environments} to support more configurations and be able to generate more varied instances
+        \item The large collection (\textbf{grande conjunto}) of experiments (\textbf{experiências}) produced a dataset that could be used in the future by other researchers
+        \item Already submitted a paper to conference Discovery Science and we have another paper to submit in the journal Machine Learning
       \end{itemize}
     \end{itemize}
   }
