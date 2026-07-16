@@ -28,6 +28,7 @@
 *.vrb
 *-SAVE-ERROR
 main.pdf
+demo.pdf
 
 # Local TeX Live state and caches
 .texmf-var/
