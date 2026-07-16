@@ -97,7 +97,7 @@
       \item \textbf{Problem and Algorithm Space}
       \item \textbf{Problem Subset}: Instances
       \item \textbf{Feature Space}: Extract features from selected instances
-      \item \textbf{Performance Space}: measure performance of algorithms on instances (training if necessary)
+      \item \textbf{Performance Space}: measure performance of algorithms on instances
       \item \textbf{Dataset of features and performance metrics}
       \item \textbf{Select Features \& Dimension Reduction}: Select most relevant features and use a custom ISA (específico) dimension reduction method to reduce to 2D and enable interpretable visualizations.
       \item \textbf{Get Results from ISA}: Algo Selection and performance metrics, instance space visualizations and algorithm footprints.
@@ -165,7 +165,7 @@
         \item If these metafeatures take long to compute, then we lose some of the algorithm selection gains. If they take as long as training algorithms, then we could just train the algorithms and select the best one.
       \end{itemize}
     \end{itemize}
-    Other domains have \textbf{well-established metafeatures} and several studies have used them to apply ISA successfully.
+    \textbf{Domains} like \textbf{classication and regression} have \textbf{well-established metafeatures} and several studies have used them to apply ISA successfully.
   }
 \end{frame}
 
@@ -190,9 +190,6 @@
     \begin{itemize}
       \item Opposed to other problems: RL has no established metafeatures
       \item \textbf{no fixed dataset} where we can apply statistical measures
-      %\begin{itemize}
-      %  \item Mention how \textbf{a policy may bias} the trajectories and dataset obtained. That makes it harder to characterize RL problems
-      %\end{itemize}
       \item Still, several works study properties that impact RL performance:
       \begin{itemize}
         \item Complexity Measures: study properties that \textbf{make it difficult to solve} RL problems
@@ -234,16 +231,13 @@
     HighwayEnv: the simplest
     \begin{itemize}
       \item 2D only
-      \item Has several environments, shown here: Highway, Highway with an incoming vehicle from an entry and must give space, Highway where the objective is to exit, Lane keeping, Racetrack and Oval Racetrack, Roundabout, Parking: may have walls or not
+      \item Has several environments, shown here
     \end{itemize}
 
     The actions that the agent performs depend on the environment:
     \begin{itemize}
-      \item \textbf{Discrete actions} (5 actions) for Highway cases and roundabout: %
-      accelerate a set amount of, for instance, 10 km/h, decelerate, %
-      turn to left or right lane
-      \item \textbf{Continuous actions} for others: accelerate any possible amount, turn %
-      steering any possible angle
+      \item \textbf{Discrete actions} \textbf{high-level} for (<pointer>) environments: (<give one example>. PT: por exemplo, mudar de via para a esquerda)
+      \item \textbf{Continuous actions} for others: turn any angle within the limits the environment supports
     \end{itemize}
   }
 \end{frame}
@@ -267,15 +261,9 @@
       \item Generates the maps in a way that allows defining each block.
     \end{itemize}
 
-    The image shows the simulator view and debug information.
-    \begin{itemize}
-      \item Block of road with several vehicles.
-      \item The blue squares represent debug navigation information
-      \item On the top, we also have the agent camera view and more information on the vehicle
-    \end{itemize}
+    The image shows \textbf{simulator view with debug information}.
 
-    \textbf{Actions}: This environment allows using continuous actions similarly to HighwayEnv and discretized %
-    of those actions. For example, instead of being able to specify any angle, we can specify only 5 values
+    \textbf{Actions}: We use continuous actions like in HighwayEnv and discretized versions of those actions. Instead of being able to specify any angle, we can specify only 5 values
   }
 \end{frame}
 
@@ -296,12 +284,7 @@
   \end{minipage}
   \endgroup
   \note{
-    These are 3 of the maps that we used, composed of different blocks:
-    \begin{itemize}
-      \item Straight road (estrada em linha reta) and a curve
-      \item 3 intersections
-      \item a roundabout with adjacent roads
-    \end{itemize}
+    These are 3 of the maps that we used, composed of different blocks.
   }
 \end{frame}
 
@@ -344,7 +327,7 @@
       \item Objective is really to \textbf{evaluate state-of-the-art} autonomous driving solutions.
       \item We use generic RL algorithms, but we can still evaluate and compare them here
       \item Visualizations: Road, intersection, enter to highway, exit from highway
-      \item \textbf{Actions}: we also use both continuous and discretized versions of actions, like in MetaDrive
+      \item \textbf{Actions} the same as we use in MetaDrive
     \end{itemize}
   }
 \end{frame}
@@ -384,7 +367,7 @@
     
     For example, the number of vehicles.
 
-    These variations generate a total of 1073 instances.
+    These variations generate \textbf{more than 1000 instances}.
   }
 \end{frame}
 
@@ -462,17 +445,16 @@
   \note{
     \begin{itemize}
       \item Beyond (para além) training agents, we need to characterize instances to capture their properties.
-      \item There is no fixed dataset, so we collect trajectories to make a dataset using 2 simple policies %
-      (see slide), to \textbf{ensure efficiency}.
+      \item There is no fixed dataset, so we collect trajectories to make a dataset using 2 simple policies (\textbf{<see slide>}), to \textbf{ensure efficiency}.
     \end{itemize}
 
-    Based on these trajectories, we extract different types of metafeatures:
+    We extract different types of metafeatures, including:
     \begin{enumerate}
       \item observation, action size
       \item reward statistics (mean, standard deviation)
       \item observation statistics
       \item statistics of other vehicles
-      \item transition linearity (quão lineares são as transições)
+      \item environment dynamics (PT: da dinamica do ambiente): for example, information about the transitions of the environment
     \end{enumerate}
 
     Some are \textbf{generic}, can be applied to any RL problems, and others are \textbf{specific} to the autonomous driving domain.
@@ -503,8 +485,8 @@ the random policy and the baseline heuristic policy, respectively.
 
 \note{
   \begin{itemize}
-    \item Have performances and metafeatures, but cannot compare performances.
-    \item No good general performance metric for RL. We cannot use rewards.
+    \item Have performances and metafeatures, but cannot compare performances in \textbf{different environments}.
+    \item We cannot use rewards.
     \begin{itemize}
       \item Because the reward scale may be very different.
     \end{itemize}
@@ -581,7 +563,7 @@ the random policy and the baseline heuristic policy, respectively.
       \item Now, we can analyze the results.
       \item First, we present here the results for an \textbf{example of a single environment}: the highway from the HighwayEnv platform.
       \item We have the 2D projection obtained here.
-      \item $Z_1$ and $Z_2$ are the 2 axes, and are just linear combinations of the selected features.
+      \item $Z_1$ and $Z_2$ are the 2 axes, and are just \textbf{linear combinations} of the selected features.
     \end{itemize}
   }
 \end{frame}
@@ -678,8 +660,7 @@ the random policy and the baseline heuristic policy, respectively.
         A2C & 0.587 & 0.379 & 0.425 \\
         DQN & 0.512 & 0.488 & 0.467 \\
         PPO & 0.648 & 0.386 & 0.675 \\
-        \textbf{Selector} & 0.660 & 0.403 & \textbf{0.750} \\
-        Oracle & 0.691 & 0.401 & 1.000 \\
+        \textbf{Selector} & 0.660 & 0.403 & \textbf{0.750}
         \bottomrule
       \end{tabular}
   \end{columns}
@@ -693,8 +674,6 @@ the random policy and the baseline heuristic policy, respectively.
       \begin{itemize}
         \item Focusing on the \textbf{success rate} (percentagem de sucesso) and \textbf{comparing} the performance of the \textbf{best algorithm}, PPO, with the \textbf{selection}
       \end{itemize}
-
-      \item Here, the \textbf{oracle} represents the ground-truth selection.
     \end{itemize}
   }
 \end{frame}
@@ -738,8 +717,7 @@ the random policy and the baseline heuristic policy, respectively.
     A2C & 1.266 & 1.351 & 0.597 \\
     DQN & 1.009 & 1.920 & 0.458 \\
     PPO & 1.419 & 2.065 & 0.648 \\
-    \textbf{Selector} & 1.551 & 1.598 & \textbf{0.725} \\
-    Oracle & 1.780 & 2.347 & 1.000 \\
+    \textbf{Selector} & 1.551 & 1.598 & \textbf{0.725}
     \bottomrule
   \end{tabular}
   \note{
@@ -789,8 +767,7 @@ the random policy and the baseline heuristic policy, respectively.
     A2C & 0.468 & 0.325 & 0.232 \\
     PPO & 0.410 & 0.344 & 0.199 \\
     SAC & 0.746 & 0.427 & \textbf{0.813} \\
-    \textbf{Selector} & 0.738 & 0.444 & 0.784 \\
-    Oracle & 0.787 & 0.374 & 1.000 \\
+    \textbf{Selector} & 0.738 & 0.444 & 0.784
     \bottomrule
   \end{tabular}
   \note{
@@ -822,8 +799,7 @@ Domain-Specific Metafeatures}
         A2C & 1.266 & 1.351 & 0.597 \\
         DQN & 1.009 & 1.920 & 0.458 \\
         PPO & 1.419 & 2.065 & 0.648 \\
-        \textbf{Selector} & 1.551 / 1.467 & 1.598 / 2.065 & 0.725 / \textbf{0.678} \\
-        Oracle & 1.780 & 2.347 & 1.000 \\
+        \textbf{Selector} & 1.551 / 1.467 & 1.598 / 2.065 & 0.725 / \textbf{0.678}
         \bottomrule
       \end{tabular}
   \end{columns}
