@@ -538,6 +538,12 @@ Cookie uses standard Beamer block syntax:
 
 ## Files
 
+The FEUP and FCUP logos on the thesis cover are cropped to their visible alpha
+bounds in `main.tex` using `trim` and `clip`. This removes the unequal
+transparent padding embedded in the PNG files. Their widths are set separately
+so the visible marks have the same height and left alignment without modifying
+the source images.
+
 - `beamerthemecookie.sty` - the theme.
 - `demo.tex` / `demo.pdf` - blocks, theorem/proof, math, code, overlays,
   system diagrams, quotes, notes source, citations, QR closing, three-column
