@@ -115,6 +115,12 @@ The CARLA simulator slide uses a two-by-two image grid with `.38\textwidth`
 minipages. It includes `road_and_intersection.png`, `intersection.png`,
 `highway_enter.png`, and `highway_exit.png` from `figures/sims/carla/`.
 
+Run `python3 add_legend.py` to generate
+`figures/example_svm_selection_with_legend.png`. Its legend uses 20-point text
+and 16-point markers so it remains readable when the image is scaled for a
+slide; adjust `fontsize` and `markersize` in the script if its presentation size
+changes.
+
 The RL Algorithms methodology slide places the algorithm hyperparameter
 configuration note inside a `cookiecard` in the right column. Keep this content
 compact because the card lives beside the algorithm/action-space list. The
