@@ -457,6 +457,7 @@ Choose the output mode in the theme options:
 
 ```tex
 \begin{frame}{Main claim}
+  \slidetime{07:30}
   The audience sees this.
 
   \note{
@@ -468,6 +469,17 @@ Choose the output mode in the theme options:
   }
 \end{frame}
 ```
+
+Use `\slidetime{MM:SS}` inside a frame to place a cumulative rehearsal target
+in the upper-right corner of its speaker-notes page. The target is intentionally
+absent from the audience slide. Cumulative targets are usually easier to use
+than per-slide durations: if a slide runs long, the next target immediately
+shows how much time must be recovered.
+
+The timestamps in `main.tex` assume a 20-minute defense: the first content
+slide starts at `00:45`, Future Work starts at `18:50`, and the remaining time
+is reserved for the closing transition. Adjust the values after a timed
+rehearsal; they do not affect slide layout or frame numbering.
 
 `notes=show` emits note pages after slides, `notes=only` emits only note pages,
 and `notes=hide` creates the ordinary audience deck.

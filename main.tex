@@ -63,6 +63,7 @@
 
 \subsection{Reinforcement Learning}
 \begin{frame}{Reinforcement Learning (RL)}
+  \slidetime{00:15}
   \begin{columns}[T,onlytextwidth]
     \column{0.55\textwidth}
     \centering
@@ -88,6 +89,7 @@
 
 \subsection{Instance Space Analysis}
 \begin{frame}{Instance Space Analysis (ISA)}
+  \slidetime{01:15}
   \centering
   \includegraphics[width=0.75\linewidth]{figures/fw-isa.pdf}
   \note{
@@ -107,6 +109,7 @@
 \end{frame}
 
 \begin{frame}{Instance Space Analysis: Example}
+  \slidetime{02:25}
   \begin{columns}
     \column{0.6\textwidth}
     \centering
@@ -144,6 +147,7 @@
 
 \subsection{Metafeatures}
 \begin{frame}{Metafeatures}
+  \slidetime{02:55}
   High-level measurable characteristics that describe a task that can %
   be informative of algorithm performance. Should be:
   \begin{itemize}
@@ -171,6 +175,7 @@
 
 \section{Literature Review}
 \begin{frame}{Literature Review}
+  \slidetime{03:30}
   A few issues arise to apply ISA to RL:
   \begin{itemize}
     \item No established metafeature set
@@ -202,6 +207,7 @@
 \section{Methodology}
 \subsection{Simulators}
 \begin{frame}{Simulators}{\texttt{HighwayEnv}}
+  \slidetime{04:20}
   Minimalist environment designed for training simple RL agents for autonomous driving %
   decision-making~\slidecite{highway_env}.
 
@@ -243,6 +249,7 @@
 \end{frame}
 
 \begin{frame}{Simulators}{\texttt{MetaDrive}}
+  \slidetime{05:20}
   Designed to efficiently train generalizable RL agents using procedurally generated maps~\slidecite{metadrive}.
 
   \vspace{.45em}
@@ -268,6 +275,7 @@
 \end{frame}
 
 \begin{frame}{Simulators}{\texttt{MetaDrive} Maps}
+  \slidetime{06:10}
   \centering
   \begingroup
   \begin{minipage}[t]{.29\textwidth}
@@ -289,6 +297,7 @@
 \end{frame}
 
 \begin{frame}{Simulators}{\texttt{CARLA}}
+  \slidetime{06:25}
   High-fidelity simulator designed to evaluate state-of-the-art autonomous driving solutions~\slidecite{carla}.
 
   \centering
@@ -335,6 +344,7 @@
 \subsection{Pipeline}
 
 \begin{frame}{Pipeline}
+  \slidetime{07:10}
   \centering
   \includegraphics[width=\linewidth]{figures/meth_summary.pdf}
   \note{
@@ -353,6 +363,7 @@
 \subsection{Instance Generation}
 
 \begin{frame}{Instance Generation}
+  \slidetime{07:45}
   To generate instances based on the chosen simulators, we vary several parameters beyond the task or maps:
   \begin{itemize}
     \item Number of lanes
@@ -361,19 +372,20 @@
   \end{itemize}
   This yields a total of 1073 instances: 845 for \texttt{HighwayEnv}, 210 for \texttt{MetaDrive}, and 18 for \texttt{CARLA}.
   \note{
-    (<Small pause>)(<Drink water?>)
-
     To generate instances, we vary several parameters for each environment. (see slide)
     
     For example, the number of vehicles.
 
     These variations generate \textbf{more than 1000 instances}.
+
+    (<Small pause>)(<Drink water?>)
   }
 \end{frame}
 
 \subsection{RL Algorithms}
 
 \begin{frame}{RL Algorithms}
+  \slidetime{08:05}
   Algorithms and training/evaluation protocol from %
   \texttt{stable-baselines3}~\slidecite{stable_baselines3}.
   \vspace{1em}
@@ -427,6 +439,7 @@
 \subsection{Metafeature Design}
 
 \begin{frame}{Metafeature Design}
+  \slidetime{08:45}
   To extract a dataset of trajectories, we use two simple non-learned %
   ``probe'' policies:
   \begin{itemize}
@@ -464,6 +477,7 @@
 \subsection{Performance Normalization}
 
 \begin{frame}{Performance Normalization}
+  \slidetime{09:40}
 There is no general performance metric capable of comparing agent performance %
 across heterogeneous environments.
 
@@ -507,6 +521,7 @@ the random policy and the baseline heuristic policy, respectively.
 
 \section{Results}
 \begin{frame}{Generating Instance Space Results}
+  \slidetime{10:25}
   The ISA methodology requires defining specific hyperparameters by experimenting and iterating.
   We defined the most important parameters:
   \begin{itemize}
@@ -530,6 +545,7 @@ the random policy and the baseline heuristic policy, respectively.
 
 \subsection{Individual Environments}
 \begin{frame}{Individual Environments}{\texttt{HighwayEnv} Highway projection}
+  \slidetime{11:20}
   Resulting projection from selected features and dimension reduction method:
   \vspace{1.5em}
 
@@ -569,6 +585,7 @@ the random policy and the baseline heuristic policy, respectively.
 \end{frame}
 
 \begin{frame}{Individual Environments}{Highway Observation Space Sources and Best Algorithms}
+  \slidetime{11:55}
   \begin{columns}[c,onlytextwidth]
     \column{.49\textwidth}
       \centering
@@ -600,6 +617,7 @@ the random policy and the baseline heuristic policy, respectively.
 \end{frame}
 
 \begin{frame}{Individual Environments}{Highway Features Distribution}
+  \slidetime{13:05}
   \centering
   \begingroup
   \setlength{\tabcolsep}{.25em}
@@ -645,6 +663,7 @@ the random policy and the baseline heuristic policy, respectively.
 \end{frame}
 
 \begin{frame}{Individual Environments}{Highway Selector Algorithm Choices}
+  \slidetime{13:30}
   \begin{columns}[c,onlytextwidth]
     \column{.58\textwidth}
       \centering
@@ -680,6 +699,7 @@ the random policy and the baseline heuristic policy, respectively.
 
 \subsection{Multiple Environments}
 \begin{frame}{Multiple Environments}{\texttt{HighwayEnv} Discrete-Action Environments Projection}
+  \slidetime{14:10}
   \begin{columns}[c,onlytextwidth]
     \column{.49\textwidth}
       \centering
@@ -709,6 +729,7 @@ the random policy and the baseline heuristic policy, respectively.
 \end{frame}
 
 \begin{frame}{Multiple Environments}{\texttt{HighwayEnv} Discrete-Action Environments Performance Comparison}
+  \slidetime{14:55}
   \centering
   \begin{tabular}{@{}lccc@{}}
     \toprule
@@ -729,6 +750,7 @@ the random policy and the baseline heuristic policy, respectively.
 \end{frame}
 
 \begin{frame}{Multiple Environments}{All Continuous-Action Environments Projection}
+  \slidetime{15:10}
   \begin{columns}[c,onlytextwidth]
     \column{.49\textwidth}
       \centering
@@ -759,6 +781,7 @@ the random policy and the baseline heuristic policy, respectively.
 \end{frame}
 
 \begin{frame}{Multiple Environments}{All Continuous-Action Environments Performance Comparison}
+  \slidetime{16:45}
   \centering
   \begin{tabular}{@{}lccc@{}}
     \toprule
@@ -780,6 +803,7 @@ the random policy and the baseline heuristic policy, respectively.
 \subsection{Domain-Specific Characteristics}
 \begin{frame}{Domain-Specific Characteristics}{\texttt{HighwayEnv} Discrete-Action Projection Without %
 Domain-Specific Metafeatures}
+  \slidetime{17:00}
   By excluding all domain-specific metafeatures, we study their impact on separating algorithms.
 
   \vspace{.45em}
@@ -851,6 +875,7 @@ Domain-Specific Metafeatures}
 
 \subsection{Contributions}
 \begin{frame}{Contributions}
+  \slidetime{18:05}
   \begin{itemize}
     \item Adaptation of ISA concepts to the RL domain:
     \begin{itemize}
@@ -884,6 +909,7 @@ Domain-Specific Metafeatures}
 
 \subsection{Future Work}
 \begin{frame}{Future Work}
+  \slidetime{19:05}
   Although this work showcases the applicability of ISA to RL problems, there are a few %
   potential avenues for future work:
   \begin{itemize}

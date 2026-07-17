@@ -564,6 +564,14 @@
 \setbeamerfont{cookie quote}{size=\fontsize{16}{21},shape=\itshape}
 \setbeamerfont{cookie quote author}{size=\small,series=\bfseries}
 \setbeamerfont{note page}{size=\small}
+\setbeamerfont{note time}{size=\fontsize{12}{14},series=\bfseries}
+
+% Optional cumulative rehearsal timestamp for the current frame. Keep the
+% value frame-local from the author's perspective, while making it global
+% internally because Beamer renders note pages after closing the frame group.
+\def\insertcookietargettime{}
+\newcommand{\slidetime}[1]{\gdef\insertcookietargettime{#1}}
+\BeforeBeginEnvironment{frame}{\gdef\insertcookietargettime{}}
 
 \setbeamersize{text margin left=.070\paperwidth,text margin right=.055\paperwidth}
 \setbeamersize{description width=.7cm}
@@ -1014,7 +1022,20 @@
   \begin{minipage}[t]{.86\paperwidth}
     \vspace{0.1em}
     \cookiekicker{Speaker notes}\par\vspace{.15em}
-    {\fontsize{18}{22}\selectfont\bfseries\insertshortframetitle\par}%
+    \hbox to .86\paperwidth{%
+      \begin{minipage}[t]{.66\paperwidth}
+        {\fontsize{18}{22}\selectfont\bfseries\insertshortframetitle\par}%
+      \end{minipage}%
+      \hfill
+      \ifdefempty{\insertcookietargettime}{}{%
+        \raisebox{.1em}{%
+          \colorbox{cookieSoft}{%
+            \hspace{.55em}\usebeamerfont{note time}\color{themeColorFive}%
+            TARGET~\insertcookietargettime\hspace{.55em}%
+          }%
+        }%
+      }%
+    }%
     \vspace{.35em}
     {\footnotesize\color{cookieMuted}%
       \insertsectionhead%
