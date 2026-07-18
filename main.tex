@@ -148,12 +148,12 @@
 \subsection{Metafeatures}
 \begin{frame}{Metafeatures}
   \slidetime{02:55}
-  High-level measurable characteristics that describe a task that can %
-  be informative of algorithm performance. Should be:
+  High-level measurable characteristics that describe a task. Should be:
   \begin{itemize}
     \item Highly discriminative
     \item Efficiently computable
   \end{itemize}
+  \vspace{0.5em}
   
   Classification and regression have well-established metafeatures.
 
@@ -176,7 +176,7 @@
 \section{Literature Review}
 \begin{frame}{Literature Review}
   \slidetime{03:30}
-  A few issues arise to apply ISA to RL:
+  A few issues to apply ISA to RL:
   \begin{itemize}
     \item No established metafeature set
     \item No fixed dataset, only environment interactions
@@ -206,7 +206,7 @@
 
 \section{Methodology}
 \subsection{Simulators}
-\begin{frame}{Simulators}{\texttt{HighwayEnv}}
+\begin{frame}{Simulators}{HighwayEnv}
   \slidetime{04:20}
   Minimalist environment designed for training simple RL agents for autonomous driving %
   decision-making~\slidecite{highway_env}.
@@ -248,7 +248,7 @@
   }
 \end{frame}
 
-\begin{frame}{Simulators}{\texttt{MetaDrive}}
+\begin{frame}{Simulators}{MetaDrive}
   \slidetime{05:20}
   Designed to efficiently train generalizable RL agents using procedurally generated maps~\slidecite{metadrive}.
 
@@ -274,7 +274,7 @@
   }
 \end{frame}
 
-\begin{frame}{Simulators}{\texttt{MetaDrive} Maps}
+\begin{frame}{Simulators}{MetaDrive Maps}
   \slidetime{06:10}
   \centering
   \begingroup
@@ -296,7 +296,7 @@
   }
 \end{frame}
 
-\begin{frame}{Simulators}{\texttt{CARLA}}
+\begin{frame}{Simulators}{CARLA}
   \slidetime{06:25}
   High-fidelity simulator designed to evaluate state-of-the-art autonomous driving solutions~\slidecite{carla}.
 
@@ -364,15 +364,21 @@
 
 \begin{frame}{Instance Generation}
   \slidetime{07:45}
-  To generate instances based on the chosen simulators, we vary several parameters beyond the task or maps:
+  % To generate instances based on the chosen simulators, we vary several parameters beyond the task or maps:
+  Vary several parameters beyond the task or maps:
   \begin{itemize}
     \item Number of lanes
     \item Traffic density and number of vehicles
     \item Others such as observation type, road length, number of parking spots, \dots
   \end{itemize}
-  This yields a total of 1073 instances: 845 for \texttt{HighwayEnv}, 210 for \texttt{MetaDrive}, and 18 for \texttt{CARLA}.
+  Generates a total of 1073 instances:
+  \begin{itemize}
+    \item \texttt{HighwayEnv}: 845 ()
+    \item \texttt{MetaDrive}: 210 ()
+    \item \texttt{CARLA}: 18 ()
+  \end{itemize}
   \note{
-    To generate instances, we vary several parameters for each environment. (see slide)
+    To generate instances, we vary several parameters for each environment. (<see slide>)
     
     For example, the number of vehicles.
 
@@ -446,8 +452,8 @@
     \item a random actions policy
     \item a rule-based heuristic baseline which depends on the environment
   \end{itemize}
-
-  We define the following groups of metafeatures:
+  \vspace{0.5cm}
+  Several groups of metafeatures:
   \begin{itemize}
     \item Environment structure
     \item Probe-performance and ego-dynamics
@@ -469,8 +475,6 @@
       \item statistics of other vehicles
       \item environment dynamics (PT: da dinamica do ambiente): for example, information about the transitions of the environment
     \end{enumerate}
-
-    Some are \textbf{generic}, can be applied to any RL problems, and others are \textbf{specific} to the autonomous driving domain.
   }
 \end{frame}
 
@@ -478,16 +482,15 @@
 
 \begin{frame}{Performance Normalization}
   \slidetime{09:40}
-There is no general performance metric capable of comparing agent performance %
-across heterogeneous environments.
+No general performance metric capable of comparing agent performance across heterogeneous environments.
 
 \begin{itemize}
-  \item An environment that yields higher mean returns may actually be harder to solve.
+  \item Higher mean return may not indicate an easier problem
+  % \item An environment that yields higher mean returns may actually be harder to solve.
 \end{itemize}
 
 \vspace{0.45em}
-To define performance, we use the random and baseline heuristic policies defined for %
-the metafeature computation:
+To define performance, we use the random and baseline heuristic policies:
 \[
 s_{i,a} = \frac{R_{i,a} - R_{i,random}}{R_{i,baseline}-R_{i,random}}
 \]
@@ -522,8 +525,8 @@ the random policy and the baseline heuristic policy, respectively.
 \section{Results}
 \begin{frame}{Generating Instance Space Results}
   \slidetime{10:25}
-  The ISA methodology requires defining specific hyperparameters by experimenting and iterating.
-  We defined the most important parameters:
+  The ISA methodology requires defining specific hyperparameters by experimenting and iterating:
+  \vspace{0.5em}
   \begin{itemize}
     \item Performance threshold for success: within 5\% of best-performing algorithm
     \item Number of selected features: 6 for discrete-action and 8 for continuous-action environments
@@ -544,7 +547,7 @@ the random policy and the baseline heuristic policy, respectively.
 \end{frame}
 
 \subsection{Individual Environments}
-\begin{frame}{Individual Environments}{\texttt{HighwayEnv} Highway projection}
+\begin{frame}{Individual Environments}{HighwayEnv Highway projection}
   \slidetime{11:20}
   Resulting projection from selected features and dimension reduction method:
   \vspace{1.5em}
@@ -698,7 +701,7 @@ the random policy and the baseline heuristic policy, respectively.
 \end{frame}
 
 \subsection{Multiple Environments}
-\begin{frame}{Multiple Environments}{\texttt{HighwayEnv} Discrete-Action Environments Projection}
+\begin{frame}{Multiple Environments}{HighwayEnv Discrete-Action Environments Projection}
   \slidetime{14:10}
   \begin{columns}[c,onlytextwidth]
     \column{.49\textwidth}
@@ -728,7 +731,7 @@ the random policy and the baseline heuristic policy, respectively.
   }
 \end{frame}
 
-\begin{frame}{Multiple Environments}{\texttt{HighwayEnv} Discrete-Action Environments Performance Comparison}
+\begin{frame}{Multiple Environments}{HighwayEnv Discrete-Action Environments Performance Comparison}
   \slidetime{14:55}
   \centering
   \begin{tabular}{@{}lccc@{}}
@@ -801,7 +804,7 @@ the random policy and the baseline heuristic policy, respectively.
 \end{frame}
 
 \subsection{Domain-Specific Characteristics}
-\begin{frame}{Domain-Specific Characteristics}{\texttt{HighwayEnv} Discrete-Action Projection Without %
+\begin{frame}{Domain-Specific Characteristics}{HighwayEnv Discrete-Action Projection Without %
 Domain-Specific Metafeatures}
   \slidetime{17:00}
   By excluding all domain-specific metafeatures, we study their impact on separating algorithms.
