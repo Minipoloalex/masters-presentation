@@ -156,6 +156,15 @@ performance-comparison table frame.
   `figures/results/cross-envs/allcont/7_sources.pdf` and
   `figures/results/cross-envs/allcont/5_port.pdf`.
 
+Legends in the source-only projections follow the same top-to-bottom source
+order as their corresponding portfolio plots. Keep each legend label attached
+to its existing color or marker when changing that order. The included orders
+are `Image`, `Kinematics`, `TTC` for the single HighwayEnv result;
+`Exit`, `Highway`, `Merge`, `Roundabout` for the discrete cross-environment
+result; `Carla`, `Metadrive`, `Lane-Keeping`, `Parking`, `Racetrack` for the
+continuous cross-environment result; and `Exit`, `Highway`, `Merge`,
+`Roundabout` for the EDSM source plot.
+
 ## Theme options
 
 | Option | Values | Default |
@@ -197,7 +206,10 @@ brown. Contents and section-slide left bars use `themeColorFour`.
 Cookie's global progress bar follows numbered sections from Beamer's table of
 contents. Starred sections such as `\section*{Extras}` are excluded from the
 bar and labels; frames inside them show the progress state clamped to the last
-numbered section.
+numbered section. Those frames are also automatically excluded from Beamer's
+frame counter, so both the displayed total and the frame-based `head` or
+`frametitle` progress bars cover only the main presentation. Counting resumes
+if another numbered `\section{...}` follows the starred section.
 
 When `progressbar=foot`, the section labels in the footer are PDF links to the
 first frame of each numbered section, using the same section start pages as the
