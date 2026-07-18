@@ -55,6 +55,10 @@ Then write your deck:
 Build the deck with LuaLaTeX. `latexmk` is convenient because it reruns TeX and
 Biber when references, frame counts, or bibliography data change:
 
+The root `main.tex` also declares `% !TeX program = lualatex` so editors that
+compile automatically on save do not silently fall back to pdfLaTeX and select
+different fonts.
+
 ```sh
 latexmk -lualatex my-talk.tex
 ```
@@ -411,7 +415,9 @@ The footer uses a global section progress rail above the bottom bar instead of
 the old deck-wide frame progress line. The bottom bar labels only the main
 section names. The rail draws one equal sector per main section, fills completed
 sections, marks the current position with a dot, and subdivides only the active
-section when that section has subsections.
+section when that section has subsections. The frame counter is raised slightly
+inside its right-hand box to compensate for the low numeral baseline of the
+selected sans-serif font.
 
 A Metropolis-style emphasis frame is available:
 
