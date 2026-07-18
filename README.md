@@ -247,7 +247,9 @@ All extended title-page fields are optional and safe when empty:
 ```
 
 `\cookietitleimage` clips an image into the colored title-page wedge. Standard
-Beamer `\titlegraphic{...}` also works.
+Beamer `\titlegraphic{...}` also works. The cover subtitle uses a narrower text
+measure than the title so that long subtitles wrap with a comfortable gap from
+the right-hand panel.
 
 The closing slide can include contact details and the Cookie penguin:
 

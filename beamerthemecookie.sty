@@ -1080,7 +1080,13 @@
           \raggedright
           \ifdefempty{\insertcookietagline}{}{\cookiekicker{\insertcookietagline}\par\vspace{.9em}}%
           {\usebeamerfont{title}\usebeamercolor[fg]{title}\cookie@format{\inserttitle}\par}%
-          \ifx\@subtitle\@empty\else\vspace{.60em}{\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}\fi%
+          \ifx\@subtitle\@empty\else
+            \vspace{.60em}%
+            \begin{minipage}[t]{.49\paperwidth}
+              \raggedright
+              \usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par
+            \end{minipage}\par
+          \fi%ac
           \vspace{1.15em}{\color{titleRuleColor}\rule{.242\paperwidth}{2.1pt}}\par
           \vspace{1.58em}
           \ifx\@author\@empty\else\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par\fi%
