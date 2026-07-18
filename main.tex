@@ -110,7 +110,7 @@
 \end{frame}
 
 \begin{frame}{Instance Space Analysis: Example}
-  \slidetime{02:25} % change later to 2:20 or 2:15
+  \slidetime{02:15}
   \begin{columns}
     \column{0.6\textwidth}
     \centering
@@ -148,7 +148,7 @@
 
 \subsection{Metafeatures}
 \begin{frame}{Metafeatures}
-  \slidetime{02:55}
+  \slidetime{02:45}
   High-level measurable characteristics that describe a task. Should be:
   \begin{itemize}
     \item Highly discriminative
@@ -176,7 +176,7 @@
 
 \subsection{Research Questions}
 \begin{frame}{Research Questions}
-  \slidetime{00:00}
+  \slidetime{03:20}
   \begin{enumerate}
     \item How can ISA be used for RL problems?
     \item What types of metafeatures to characterize RL instances?
@@ -184,17 +184,26 @@
     \item Can the resulting ISA projections reveal relationships between instance characteristics and algorithm performance?
   \end{enumerate}
   \note{
-    For this work, we \textbf{established these objectives} (PT: \textbf{objetivos/perguntas}):  
+    For this work, we \textbf{focused on these objectives} (PT: \textbf{objetivos/perguntas}):  
     \begin{itemize}
-      \item 1st, 2nd, and 3rd
+      \item (PT: em perceber \textbf{como podemos aplicar} ISA a problemas de RL)
+      \item (PT: \textbf{Definir}) types of metafeatures we can use for RL problems
+      \item \textbf{For example}, (PT: se podemos adaptar metafeatures já existentes, ou desenvoler específicas a RL)
       \item Finally, \textbf{using the metafeatures defined}, \textbf{what type of information} that we can extract from the \textbf{ISA results}
+    \end{itemize}
+  }
+  \note{
+    Podemos analisar os objetivos que definimos antes:
+    \begin{itemize}
+      \item Conseguimos aplicar ISA a RL usando a pipeline
+      \item 
     \end{itemize}
   }
 \end{frame}
 
 \section{Literature Review}
 \begin{frame}{Literature Review}
-  \slidetime{03:30}
+  \slidetime{03:55}
   A few issues to apply ISA to RL:
   \begin{itemize}
     \item No established metafeature set
@@ -226,7 +235,7 @@
 \section{Methodology}
 \subsection{Simulators}
 \begin{frame}{Simulators}{HighwayEnv}
-  \slidetime{04:20}
+  \slidetime{04:45}
   Minimalist environment designed for training simple RL agents for autonomous driving %
   decision-making~\slidecite{highway_env}.
 
@@ -268,7 +277,7 @@
 \end{frame}
 
 \begin{frame}{Simulators}{MetaDrive}
-  \slidetime{05:20}
+  \slidetime{05:45}
   Designed to efficiently train generalizable RL agents using procedurally generated maps~\slidecite{metadrive}.
 
   \vspace{.45em}
@@ -294,7 +303,7 @@
 \end{frame}
 
 \begin{frame}{Simulators}{MetaDrive Maps}
-  \slidetime{06:10}
+  \slidetime{06:35}
   \centering
   \begingroup
   \begin{minipage}[t]{.29\textwidth}
@@ -316,7 +325,7 @@
 \end{frame}
 
 \begin{frame}{Simulators}{CARLA}
-  \slidetime{06:25}
+  \slidetime{06:50}
   High-fidelity simulator designed to evaluate state-of-the-art autonomous driving solutions~\slidecite{carla}.
 
   \centering
@@ -363,7 +372,7 @@
 \subsection{Pipeline}
 
 \begin{frame}{Pipeline}
-  \slidetime{07:10}
+  \slidetime{07:35}
   \centering
   \includegraphics[width=\linewidth]{figures/meth_summary.pdf}
   \note{
@@ -382,7 +391,7 @@
 \subsection{Instance Generation}
 
 \begin{frame}{Instance Generation}
-  \slidetime{07:45}
+  \slidetime{08:10}
   % To generate instances based on the chosen simulators, we vary several parameters beyond the task or maps:
   Vary several parameters beyond the task or maps:
   \begin{itemize}
@@ -392,9 +401,9 @@
   \end{itemize}
   Generates a total of 1073 instances:
   \begin{itemize}
-    \item \texttt{HighwayEnv}: 845 ()
-    \item \texttt{MetaDrive}: 210 ()
-    \item \texttt{CARLA}: 18 ()
+    \item \texttt{HighwayEnv}: 845 % (\textasciitilde 56 mins)
+    \item \texttt{MetaDrive}: 210 % (\textasciitilde 200 mins)
+    \item \texttt{CARLA}: 18 % (\textasciitilde 384 mins)
   \end{itemize}
   \note{
     To generate instances, we vary several parameters for each environment. (<see slide>)
@@ -410,7 +419,7 @@
 \subsection{RL Algorithms}
 
 \begin{frame}{RL Algorithms}
-  \slidetime{08:05}
+  \slidetime{08:30}
   Algorithms and training/evaluation protocol from %
   \texttt{stable-baselines3}~\slidecite{stable_baselines3}.
   \vspace{1em}
@@ -464,7 +473,7 @@
 \subsection{Metafeature Design}
 
 \begin{frame}{Metafeature Design}
-  \slidetime{08:45}
+  \slidetime{09:10}
   To extract a dataset of trajectories, we use two simple non-learned %
   ``probe'' policies:
   \begin{itemize}
@@ -500,7 +509,7 @@
 \subsection{Performance Normalization}
 
 \begin{frame}{Performance Normalization}
-  \slidetime{09:40}
+  \slidetime{10:05}
 No general performance metric capable of comparing agent performance across heterogeneous environments.
 
 \begin{itemize}
@@ -543,7 +552,7 @@ the random policy and the baseline heuristic policy, respectively.
 
 \section{Results}
 \begin{frame}{Generating Instance Space Results}
-  \slidetime{10:25}
+  \slidetime{10:50}
   The ISA methodology requires defining specific hyperparameters by experimenting and iterating:
   \vspace{0.5em}
   \begin{itemize}
@@ -567,7 +576,7 @@ the random policy and the baseline heuristic policy, respectively.
 
 \subsection{Individual Environments}
 \begin{frame}{Individual Environments}{HighwayEnv Highway projection}
-  \slidetime{11:20}
+  \slidetime{11:45}
   Resulting projection from selected features and dimension reduction method:
   \vspace{1.5em}
 
@@ -607,7 +616,7 @@ the random policy and the baseline heuristic policy, respectively.
 \end{frame}
 
 \begin{frame}{Individual Environments}{Highway Observation Space Sources and Best Algorithms}
-  \slidetime{11:55}
+  \slidetime{12:40}
   \begin{columns}[c,onlytextwidth]
     \column{.49\textwidth}
       \centering
@@ -639,7 +648,7 @@ the random policy and the baseline heuristic policy, respectively.
 \end{frame}
 
 \begin{frame}{Individual Environments}{Highway Features Distribution}
-  \slidetime{13:05}
+  \slidetime{13:30}
   \centering
   \begingroup
   \setlength{\tabcolsep}{.25em}
@@ -685,7 +694,7 @@ the random policy and the baseline heuristic policy, respectively.
 \end{frame}
 
 \begin{frame}{Individual Environments}{Highway Selector Algorithm Choices}
-  \slidetime{13:30}
+  \slidetime{13:55}
   \begin{columns}[c,onlytextwidth]
     \column{.58\textwidth}
       \centering
@@ -721,7 +730,7 @@ the random policy and the baseline heuristic policy, respectively.
 
 \subsection{Multiple Environments}
 \begin{frame}{Multiple Environments}{HighwayEnv Discrete-Action Environments Projection}
-  \slidetime{14:10}
+  \slidetime{14:35}
   \begin{columns}[c,onlytextwidth]
     \column{.49\textwidth}
       \centering
@@ -751,7 +760,7 @@ the random policy and the baseline heuristic policy, respectively.
 \end{frame}
 
 \begin{frame}{Multiple Environments}{HighwayEnv Discrete-Action Environments Performance Comparison}
-  \slidetime{14:55}
+  \slidetime{15:20}
   \centering
   \begin{tabular}{@{}lccc@{}}
     \toprule
@@ -772,7 +781,7 @@ the random policy and the baseline heuristic policy, respectively.
 \end{frame}
 
 \begin{frame}{Multiple Environments}{All Continuous-Action Environments Projection}
-  \slidetime{15:10}
+  \slidetime{15:35}
   \begin{columns}[c,onlytextwidth]
     \column{.49\textwidth}
       \centering
@@ -803,7 +812,7 @@ the random policy and the baseline heuristic policy, respectively.
 \end{frame}
 
 \begin{frame}{Multiple Environments}{All Continuous-Action Environments Performance Comparison}
-  \slidetime{16:45}
+  \slidetime{17:10}
   \centering
   \begin{tabular}{@{}lccc@{}}
     \toprule
@@ -825,7 +834,7 @@ the random policy and the baseline heuristic policy, respectively.
 \subsection{Domain-Specific Characteristics}
 \begin{frame}{Domain-Specific Characteristics}{HighwayEnv Discrete-Action Projection Without %
 Domain-Specific Metafeatures}
-  \slidetime{17:00}
+  \slidetime{17:25}
   By excluding all domain-specific metafeatures, we study their impact on separating algorithms.
 
   \vspace{.45em}
@@ -866,53 +875,34 @@ Domain-Specific Metafeatures}
 \end{frame}
 
 \section{Conclusions}
-\begin{comment}
-\subsection{Results Discussion}
-\begin{frame}{Results Discussion}
-  \begin{itemize}
-    \item Single-environment projections may lack instance diversity
-    \item Analyzing individual environments provides context for multi-environment projections
-    \item Results based on multiple environments yield better instance space coverage and provide more generalizable results
-    \item The algorithm selection methodology gains significant performance over the best-performing algorithms for some projections
-    \item A few projections yield weaker selection performance, likely due to the predominance of a single algorithm, or because the metafeatures are not discriminative enough
-  \end{itemize}
+
+\subsection{Research Questions}
+\begin{frame}{Research Questions}
+  \slidetime{18:30}
+
+  \begin{enumerate}
+    \item How can ISA be used for RL problems?
+    \item What types of metafeatures to characterize RL instances?
+    \item How can existing metafeatures be adapted to RL, and what additional RL-specific metafeatures can be defined?
+    \item Can the resulting ISA projections reveal relationships between instance characteristics and algorithm performance?
+  \end{enumerate}
   \note{
-    To conclude the results:
+    Relembrando as perguntas e objetivos do projeto:
     \begin{itemize}
-      \item First we saw an \textbf{example} of a projection with \textbf{only one environment}
+      \item Ja vimos \textbf{na metodologia} como é que respondemos/\textbf{abordamos} as \textbf{primeiras três perguntas}
+      \item Agora na \textbf{parte dos resultados}, também percebemos que \textbf{tipo de informação} podemos extrair das \textbf{projeções}
       \begin{itemize}
-        \item these projections \textbf{have less diversity} but \textbf{can give more detailed context}
-      \end{itemize}
-      \item In contrast, \textbf{multi-environment projections} provide \textbf{more generalizable results}
-      \item In some cases, selection has good performance gains relative to the best algorithm.
-      \item In some projections, performance was \textbf{more limited}:
-      \begin{itemize}
-        \item Single algorithm dominance
-        \item Metafeatures not able to distinguish algorithms sufficiently for the selection to be able to improve performance
+        \item Analyzing individual environments provides more specific context
+        \item Multi-environment projections generalize further
+        \item Able to analyze the impact of a group of metafeatures with a projection that did not include those metafeatures
       \end{itemize}
     \end{itemize}
   }
 \end{frame}
-\end{comment}
-
-\subsection{Research Questions}
-\begin{frame}{Research Questions}
-  \begin{enumerate}
-    \item Use ISA for RL problems through the designed pipeline
-    \item Extract trajectory data from each instance using simple policies
-    \item Apply existing metafeature concepts to the trajectory dataset and design metafeatures that measure properties of RL environments
-    \item The projections reveal trends in algorithm performance
-    \begin{itemize}
-      \item Analyzing individual environments provides more specific context
-      \item Multi-environment projections generalize further
-      \item Analyze impact of a group of metafeatures by inspecting projections that exclude them 
-    \end{itemize}
-  \end{enumerate}
-\end{frame}
 
 \subsection{Contributions}
 \begin{frame}{Contributions}
-  \slidetime{18:05}
+  \slidetime{18:55}
   \begin{itemize}
     \item Adaptation of ISA concepts to the RL domain:
     \begin{itemize}
@@ -946,7 +936,7 @@ Domain-Specific Metafeatures}
 
 \subsection{Future Work}
 \begin{frame}{Future Work}
-  \slidetime{19:05}
+  \slidetime{19:50}
   Although this work showcases the applicability of ISA to RL problems, there are a few %
   potential avenues for future work:
   \begin{itemize}
