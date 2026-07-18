@@ -579,6 +579,24 @@
 % -----------------------------------------------------------------------------
 % Progress bars
 % -----------------------------------------------------------------------------
+% Frames belonging to a starred section are backup material: keep them out of
+% Beamer's frame counter so the numeric total and frame-based progress bars
+% describe only the main presentation.  A later numbered section turns normal
+% counting back on.
+\newif\ifcookie@starredsection
+\pretocmd{\beamer@section}{%
+  \ifblank{#2}{\global\cookie@starredsectiontrue}{\global\cookie@starredsectionfalse}%
+}{}{%
+  \PackageError{beamerthemecookie}{Could not patch \string\beamer@section}{Starred-section frames cannot be excluded from the frame count}%
+}
+\patchcmd{\beamer@@@@frame}
+  {\beamer@noframenumberingfalse}
+  {\beamer@noframenumberingfalse
+   \ifcookie@starredsection\beamer@noframenumberingtrue\fi}
+  {}{%
+    \PackageError{beamerthemecookie}{Could not patch Beamer's frame setup}{Starred-section frames cannot be excluded from the frame count}%
+  }
+
 \newdimen\cookie@progresswidth
 \newdimen\cookie@sectionbarwidth
 \newdimen\cookie@globalprogresswidth
