@@ -109,7 +109,7 @@
 \end{frame}
 
 \begin{frame}{Instance Space Analysis: Example}
-  \slidetime{02:25}
+  \slidetime{02:25} % change later to 2:20 or 2:15
   \begin{columns}
     \column{0.6\textwidth}
     \centering
@@ -173,6 +173,24 @@
   }
 \end{frame}
 
+\subsection{Research Questions}
+\begin{frame}{Research Questions}
+  \slidetime{00:00}
+  \begin{enumerate}
+    \item How can ISA be used for RL problems?
+    \item What types of metafeatures to characterize RL problem instances?
+    \item How can existing metafeatures be adapted to RL, and what additional RL-specific metafeatures can be defined?
+    \item Can the resulting ISA projections reveal relationships between instance characteristics and algorithm performance?
+  \end{enumerate}
+  \note{
+    For this work, we \textbf{established these objectives} (PT: \textbf{objetivos/perguntas}):  
+    \begin{itemize}
+      \item 1st, 2nd, and 3rd
+      \item Finally, \textbf{using the metafeatures defined}, \textbf{what type of information} that we can extract from the \textbf{ISA results}
+    \end{itemize}
+  }
+\end{frame}
+
 \section{Literature Review}
 \begin{frame}{Literature Review}
   \slidetime{03:30}
@@ -181,7 +199,7 @@
     \item No established metafeature set
     \item No fixed dataset, only environment interactions
   \end{itemize}
-
+  \vspace{0.3em}
   Many works study properties that impact RL algorithm performance:
   \begin{itemize}
     \item Complexity Measures: capture the difficulty to solve a specific RL problem, %
@@ -875,6 +893,21 @@ Domain-Specific Metafeatures}
   }
 \end{frame}
 \end{comment}
+
+\subsection{Research Questions}
+\begin{frame}{Research Questions}
+  \begin{enumerate}
+    \item Use ISA for RL problems through the designed pipeline
+    \item Extract trajectory data from each instance using simple policies
+    \item Apply existing metafeature concepts to the trajectory dataset and design metafeatures that measure properties of RL environments
+    \item The projections reveal trends in algorithm performance
+    \begin{itemize}
+      \item Analyzing individual environments provides more specific context
+      \item Multi-environment projections generalize further
+      \item Analyze impact of a group of metafeatures by inspecting projections that exclude them 
+    \end{itemize}
+  \end{enumerate}
+\end{frame}
 
 \subsection{Contributions}
 \begin{frame}{Contributions}
