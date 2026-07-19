@@ -220,6 +220,12 @@ When `progressbar=foot`, the section labels in the footer are PDF links to the
 first frame of each numbered section, using the same section start pages as the
 table of contents.
 
+Speaker-note breadcrumbs are deliberately rendered as plain text. Beamer stores
+section and subsection headings as links, but link annotations in a two-screen
+notes layout are not transformed with the notes page and otherwise appear as
+stray clickable areas near the audience slide's frame-title divider. Footer
+section navigation remains linked.
+
 The structural number rail is also hidden on frames inside starred sections,
 and its reserved title-space is collapsed so those frame titles align to the
 left rail position. Ordinary numbered sections keep the rail.

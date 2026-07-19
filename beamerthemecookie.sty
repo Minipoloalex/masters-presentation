@@ -1056,8 +1056,16 @@
     }%
     \vspace{.35em}
     {\footnotesize\color{cookieMuted}%
-      \insertsectionhead%
-      \ifx\insertsubsectionhead\@empty\else\hspace{.55em}/\hspace{.55em}\insertsubsectionhead\fi
+      % Beamer stores section heads as hyperlinks.  Under pgfpages' two-screen
+      % notes layout, the text is transformed onto the notes page but the PDF
+      % link annotations are not, leaving stray clickable rectangles over the
+      % audience slide's frame-title divider.  Notes breadcrumbs are labels,
+      % not navigation, so render their stored links as plain text.
+      \begingroup
+        \def\hyperlink##1##2{##2}%
+        \insertsectionhead%
+        \ifx\insertsubsectionhead\@empty\else\hspace{.55em}/\hspace{.55em}\insertsubsectionhead\fi
+      \endgroup
     }%
   \end{minipage}%
   \par\vspace{.15em}
