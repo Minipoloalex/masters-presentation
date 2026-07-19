@@ -242,17 +242,19 @@
   \vspace{.45em}
   \centering
   \begingroup
+  \newcommand{\highwayenvbottomcrop}{20mm}
+  \newcommand{\highwayenvsymmetriccrop}{10mm}
   \setlength{\tabcolsep}{0pt}
   \begin{tabular}{@{}c@{\hspace{.02\textwidth}}c@{\hspace{.02\textwidth}}c@{\hspace{.02\textwidth}}c@{}}
-    \includegraphics[width=.235\textwidth]{figures/sims/he/highway.png} &
-    \includegraphics[width=.235\textwidth]{figures/sims/he/merge_image.png} &
-    \includegraphics[width=.235\textwidth]{figures/sims/he/exit_image.png} &
-    \includegraphics[width=.235\textwidth]{figures/sims/he/lane_keeping_presentation.png} \\
+    \includegraphics[width=.235\textwidth]{figures/sims/he/presentation_images/highway_larger_image.png} &
+    \includegraphics[width=.235\textwidth]{figures/sims/he/presentation_images/merge_larger_image_2.png} &
+    \includegraphics[width=.235\textwidth]{figures/sims/he/presentation_images/exit_larger_image.png} &
+    \includegraphics[width=.235\textwidth]{figures/sims/he/presentation_images/lane_keeping_larger_image.png} \\
     [.55em]
-    \includegraphics[width=.235\textwidth]{figures/sims/he/fixed_racetrack.png} &
-    \includegraphics[width=.235\textwidth]{figures/sims/he/oval_racetrack.png} &
-    \includegraphics[width=.235\textwidth]{figures/sims/he/roundabout.png} &
-    \includegraphics[width=.235\textwidth]{figures/sims/he/parking_presentation.png}
+    \includegraphics[width=.235\textwidth,trim=0 \highwayenvbottomcrop{} 0 0,clip]{figures/sims/he/fixed_racetrack.png} &
+    \includegraphics[width=.235\textwidth,trim=0 \highwayenvbottomcrop{} 0 0,clip]{figures/sims/he/oval_racetrack.png} &
+    \includegraphics[width=.235\textwidth,trim=0 \highwayenvbottomcrop{} 0 0,clip]{figures/sims/he/roundabout.png} &
+    \includegraphics[width=.235\textwidth,trim=0 \highwayenvsymmetriccrop{} 0 \highwayenvsymmetriccrop{},clip]{figures/sims/he/parking_presentation.png}
   \end{tabular}
   \endgroup
   \slidereferences{highway_env}

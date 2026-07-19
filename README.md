@@ -105,6 +105,11 @@ of `figure`/`subfloat` captions. The layout is:
 - the rows share one fixed-width `tabular` grid so the top and bottom images
   keep identical column positions;
 - each image is placed at `.235\textwidth`;
+- the bottom row keeps that width but is shortened with `trim` and `clip`: the
+  first three images are cropped from the bottom, while the parking image is
+  cropped equally from its top and bottom. Adjust
+  `\highwayenvbottomcrop` in the frame to change the shared total crop and set
+  `\highwayenvsymmetriccrop` to half that value;
 - captions and labels are intentionally omitted to keep the frame clean.
 
 This keeps all simulator screenshots visible on one Beamer frame without
